@@ -1,0 +1,62 @@
+\documentclass[12pt]{jreport} 
+\usepackage{geometry}
+\geometry{letterpaper}
+%\geometry{landscape}
+%\usepackage[parfill]{parskip}
+\usepackage[dvipdfm]{graphicx, color}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\addtolength{\textheight}{2.4cm}
+\renewcommand{\bibname}{参考文献}
+
+%% alias
+\newcommand{\hzz}{$H \to ZZ ( \to 4l)$}
+
+
+
+\title{CMB 偏光観測実験 GroundBIRD 用高周波多重読み出しの広帯域化に向けたアナログボードの開発}
+\author{総合研究大学院大\\
+高エネルギー加速器科学研究科 素粒子原子核専攻\\石塚光}
+\date{}
+
+\begin{document}
+
+%%% debug
+%\textwidth 4.0 in
+%\baselineskip 0.8 cm
+
+
+%%%   title   %%%
+\maketitle
+
+%%%   abstract   %%%
+\begin{abstract}
+MKID や TES などの超伝導検出器は, 多重読み出しにより配線数を減らし, 極低温での動作を実現する. 通信用の市販品を流用して, その読み出し回路が比較的容易に実現できる. しかしそれには以下に挙げる機能が付加されているため, 本実験で用いるには適当でない: 1) 強いバンドパスフィルタが実装されているため透過特性が悪い,2) 使用可能な帯域に制限がある, 3) ロジックが必要以上に複雑である (単純な連続動作に不向き), 4) 消費電力が大きく動作が不安定である. これらの問題を解決するために, 広帯域かつシンプルな構造のアナログボードの開発を行う.
+\end{abstract}
+
+%%%   contents   %%%
+\tableofcontents
+\listoffigures
+\listoftables
+
+\include{chapter/introduction}
+\include{chapter/cmb}
+\include{chapter/groundbird}
+\include{chapter/analog_board}
+\include{chapter/conclusion}
+
+
+\appendix
+\include{appendix/appendix}
+\include{acknowledgement/acknowledgement}
+
+\begin{thebibliography}{9}
+ \bibitem{}
+\end{thebibliography}
+
+\newpage
+
+\end{document}
