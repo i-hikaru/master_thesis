@@ -1,6 +1,7 @@
-# 総研大認定研究 (修士論文)
+総研大認定研究
+--------------
 
-[最新版 (v. 0.0)](https://www.dropbox.com/s/dcncvhd0f18wd7u/master_thesis.pdf)
+[最新版 (v.0.0)](https://dl.dropboxusercontent.com/s/dcncvhd0f18wd7u/master_thesis.pdf)
 
 認定研究に関する手続きやスケジュールの詳細:
 
@@ -16,16 +17,16 @@ Open-it のプロジェクト:
 - <http://heptech.web.fc2.com/tex/download.html>
 
 
-## ファイルの構成
+### ファイルの構成
 
     main.tex                親ファイル
 	chapter/*.tex           章
 	appendix/*.tex          付録
 	acknowledgement/*.tex   謝辞
-	README.md               これ
+	README.md               
 
 
-## 更新履歴
+### 更新履歴
 
 ```
 2014-07-11  v. 0.0  リポジトリ作成. タイトルと目次, 概要を作成.
