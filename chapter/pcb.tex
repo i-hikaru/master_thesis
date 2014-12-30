@@ -1,0 +1,49 @@
+\chapter{アナログ基板の設計と試作}
+
+% MKIDの多重読み出しは、配線数を低減させ、それにより冷却光学系への熱流入を抑制することで、極低温での安定な動作を実現する。通信用として流通している市販品を用いることで、比較的簡単に読み出し系を構成することができる。しかし、市販品にはローパスフィルタが実装されているため透過特性が悪く、使用帯域が制限される。また、クロック生成器の周辺が必要以上に複雑なため、消費電力が大きく動作が不安定になるという問題がある。これらの問題を解決するために、広帯域かつシンプルな構成のADC/DACドーターボード（アナログボード）の開発を行った。
+
+この章では、アナログ基板に要求される仕様についてまとめる。また、市販品と比較した改良点について整理する。最後に、試作した基板の概要を述べ、次章、その評価への導入とする。
+
+\section{要求分析}
+
+前章で述べたように、市販品には大きくふたつの解決すべき課題があった。ひとつ目はローパスフィルターによる帯域の制限、ふたつ目は消費電力の過大である。これらの課題に対する解決方法は、次の通りである:
+
+\begin{enumerate}
+ \item ローパスフィルターの排除
+ \item 位相同期回路（PLL）の代わりにクロック・ファンアウト・バッファを用いる
+\end{enumerate}
+
+1.は単純である。高周波をカットしているローパスフィルターを排除することで、ADCのサンプリング周波数の$1/2$まで帯域を使用可能にする。2.は市販品に搭載されているICの中で最も消費電力が大きい部品であるPLL（Typ. 2.9 W）の代わりに、クロック・ファンアウト・バッファ（Typ. 0.29 W）を使うことで 2 W以上消費電力を抑制する。このクロック・ファンアウト・バッファは水晶から出たクロックを分配するのみなため、PLLと異なりFPGAによる制御が不要であることも利点ひとつである。
+
+\section{仕様}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/rhea_schematic.pdf}
+ \label{fig:rhea_schem}
+ \caption{RHEAのブロックダイアグラム}
+\end{figure}
+
+\begin{table}[htbp]
+ \centering
+ \caption{RHEAに搭載される主なIC}
+ \begin{tabular}{cc}\bhline{1.5pt}
+  ADC      & 2 channel, 250 MSPS \\\hline
+  DAC      & 2 channel, 800 MSPS \\
+  クロック & 3 channel (ADC, DAC, FPGA), 200 MHz \\
+  電力     & \\\hline
+ \end{tabular}
+\end{table}
+
+\section{設計}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/rhea_dimensions.png}
+ \label{fig:rhea_dim}
+ \caption{RHEAの基板図}
+\end{figure}
+
+% 新しく開発するアナログボード（RHEA\footnote{RHEAは、「Rhea is a High spEed Analog circuit」の略で、南米に生息する陸鳥（ground bird）から名づけた。}）に要求される性能を表にまとめる。%基本的な性能は、従来の市販のアナログボード（FMC150）と変わらない。
+
+\section{試作}

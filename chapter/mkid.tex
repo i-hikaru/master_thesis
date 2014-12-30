@@ -1,8 +1,6 @@
-\chapter{Microwave Kinetic Inductance Detectors}
+\chapter{超伝導検出器MKIDとその読み出し}
 
-Microwave Kinetic Inductance Detectors (MKID) は、マイクロ波帯に感度をもつ超伝導検出器である。MKIDはマイクロ波を受信するアンテナと超伝導共振器、それにC-coupledしたフィードラインから構成される（図 \ref{fig:mkid}）。また、MKIDは各共振器で固有の共振周波数$\omega = 1/\sqrt{LC}$をもち、このインダクタンス$L$の変化を検出することで、入射する光子のエネルギーを測定する。
-
-この章では、MKIDの動作原理を説明した後に読み出し方法について述べる。また、読み出しの鍵となる信号の多重化について触れて、MKIDのノイズレベルについて議論する。最後にCMB偏光観測用としてのMKIDについて述べ、その利点についてまとめる。
+この章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しは、市販品ではうまく活かすことができない。その他にもこの市販品をMKIDの読み出しに使うには不満となる要素が存在する。章の最後で既存の読み出し系についてまとめ、その解決すべき課題について議論する。
 
 % \begin{figure}[htbp]
 %  \begin{tabular}{cc}
@@ -24,10 +22,75 @@ Microwave Kinetic Inductance Detectors (MKID) は、マイクロ波帯に感度をもつ超伝導
 
 \section{動作原理}
 
-\subsection{Q 値}
+Microwave Kinetic Inductance Detectors (MKID) は、マイクロ波帯に感度をもつ超伝導検出器である。MKIDはマイクロ波を受信するアンテナと超伝導共振器、それにC-coupledしたフィードラインから構成される（図 \ref{fig:mkid}）。また、MKIDは各共振器で固有の共振周波数$\omega = 1/\sqrt{LC}$をもち、このインダクタンス$L$の変化を検出することで、入射する光子のエネルギーを測定する。
 
-\section{読み出し}
+\section{周波数多重読み出し}
 
-\subsection{信号の多重化}
+\section{読み出し系}
 
-\section{小括}
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式とFFT（Fast Fourier Transform）方式の二種類が存在し、本論文では構成が比較的簡易なDDC方式によるMKIDの読み出しについて説明する。
+
+\subsection{読み出し系の構成}
+
+読み出し系の構成を図\ref{fig:readout_system}に示す。読み出し系は大きく 4 つの要素に分けられる:
+\begin{enumerate}
+ \item 「冷却回路」: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
+ \item 「送受信回路」: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
+ \item 「アナログ基板」: 送受信回路に読み出し信号をアナログ信号に変換して送信、またはデジタル信号に変換して受信する部分。
+ \item 「FPGA評価基板」: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取りデジタル情報を処理する部分。
+\end{enumerate}
+また、3.、4.をまとめてフロントエンド回路と呼ぶ。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=6cm]{figures/readout_system.png}
+ \label{fig:readout_system}
+ \caption{MKIDの読み出し系}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/readout_system_1.pdf}
+ \label{fig:readout_system_now}
+ \caption{既存のMKIDの読み出し系}
+\end{figure}
+
+% \begin{figure}[htbp]
+%  \begin{tabular}{cc}
+%   \begin{minipage}{0.3\vsize}
+%    \centering
+%    \includegraphics[height=55mm, clip]{figures/readout_system.png}
+%    \label{fig:readout_system}
+%    \caption{MKIDの読み出し系の概念図}
+%   \end{minipage}
+%   \begin{minipage}{0.6\hsize}
+%    \centering
+%    \includegraphics[height=55mm, clip]{figures/readout_system_1.pdf}
+%    \caption{既存のMKIDの読み出し系}
+%    \label{fig:readout_system_now}
+%   \end{minipage}
+%  \end{tabular}
+% \end{figure}
+
+\subsection{読み出しの流れ}
+
+読み出し原理についての詳細は次の款に譲り、この款ではおおまかな読み出しの流れについて述べる:
+\begin{enumerate}
+ \item FPGA評価基板でデジタル信号を生成し、アナログ基板のDAC（Digital to Analog Converter）から複数の周波数（$< 100$ MHz）を重ね合わせた読み出し信号を出力する。
+ \item 局所発振器（LO）で出力した信号（数GHz）とDACから出力した信号をIQミキサーでアップ・コンバートする。
+ \item アップ・コンバードした読み出し信号をMKIDに入力する。このとき、MKIDの応答（振幅と位相の変化）が読み出し信号に乗る。
+ \item MKIDの応答が乗った読み出し信号と2.で出力した信号と同じ周波数をLOから出力しIQミキサーでダウン・コンバードする。
+ \item アナログ基板のADC（Analog to Digital Converter）でMKIDの応答が乗った読み出し信号をデジタル変換し、FPGA評価基板でそれぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
+\end{enumerate}
+
+\subsection{読み出し原理}
+
+\section{既存のアナログ基板}
+
+既存の読み出し系のアナログ基板
+
+
+
+
+\subsection{解決すべき課題}
+
