@@ -1,6 +1,6 @@
 \chapter{超伝導検出器MKIDとその読み出し}
 
-この章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しは、市販品ではうまく活かすことができない。その他にもこの市販品をMKIDの読み出しに使うには不満となる要素が存在する。章の最後で既存の読み出し系についてまとめ、その解決すべき課題について議論する。
+本章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しについて述べたあとに、市販のアナログ基板を用いた読み出し系の概要とその不満点を挙げる。本論文の主旨は、この不満を解消するものである。
 
 % \begin{figure}[htbp]
 %  \begin{tabular}{cc}
@@ -22,38 +22,55 @@
 
 \section{動作原理}
 
-Microwave Kinetic Inductance Detectors (MKID) は、マイクロ波帯に感度をもつ超伝導検出器である。MKIDはマイクロ波を受信するアンテナと超伝導共振器、それにC-coupledしたフィードラインから構成される（図 \ref{fig:mkid}）。また、MKIDは各共振器で固有の共振周波数$\omega = 1/\sqrt{LC}$をもち、このインダクタンス$L$の変化を検出することで、入射する光子のエネルギーを測定する。
+Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である。MKIDは電波を受信するアンテナと超伝導共振器、それにC-coupledしたフィードラインから構成される（図 \ref{fig:mkid}）。各共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのカップリングキャパシタンスを表す。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=14cm]{figures/mkid.png}
+ \label{fig:mkid}
+ \caption{MKIDの検出原理。}
+\end{figure}
+
 
 \section{周波数多重読み出し}
 
 \section{読み出し系}
 
-読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式とFFT（Fast Fourier Transform）方式の二種類が存在し、本論文では構成が比較的簡易なDDC方式によるMKIDの読み出しについて説明する。
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式とFFT（Fast Fourier Transform）方式の二種類が存在し、本論文では共振周波数をより高い精度で設定できるDDC方式による読み出しについて述べる。
 
-\subsection{読み出し系の構成}
+\subsection{読み出し系の構成と大まかな流れ}
 
 読み出し系の構成を図\ref{fig:readout_system}に示す。読み出し系は大きく 4 つの要素に分けられる:
-\begin{enumerate}
- \item 「冷却回路」: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
- \item 「送受信回路」: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
- \item 「アナログ基板」: 送受信回路に読み出し信号をアナログ信号に変換して送信、またはデジタル信号に変換して受信する部分。
- \item 「FPGA評価基板」: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取りデジタル情報を処理する部分。
-\end{enumerate}
-また、3.、4.をまとめてフロントエンド回路と呼ぶ。
+% \begin{enumerate}
+%  \item 「冷却回路」: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
+%  \item 「MHz/GHzコンバーター」: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
+%  \item 「アナログ基板」: デジタル変調信号をアナログ信号に変換して送信し、アナログ信号を受信してデジタル信号に変換する部分。
+%  \item 「デジタル基板」: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
+% \end{enumerate}
+\begin{description}
+ \item [冷却回路]: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
+ \item [MHz/GHzコンバーター]: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
+ \item [アナログ基板]: デジタル変調信号をアナログ信号に変換して送信し、アナログ信号を受信してデジタル信号に変換する部分。
+ \item [デジタル基板]: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
+\end{description}
+本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=6cm]{figures/readout_system.png}
+ \includegraphics[width=12cm]{figures/readout_system.png}
  \label{fig:readout_system}
  \caption{MKIDの読み出し系}
 \end{figure}
 
-\begin{figure}[htbp]
- \centering
- \includegraphics[width=12cm]{figures/readout_system_1.pdf}
- \label{fig:readout_system_now}
- \caption{既存のMKIDの読み出し系}
-\end{figure}
+読み出しの大まかな流れは次のようになる:
+\begin{enumerate}
+ \item デジタル基板でデジタル信号を生成し、アナログ基板のDAC（Digital to Analog Converter）から複数の周波数（$< 100$ MHz）を重ね合わせた読み出し信号を出力する。
+ \item 局所発振器（LO）で出力した信号（数GHz）とDACから出力した信号をIQミキサーでアップ・コンバートする。
+ \item アップ・コンバードした読み出し信号をMKIDに入力する。このとき、MKIDの応答（振幅と位相の変化）により読み出し信号が変調する。
+ \item MKIDにより変調された信号をLNAで増幅する。
+ \item 増幅した信号と2.と同じ周波数の信号をLOから出力し、IQミキサーでダウン・コンバードする。
+ \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板でそれぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
+\end{enumerate}
 
 % \begin{figure}[htbp]
 %  \begin{tabular}{cc}
@@ -72,25 +89,46 @@ Microwave Kinetic Inductance Detectors (MKID) は、マイクロ波帯に感度をもつ超伝導
 %  \end{tabular}
 % \end{figure}
 
-\subsection{読み出しの流れ}
-
-読み出し原理についての詳細は次の款に譲り、この款ではおおまかな読み出しの流れについて述べる:
-\begin{enumerate}
- \item FPGA評価基板でデジタル信号を生成し、アナログ基板のDAC（Digital to Analog Converter）から複数の周波数（$< 100$ MHz）を重ね合わせた読み出し信号を出力する。
- \item 局所発振器（LO）で出力した信号（数GHz）とDACから出力した信号をIQミキサーでアップ・コンバートする。
- \item アップ・コンバードした読み出し信号をMKIDに入力する。このとき、MKIDの応答（振幅と位相の変化）が読み出し信号に乗る。
- \item MKIDの応答が乗った読み出し信号と2.で出力した信号と同じ周波数をLOから出力しIQミキサーでダウン・コンバードする。
- \item アナログ基板のADC（Analog to Digital Converter）でMKIDの応答が乗った読み出し信号をデジタル変換し、FPGA評価基板でそれぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
-\end{enumerate}
-
 \subsection{読み出し原理}
 
-\section{既存のアナログ基板}
 
-既存の読み出し系のアナログ基板
+\section{既存の読み出し系}
 
-
-
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15cm]{figures/readout_system_1.pdf}
+ \label{fig:readout_system_now}
+ \caption{既存のMKIDの読み出し系}
+\end{figure}
 
 \subsection{解決すべき課題}
 
+FMC150はADCやDACの性能は読み出し系として満足する。しかし、読み出し系には不必要な機能が実装されているために、その性能を十分に活かせていない。また、性能以外にもユーザーの利便性を阻害する仕様が解決すべき課題として存在する。
+
+\subsubsection{ローパスフィルターによる帯域の制限}
+
+多重読み出しするためには、なるべく広い帯域を確保する必要がある。FMC150は図\ref{fig:low-pass}のようなローパスフィルターが実装されているため、82 MHz 以上の帯域を使用することができない。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=6cm]{figures/low-pass.png}
+ \label{fig:low-pass}
+ \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、それより高い周波数は$-124.9$ dB/decadeで減衰する。}
+\end{figure}
+
+\subsubsection{消費電力の過大}
+
+消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上に発熱すると、読み出し系が不安定になることが確認されている。また、図\ref{fig:fan}のような排熱処理を怠ると基板を破損する場合もある。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=10cm]{figures/fan.pdf}
+ \label{fig:fan}
+ \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須で、回路図上では冷却ファンの存在も確認できる（未実装）。}
+\end{figure}
+
+\subsubsection{ユーザビリティの毀損}
+
+FMC150はクロックを分周して使うことを前提に設計されている。そのため、水晶発振器の周波数は245.76 MHzのもが搭載されている。しかし、現在の用途はクロックを様々な周波数に分周して使うことではない。クロックの周波数はADCとDACのサンプリング・レートを決めるため、できるだけ高い周波数のものが好ましいが、周波数分解能の値も重要である。実際にMKIDの測定を行う際は、まず帯域全体をスイープして、どの周波数にそれぞれのMKIDの共振ピークがあるか測定する。次に、それぞれのMKIDについてを定点観測を行う。このとき、ユーザーはあるMKIDの共振周ピーク付近に周波数を設定する必要がある。その際、指定する周波数は分解能の倍数に設定しなければならない。たとえば、FMC150で読み出し系を構成した場合、12.288 kHzの倍数にする必要がある。これは、ユーザーにとって非常に使いづらく誤った測定を誘発する。
+
+また、読み出し系は冷却回路やMHz/GHzコンバーターで数GHzの信号を扱うため、同軸ケーブルのコネクターはSMA（Sub-Miniature version A）コネクターを用いている。一方で、FMC150はMMCX（Micro-Miniature CoaXial）を採用している。測定を行う上で、ユーザーはコネクターの繋ぎ変えを頻繁に行う。そのときに、コネクターの規格が不揃いだとユーザーの生産性を下げる。
