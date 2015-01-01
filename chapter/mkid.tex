@@ -24,6 +24,8 @@
 
 Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である。MKIDは電波を受信するアンテナと超伝導共振器、それにC-coupledしたフィードラインから構成される（図 \ref{fig:mkid}）。各共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのカップリングキャパシタンスを表す。
 
+アンテナで受信した電波が共振器内のクーパー対を解離し、インダクタンスが変化する。MKIDはその変化を共振状態の変化として検出する。共振周波数は4--6 GHzに設定されることが多い。
+
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/mkid.png}
@@ -49,8 +51,8 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 % \end{enumerate}
 \begin{description}
  \item [冷却回路]: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
- \item [MHz/GHzコンバーター]: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
- \item [アナログ基板]: デジタル変調信号をアナログ信号に変換して送信し、アナログ信号を受信してデジタル信号に変換する部分。
+ \item [MHz/GHzコンバーター]: MKIDに入力するフィード信号（読み出し用変調信号）を高周波（4--8 GHz）に変換（アップ・コンバード）、また、MKIDを通った後に出力されるフィード信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
+ \item [アナログ基板]: デジタル変調信号をアナログ信号に変換して送信し、入力したアナログ信号を受信してデジタル信号に変換する部分。
  \item [デジタル基板]: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
 \end{description}
 本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
@@ -64,12 +66,12 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 読み出しの大まかな流れは次のようになる:
 \begin{enumerate}
- \item デジタル基板でデジタル信号を生成し、アナログ基板のDAC（Digital to Analog Converter）から複数の周波数（$< 100$ MHz）を重ね合わせた読み出し信号を出力する。
- \item 局所発振器（LO）で出力した信号（数GHz）とDACから出力した信号をIQミキサーでアップ・コンバートする。
- \item アップ・コンバードした読み出し信号をMKIDに入力する。このとき、MKIDの応答（振幅と位相の変化）により読み出し信号が変調する。
- \item MKIDにより変調された信号をLNAで増幅する。
- \item 増幅した信号と2.と同じ周波数の信号をLOから出力し、IQミキサーでダウン・コンバードする。
- \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板でそれぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
+ \item デジタル基板でデジタル変調信号を生成し、アナログ基板のDAC（Digital to Analog Converter）でアナログ変調して出力する。変調信号とは、複数の周波数（$< 100$ MHz）を重ね合わせた信号である。
+ \item 局所発振器（LO）で出力した基準信号（通常、数GHz程度）とDACから出力したアナログ変調信号（MHz帯）をI/Q（In-phase/Quadrature-phase）ミキサーでGHz帯にアップ・コンバートしてフィード信号とする。
+ \item フィード信号をMKIDに入力する。MKIDの共振器の共振によってフィード信号が変化する。アンテナ入力信号を共振状態（振幅と位相）の変化として計測する。
+ \item MKIDの共振情報を含むフィード信号をLNAで増幅する。
+ \item 増幅した信号と2.の基準信号をI/Qミキサーでダウン・コンバードする。
+ \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
 \end{enumerate}
 
 % \begin{figure}[htbp]
@@ -96,7 +98,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/readout_system_1.pdf}
+ \includegraphics[width=15cm, angle=90]{figures/readout_system_1.pdf}
  \label{fig:readout_system_now}
  \caption{既存のMKIDの読み出し系}
 \end{figure}
@@ -109,22 +111,40 @@ FMC150はADCやDACの性能は読み出し系として満足する。しかし、読み出し系には不必要な
 
 多重読み出しするためには、なるべく広い帯域を確保する必要がある。FMC150は図\ref{fig:low-pass}のようなローパスフィルターが実装されているため、82 MHz 以上の帯域を使用することができない。
 
+読み出しの多重度は帯域の広さに比例する。MKIDの利点を最大化するためには、もっとも重要な点のひとつである。
+
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=6cm]{figures/low-pass.png}
+ \includegraphics[width=14cm]{figures/lpf.pdf}
  \label{fig:low-pass}
  \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、それより高い周波数は$-124.9$ dB/decadeで減衰する。}
 \end{figure}
 
+% \begin{figure}[htbp]
+%  \begin{tabular}{cc}
+%   \begin{minipage}{0.5\hsize}
+%    \centering
+%    \includegraphics[height=5cm, clip]{figures/low-pass.png}
+%    \label{fig:readout_system}
+%   \end{minipage}
+%   \begin{minipage}{0.5\hsize}
+%    \centering
+%    \includegraphics[height=5cm, clip]{figures/low-pass_1.png}
+%    \label{fig:readout_system_now}
+%   \end{minipage}
+%  \end{tabular}
+%  \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、それより高い周波数は$-124.9$ dB/decadeで減衰する。}
+% \end{figure}
+
 \subsubsection{消費電力の過大}
 
-消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上に発熱すると、読み出し系が不安定になることが確認されている。また、図\ref{fig:fan}のような排熱処理を怠ると基板を破損する場合もある。
+消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上に発熱すると、読み出し系が不安定に、電源を供給しているデジタル基板がシャットダウンすることが確認されている。また、図\ref{fig:fan}のような冷却ファンによる排熱処理を怠ると基板上のICが熱破損する\footnote{実際に、冷却ファンなしで1時間程度運転し破損した}。
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=10cm]{figures/fan.pdf}
  \label{fig:fan}
- \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須で、回路図上では冷却ファンの存在も確認できる（未実装）。}
+ \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須である。}
 \end{figure}
 
 \subsubsection{ユーザビリティの毀損}

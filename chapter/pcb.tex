@@ -1,35 +1,33 @@
 \chapter{アナログ基板の設計と試作}
 
-% MKIDの多重読み出しは、配線数を低減させ、それにより冷却光学系への熱流入を抑制することで、極低温での安定な動作を実現する。通信用として流通している市販品を用いることで、比較的簡単に読み出し系を構成することができる。しかし、市販品にはローパスフィルタが実装されているため透過特性が悪く、使用帯域が制限される。また、クロック生成器の周辺が必要以上に複雑なため、消費電力が大きく動作が不安定になるという問題がある。これらの問題を解決するために、広帯域かつシンプルな構成のADC/DACドーターボード（アナログボード）の開発を行った。
-
 本章では、要求分析に基づいた仕様策定を行い、アナログ基板を設計する。また、市販のアナログ基板と比較した改良点についても整理し、試作したアナログ基板の概要をまとめる。
 
 \section{要求分析}
 
-前章で述べたように、市販のアナログ基板には三つの解決すべき課題があった。ひとつ目はローパスフィルターによる帯域の制限、ふたつ目は消費電力の過大、最後にユーザビリティの毀損である。
+前章で述べたように、市販のアナログ基板には三つの解決すべき課題があった: 1) ローパス・フィルターによる帯域の制限、2) 消費電力の過大、3) ユーザビリティの毀損である。
 
-これらの三つの課題に対する解決方法は、次の通りである:
+1) の最も簡単な解決案は、問題となるローパス・フィルターを外すことである。これにより、原理的にはDACの最大出力周波数（サンプリング周波数/2）まで、帯域を広げることができる。ローパス・フィルターを外すことにより、高周波ノイズの漏れ込みが懸念されるが、これにはDACの出力後、コネクターの先で新たにローパス・フィルターを取り付けることで対応する。
+
+%高周波をカットしているローパス・フィルターを排除することで、ADCのサンプリング周波数の$1/2$まで帯域を使用可能にする。
+
+2) は市販のアナログ基板に搭載されているICの中で最も消費電力が大きい部品であるPLL（Typ. 2.9 W）の代わりに、クロック・ファンアウト・バッファ（Typ. 0.29 W）を用いることで消費電力を抑制する。このクロック・ファンアウト・バッファは、PLLと異なりFPGAによる制御が不要であることも、利点のひとつである。その他に、ADCを同等の性能でより省電力なパッケージを選択することで、より消費電力の低減を図る。
+
+3) はユーザビリティを損なう原因である水晶発振器を、ユーザーが直感的に使うことができる周波数分解能にするために整数倍の周波数をもつ水晶発振器に変更する。これにより、ユーザーはある数（MKIDの共振周波数）に12.288を掛けたり、割ったりするような認知的負荷から開放される。ADC/DACの入出力先のコネクターの規格もSMAに統一することで作業効率に改善をもたらす。
+
+\ 
+
+したがって、先の三つの課題に対する解決方法は、次の通りである:
 \begin{enumerate}
- \item DACの出力部分にあるローパスフィルターを排除する。
+ \item DACの出力部分にあるローパス・フィルターを排除する。
  \item 位相同期回路（PLL）の代わりにクロック・ファンアウト・バッファを用いる。
  \item 水晶発振器を整数倍の周波数のものに変更する。MMCXコネクターからSMAコネクターに変更する。
 \end{enumerate}
-
-1.は単純である。高周波をカットしているローパスフィルターを排除することで、ADCのサンプリング周波数の$1/2$まで帯域を使用可能にする。
-
-2.は市販のアナログ基板に搭載されているICの中で最も消費電力が大きい部品であるPLL（Typ. 2.9 W）の代わりに、クロック・ファンアウト・バッファ（Typ. 0.29 W）を使うことで 2.5 W以上消費電力を抑制する。このクロック・ファンアウト・バッファは、PLLと異なりFPGAによる制御が不要であることも、利点のひとつである。また、ADCを同等の性能でより省電力なパッケージを選択した。
-
-3.は周波数分解能を非直感的にする原因である水晶発振器を、ユーザーが使いやすい整数倍のクロックに変更する。これにより、ユーザーはある数（共振周波数）に12.288を掛けたり、割ったりするような認知的負荷から開放される。コネクターの統一も作業効率に改善をもたらす。
 
 \section{仕様}
 
 要求分析に基いて、新しいアナログ基板RHEA\footnote{RHEAは、「Rhea is a High spEed Analog board」の略で、南米に生息する陸鳥（ground bird）からその名を付けた。}の仕様を策定する。
 
-図\ref{fig:rhea_schem}と表\ref{tbl:rhea_ic}にRHEAのブロック図と主要なICの仕様を示す。RHEAは2チャンネル14-bitのADCと2チャンネル16-bitのDACを搭載し、それぞれに水晶発振器から分配した200 MHzのクロックを入力する\footnote{このクロックはデジタル基板へも入力し、これをシステム・クロックとして使う。}。デジタル基板との接続はFMC LPC（Fpga Mezanine Card Low-Pin Count 160-pins）で行い、電源（12 V・3.3 V・2.5 V）もFMC LPCを介してデジタル基板から供給される。
-
-% デジタル基板からADCとDACへのデータの受け渡しは、200 MHzのクロックを使った差動信号（LVDS）で行う。ただし、DACはDDR（Double Data Rate）でデータを読み書きするため、その倍の400 MHzのクロックをFPGA内でつくり使用する。
-
-% ADCとDACのレジスターの読み書きはSPI（Serial Peripheral Interface）で制御する。SPIには書き込みと読み込みを一本の線で行うSPI 3-wireと書き込みと読み込みを別の線で行うSPI 4-wireがあり、DACはレジスター（cf., DAC Register config 23）を書き換えることでどちらか選ぶことができる（デフォルトではSPI 3-wire\footnote{ただし、DACのレジスター初期設定はデフォルトとは限らない。実際、RHEAに搭載したDACのレジスターはデフォルト値とはいくつか異なり、SPI制御は4-wireに設定されていた。}）。RHEAはADC/DAC共にSPI 4-wireで制御している。
+図\ref{fig:rhea_schem}と表\ref{tbl:rhea_ic}にRHEAのブロック図と主な特徴を示す。RHEAは2チャンネル14-bitのADCと2チャンネル16-bitのDACを搭載し、それぞれに水晶発振器から分配した200 MHzのクロックを入力する\footnote{このクロックはデジタル基板へも入力しており、これをシステム・クロックとして使うことを想定している。}。デジタル基板との接続はFMC LPC（Fpga Mezanine Card Low-Pin Count 160-pins）で行い、電源（12 V・3.3 V・2.5 V）はこれを介してデジタル基板から供給される。ADCとDACの入出力ポートはSMAコネクターを採用し、差動50 $\Omega$でACカップルしている。
 
 \begin{figure}[htbp]
  \centering
@@ -38,39 +36,104 @@
  \caption{RHEAのブロック図}
 \end{figure}
 
+デジタル基板からアナログ基板のADCとDACへのデータの転送は、200 MHzのクロックを使った差動信号（LVDS）で行う。データ幅はそれぞれ14-bitと8-bitで、DDR（Double Data Rate）でデータを読み書きする。
+
+ADCとDACのレジスターの読み書きはSPI（Serial Peripheral Interface）で制御する。SPIには書き込みと読み込みを一本の線で行うSPI 3-wireと書き込みと読み込みを別の線で行うSPI 4-wireとがあり、ADCはSPI 4-wireで制御する。DACはレジスター（cf., DAC Register config 23）を書き換えることでどちらかをユーザーが選ぶことができるが（デフォルトではSPI 3-wire\footnote{ただし、DACのレジスター初期設定はデフォルトとは限らない。実際、RHEAに搭載したDACのレジスターはデフォルト値とはいくつか異なり、SPI制御は4-wireに設定されていた。}）、RHEAはADC/DAC共にSPI 4-wireで制御を行う。
+
 \begin{table}[htbp]
  \centering
  \label{tbl:rhea_ic}
- \caption{RHEAに搭載される主なICの仕様}
- \begin{tabular}{cc}\bhline{1.5pt}
-  名前       & 特徴               \\\hline
-  ADC        & 2 channel, 250 MSPS, 14-bit, SNR: 72.5 dBFS（$f_{\mathrm{in}}=70$ MHz） \\
-  DAC        & 2 channel, 800 MSPS, 16-bit, NSD: 160 dBc/Hz（$f_{\mathrm{out}}80.1$ MHz）\\
-  水晶発振器 & 200 MHz, LV-PECL, $t_{\mathrm{PJ}}=0.3$ ps Max.（$f_{\mathrm{OSC}} \gt 200$ MHz） \\\hline
+ \caption{RHEAの特徴}
+ \begin{tabular}{cc}
+  \bhline{1.5pt}
+  \multicolumn{2}{c}{アナログ入力} \\
+  \hline
+  規格               & SMA \\
+  チャンネル数       & 2 \\
+  分解能             & 14-bit \\
+  入力電圧           & 2 $\mathrm{{V}_{pp}}$ \\
+  入力インピーダンス & 50 $\Omega$（ACカップル） \\
+  バンド幅           & 100 MHz \\
+  SNR (Signal-to-Noise Ratio) & 72.8 dBFS @ $f_{\mathrm in}=$ 20 MHz \\
+  SFDR (Spurious-Free Dynamic Range) & 80 dBc @ $f_{\mathrm in}=$ 20 MHz \\
+  \hline
+  \multicolumn{2}{c}{アナログ出力} \\
+  \hline
+  規格               & SMA \\
+  チャンネル数       & 2 \\
+  分解能             & 16-bit \\
+  出力電圧           & 1 $\mathrm{{V}_{pp}}$ \\
+  入力インピーダンス & 50 $\Omega$（ACカップル）\\
+  NSD (Noise Spectral Density) & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz \\
+  SFDR               & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz \\
+  \hline
+  \multicolumn{2}{c}{オンボード・クロック} \\
+  \hline
+  規格         & LV-PECL \\
+  周波数       & 200.000 MHz \\
+  位相ジッター & 0.3 ps @ $\geq$ 200 MHz \\
+  \hline
+  \multicolumn{2}{c}{ADC出力} \\
+  \hline
+  データ幅           & LVDS 7-pairs DDR/channel \\
+  サンプリング周波数 & 200 MHz \\
+  \hline
+  \multicolumn{2}{c}{ADC出力} \\
+  \hline
+  データ幅           & LVDS 8-pairs DDR \\
+  サンプリング周波数 & 200 MHz \\
+  \bhline{1.5pt}
  \end{tabular}
 \end{table}
 
 \section{設計}
 
-RHEAは先に挙げた改良点以外は、基本的にFMC150を踏襲している。そのため、設計はFMC150から不必要な機能を取り除いて、それを整理するという方針で行った。
+この節では、回路図と基板図に分けてRHEAの設計について述べる。回路図はCadence社\footnote{http://www.cybernet.co.jp/orcad/}が提供・販売している「OrCAD」という回路図作成CADを用いて設計した。基板図の設計は回路図（と部品配置図）を基に、プリント基板制作会社（有）ジー・エヌ・ディー\footnote{http://www.gn-d.jp/}に制作を依頼した。
 
-消費電力を減らすために、PLLに代えクロック・ファンアウト・バッファを搭載すること（図\ref{fig:clock_tree}）を既に述べたが、それにより電源回路のリニア・レギュレータ（3.8 Vから3.3 Vを降圧）がひとつ不要になった。また、その上流で12 Vから3.8 Vに降圧するスイッチング・レギュレータとその受動部品から構成される電源回路も見直した。他の実験で使われたことのある信頼性のあるICを用いることで、電源の安定化を図り、回路として簡素になった。
+\subsection{回路図の設計}
+
+ここでは、要求分析で挙げた三つの解決方法に着目し、FMC150とRHEAの回路図を比較しながら、RHEAの設計について述べる。これ以外の部分は、基本的にFMC150を踏襲している。詳細な回路図は付録に集録する。
+
+\subsubsection{DACの出力部分}
+
+図\ref{fig:lpf_circuit}のように、DACの出口にあったキャパシターとインダクターからなるローパス・フィルターを排除した。もうひとつのチャンネルも同様である。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/clock_tree.pdf}
+ \includegraphics[width=14cm]{figures/lpf_circuit.pdf}
+ \label{fig:lpf_circuit}
+ \caption{FMC150とRHEAにおけるDACの出力部分の比較}
+\end{figure}
+
+\subsubsection{クロック生成器周辺}
+
+図\ref{fig:clock_tree}のように、消費電力を減らすため、PLL（CDCE72010; Texas Instruments）の代わりにクロック・ファンアウト・バッファ（ADCLK944; Analog Device）を搭載した。水晶発振器は、周波数が245.76 MHzのもの（VS-705; Vectron）から200.000 MHzのもの（EG-2102CA; Epson）に変更した。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=14cm]{figures/clock_tree.pdf}
  \label{fig:clock_tree}
- \caption{FMC150とRHEAにおけるクロック・ツリーの比較。クロック・ツリーに限って見れば消費電力はおよそ80\%（FMC150: 2.9 W + 0.25 W = 3.15 W、RHEA: 0.29 W + 0.33 W = 0.62 W）抑えられ、配線数は70\%以上（70本から20本）少なくなる。}
+ \caption{FMC150とRHEAにおけるクロック生成器周辺の比較。ここに限れば、消費電力はおよそ80\%（FMC150: 2.9 W + 0.25 W = 3.15 W、RHEA: 0.29 W + 0.33 W = 0.62 W）抑えられ、配線数は70\%以上（70本から20本）少なくなる。}
 \end{figure}
+
+\subsubsection{電源回路}
+
+PLLに供給していた5本の電源線（内1本は水晶発振器の電源）がなくなるため、電源回路も縮小される。実際的には、リニア・レギュレーター（3.8 Vから3.3 Vを降圧）がひとつ不要になる。
+
+また、その上流にあるスイッチング・レギュレーター（12 Vから3.8 Vに降圧）とその受動部品から構成される回路も見直した。ここは、このアナログ基板上で最も高い電圧が生じる部分であり、読み出し系の不安定化の原因のひとつである電力の供給不足に関係していると考えられる。FMC150ではTPS5430（Texas Instruments）というスイッチング・レギュレーターを用いていたが、これを他の実験で実績のあるLMZ12001（Texas Instruments）に変えることで、より安定な電源供給を行い、読み出し系全体としての安定化を図る。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/power.pdf}
+ \includegraphics[width=12cm]{figures/power.pdf}
  \label{fig:power}
- \caption{RHEAではPLLへ供給していた3.3 Vの電源がなくなるため、リニア・レギュレータがひとつ不要になる。また、ADCも省電力タイプのものに変えたため、3.3 Vの電圧供給はDACのみとなる（その代わり、ADCへ供給する1.8 Vの電源がひとつ増える）。スイッチング・レギュレータはTPS5430から他の実験で信頼性のあるLMZ12001に変更した。}
+ \caption{FMC150とRHEAにおける電源回路の一部の比較。RHEAではPLLへ供給していた3.3 Vの電源がなくなるため、リニア・レギュレーターがひとつ不要になる。また、ADCも省電力タイプに変更したことにより、3.3 Vの電源供給はDACのみとなる（その代わりにADCへ供給する1.8 Vの電源線がひとつ増えるが、レギュレーターなどICの数は増えない）。そして、12 Vから3.8 Vに降圧しているスイッチング・レギュレーターはTPS5430から他の実験で信頼性のあるLMZ12001に変更する。}
 \end{figure}
 
-\section{試作}
+\subsection{基板図の設計}
+
+図\ref{fig:rhea_dim}は先の回路図に基づき設計した基板図である。基板の大きさは従来のアナログ基板とほぼ同じ69$\times$84 mm、合計7つの層からなる。
+
+ADCとDACのデータ伝送線と、アナログ信号を入出力する線はそれぞれの差動信号の対が10 mmの精度\footnote{RHEAは200 MHzで動作するため、波長は1.5 mになる。基板の大きさが69$times$84 mmであることを考えると十分な精度である。}で等しい長さになるよう配線される。基板内の差動インピーダンスは100 $\Omega$に設計している。DACの差動出力は、回路図上は200 $\Omega$の差動インピーダンスに設計しているが、これは製作精度上、不可能なため基板図上では100 $\Omega$になっている。この点はFMC150も同様で、その部分で問題には起きていないため、読み出し系として問題にならないと考える。
 
 \begin{figure}[htbp]
  \centering
@@ -78,3 +141,23 @@ RHEAは先に挙げた改良点以外は、基本的にFMC150を踏襲している。そのため、設計はFMC1
  \label{fig:rhea_dim}
  \caption{RHEAの基板図}
 \end{figure}
+
+\section{試作}
+
+%\if0
+\begin{figure}[htbp]
+ \begin{tabular}{cc}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[height=5.5cm, clip]{figures/rhea_0.png}
+   \label{fig:rhea_0}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[height=6cm, clip]{figures/rhea_1.png}
+   \label{fig:rhea_1}
+  \end{minipage}
+ \end{tabular}
+ \caption{}
+\end{figure}
+%\fi
