@@ -1,0 +1,116 @@
+\chapter{アナログ基板の仕様策定}
+
+本章では、要求分析に基づいた仕様策定を行う。従来のアナログ基板と比較した改良点について整理し、試作したアナログ基板の概要をまとめる。
+
+\section{要求分析}
+
+前章で述べたように、市販のアナログ基板には三つの解決すべき課題があった: 1) ローパス・フィルターによる帯域の制限、2) 消費電力の過大、3) ユーザビリティの毀損である。
+
+\subsection{帯域に対する要求分析}
+
+1) の最も簡単な解決案は、問題となるローパス・フィルターを外すことである。これにより、原理的にはDACの最大出力周波数（サンプリング周波数/2）まで、帯域を広げることができる。ローパス・フィルターを外すことにより、高周波ノイズの漏れ込みが懸念されるが、これにはDACの出力後、コネクターの先で新たにローパス・フィルターを取り付けることで対応する。
+
+%高周波をカットしているローパス・フィルターを排除することで、ADCのサンプリング周波数の$1/2$まで帯域を使用可能にする。
+
+\subsection{消費電力に関する要求分析}
+
+2) は市販のアナログ基板に搭載されているICの中で最も消費電力が大きい部品であるPLL（Typ. 2.9 W）の代わりに、クロック・ファンアウト・バッファ（Typ. 0.29 W）を用いることで消費電力を抑制する。このクロック・ファンアウト・バッファは、PLLと異なりFPGAによる制御が不要であることも、利点のひとつである。その他に、ADCを同等の性能でより省電力なパッケージを選択することで、より消費電力の低減を図る。
+
+\subsection{ユーザビリティに関する要求分析}
+
+3) はユーザビリティを損なう原因である水晶発振器を、ユーザーが直感的に使うことができる周波数分解能にするために整数倍の周波数をもつ水晶発振器に変更する。これにより、ユーザーはある数（MKIDの共振周波数）に12.288を掛けたり、割ったりするような認知的負荷から開放される。ADC/DACの入出力先のコネクターの規格もSMAに統一することで作業効率に改善をもたらす。
+
+\subsection{要求分析を反映した解決方法のまとめ}
+
+以上、三つの課題に対する解決方法をまとめると、次のようになる:
+\begin{enumerate}
+ \item DACの出力部分にあるローパス・フィルターを排除する。
+ \item 位相同期回路（PLL）の代わりにクロック・ファンアウト・バッファを用いる。
+ \item 水晶発振器を整数倍の周波数のものに変更する。MMCXコネクターからSMAコネクターに変更する。
+\end{enumerate}
+
+\section{仕様}
+
+\begin{wrapfigure}{r}{65mm}
+ \vspace{-5mm}
+ \centering
+ \includegraphics[width=65mm]{figures/trade-off.pdf}
+ \vspace{-10mm}
+ \caption{回路における広帯域性と省電力性の関係}
+ \label{fig:trade-off}
+\end{wrapfigure}
+
+要求分析に基いて、新しいアナログ基板RHEA\footnote{RHEAは、「Rhea is a High spEed Analog board」の略で、南米に生息する陸鳥（ground bird）からその名を付けた。}の仕様を策定する。読み出し系の性能を決める上で、広帯域性（高速化・高周波化）と省電力性（低電圧化・低電流化）をどう両立させるかが重要な点となる。
+
+一般に回路の高速化・高周波化と低電力化はトレードオフの関係にある（図\ref{fig:trade-off}）。回路は高速化・高周波化するほど、不要電磁波が増加し、他の電子機器に影響を与える。また、低電圧化や低電流化、動作マージンの減少により、ノイズ・マージンが低下することで、不要電磁波を受けて誤作動する蓋然性も高くなる。
+
+\subsection{アナログ基板のブロック図}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/rhea_schematic.pdf}
+ \caption{RHEAのブロック図}
+ \label{fig:rhea_schem}
+\end{figure}
+
+図\ref{fig:rhea_schem}にRHEAのブロック図を示す。RHEAは2チャンネル14-bitのADCと2チャンネル16-bitのDACを搭載し、それぞれに水晶発振器から分配した200 MHzのクロックを入力する\footnote{このクロックはFMC LPCを介してFPGAにも入力しており、これをシステム・クロックとして使うことを想定している。}。デジタル基板との接続はFMC LPC（Fpga Mezanine Card Low-Pin Count 160-pins）で行い、電源（12 V・3.3 V・2.5 V）はこのコネクターを介してデジタル基板から供給される。ADCとDACの入出力ポートはSMAコネクターを採用し、差動50 $\Omega$でACカップルする。
+
+デジタル基板からアナログ基板へのADCとDACへのデータの搬送は、200 MHzの差動信号（LVDS）で行う。データ幅はそれぞれ14-bitと16-bitで、DDR（Double Data Rate）でデータを読み書きする。
+
+ADCとDACのレジスターの読み書きはSPI（Serial Peripheral Interface）で制御する。SPIには書き込みと読み込みを一本の線で行うSPI 3-wireと書き込みと読み込みを別の線で行うSPI 4-wireとがあり、ADC（ADS4249）はSPI 4-wireが実装されている。DACはレジスター（Register Config 23）を書き換えることでどちらかをユーザーが選ぶことができるが（デフォルトではSPI 3-wire\footnote{ただし、DACのレジスター初期設定はデフォルトとは限らない。実際、RHEAに搭載したDACのレジスターはデフォルト値とはいくつか異なり、SPI制御は4-wireに設定されていた。}）、RHEAはADCとDAC共にSPI 4-wireで制御する。
+
+\subsection{アナログ基板の特性}
+
+表\ref{tbl:rhea_ic}にRHEAとFMC150の主な特性を示す。基本的な性能は、FMC150と同等である。注目すべき点は最終行の消費電力の比較である。RHEAでは、消費電力がおよそ60\%削減されている。ここで、主要ICはADCとDAC、水晶発振器、クロック・ファンアウト・バッファ（RHEA）、PLL（FMC150）である。
+
+\begin{table}[htbp]
+ \centering
+ \caption{RHEAとFMC150の主な特性}
+ \label{tbl:rhea_ic}
+ \begin{tabular}{ccc}
+  \toprule
+  & RHEA & FMC150 \\
+  \hline
+  \multicolumn{3}{c}{アナログ入力} \\
+  \hline
+  規格               & SMA & MMCX \\
+  チャンネル数       & 2   & 2 \\
+  分解能             & 14-bit & 14-bit \\
+  入力電圧           & 2 $\mathrm{{V}_{pp}}$ & 2 $\mathrm{{V}_{pp}}$  \\
+  入力インピーダンス & 50 $\Omega$（ACカップル）& 50 $\Omega$（ACカップル）\\
+  バンド幅           & 100 MHz & 82 MHz \\
+  SNR                & 72.8 dBFS @ $f_{\mathrm in}=$ 20 MHz & 73.4 dBFS @ $f_{\mathrm in}=$ 20 MHz \\
+  SFDR               & 80 dBc @ $f_{\mathrm in}=$ 20 MHz & 89 dBc @ $f_{\mathrm in}=$ 20 MHz \\
+  \hline
+  \multicolumn{3}{c}{アナログ出力} \\
+  \hline
+  規格               & SMA & MMCX\\
+  チャンネル数       & 2   & 2 \\
+  分解能             & 16-bit & 16-bit \\
+  出力電圧           & 1 $\mathrm{{V}_{pp}}$ & 1 $\mathrm{{V}_{pp}}$ \\
+  入力インピーダンス & 50 $\Omega$（ACカップル）& 50 $\Omega$（ACカップル）\\
+  NSD                & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz \\
+  SFDR               & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz \\
+  \hline
+  \multicolumn{3}{c}{オンボード・クロック} \\
+  \hline
+  規格         & LV-PECL     & LV-PECL \\
+  周波数       & 200.000 MHz & 245.76 MHz \\
+  位相ジッター & 0.3 ps      & 0.19 ps \\
+  \hline
+  \multicolumn{3}{c}{ADC出力} \\
+  \hline
+  データ幅           & LVDS 7-pairs DDR/channel & LVDS 7-pairs DDR/channel \\
+  サンプリング周波数 & 200 MHz & 245.76 MHz\\
+  \hline
+  \multicolumn{3}{c}{DAC出力} \\
+  \hline
+  データ幅           & LVDS 8-pairs DDR & LVDS 8-pairs DDR \\
+  サンプリング周波数 & 200 MHz & 491.52 MHz\\
+  \hline
+  \multicolumn{3}{c}{消費電力} \\
+  \hline
+  主要ICの電力 & Typ. 2.18 W & Typ. 5.4 W\\
+  \bottomrule
+ \end{tabular}
+\end{table}

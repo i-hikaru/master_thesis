@@ -1,0 +1,162 @@
+\chapter{アナログ基板の設計}
+
+本章では前章の仕様に基づいたRHEAの設計について述べる。設計は回路図設計と基板図設計に分けられ、前者は論理的に矛盾のないシンプルな構成を目指して設計を行った。後者は回路図で表現される論理記号をいかに現実に落としこむか注力し、主に電気的特性を考察して設計を行った。最後に試作したアナログ基板を紹介する。%前者はCadence社\footnote{http://www.cybernet.co.jp/orcad/}が提供・販売している「OrCAD」という回路図作成CADを用いて設計を行った。基板図の設計は回路図（と部品配置図）を基に、プリント基板制作会社（有）ジー・エヌ・ディー\footnote{http://www.gn-d.jp/}に制作を依頼した。
+
+\section{回路図の設計}
+
+前章の要求分析で挙げた三つの解決方法に着目し、FMC150とRHEAの回路図を比較しながら、RHEAの回路図設計について述べる。ここで述べる以外の部分は、基本的にFMC150を踏襲している。詳細な回路図は付録に集録する。
+
+\subsection{従来の回路図との比較}
+
+\subsubsection{ローパス・フィルター}
+
+図\ref{fig:lpf_circuit}に示すように、DACの出口にあったキャパシターとインダクターからなるローパス・フィルターを排除した。もうひとつのチャンネルも同様である。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=14cm]{figures/lpf_circuit.pdf}
+ \caption{FMC150とRHEAにおけるDACの出力部分の比較}
+ \label{fig:lpf_circuit}
+\end{figure}
+
+\subsubsection{クロック生成器周辺}
+
+図\ref{fig:clock_tree}のように、消費電力を減らすため、PLL（CDCE72010; Texas Instruments）の代わりにクロック・ファンアウト・バッファ（ADCLK944; Analog Device）を搭載した。水晶発振器は、周波数が245.76 MHzのもの（VS-705; Vectron）から200.000 MHzのもの（EG-2102CA; Epson）に変更した。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=14cm]{figures/clock_tree.pdf}
+ \label{fig:clock_tree}
+ \caption{FMC150とRHEAにおけるクロック生成器周辺の比較。ここに限れば、消費電力はおよそ80\%（FMC150: 2.9 W + 0.25 W = 3.15 W、RHEA: 0.29 W + 0.33 W = 0.62 W）抑えられ、配線数は70\%以上（70本から20本）少なくなる。}
+\end{figure}
+
+\subsubsection{電源回路}
+
+PLLに供給していた5本の電源線（内1本は水晶発振器の電源）がなくなるため、電源回路も縮小される。実際的には、リニア・レギュレーター（3.8 Vから3.3 Vを降圧）がひとつ不要になる。
+
+また、その上流にあるスイッチング・レギュレーター（12 Vから3.8 Vに降圧）とその受動部品から構成される回路も見直した。ここは、このアナログ基板上で最も高い電圧が生じる部分であり、読み出し系の不安定化の原因のひとつである電力の供給不足に関係していると考えられる。FMC150ではTPS5430（Texas Instruments）というスイッチング・レギュレーターを用いていたが、これを他の実験で実績のあるLMZ12001（Texas Instruments）に変えることで、より安定な電源供給を行い、読み出し系全体としての安定化を図る。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/power.pdf}
+ \caption{FMC150とRHEAにおける電源回路の一部の比較。RHEAではPLLへ供給していた3.3 Vの電源がなくなるため、リニア・レギュレーターがひとつ不要になる。また、ADCも省電力タイプに変更したことにより、3.3 Vの電源供給はDACのみとなる（その代わりにADCへ供給する1.8 Vの電源線がひとつ増えるが、レギュレーターなどICの数は増えない）。そして、12 Vから3.8 Vに降圧しているスイッチング・レギュレーターはTPS5430から他の実験で信頼性のあるLMZ12001に変更する。}
+ \label{fig:power}
+\end{figure}
+
+\section{基板図の設計}
+
+図\ref{fig:rhea_dim}は回路図に基づき設計した基板図である。基板の大きさは従来のアナログ基板とほぼ同じ69$\times$84 mmで、合計7つの層からなる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/rhea_dimensions.png}
+ \caption{RHEAの基板図}
+ \label{fig:rhea_dim}
+\end{figure}
+
+一般に、回路設計は動作周波数によって設計手法が異なる。動作周波数が低い回路では、クロックは完全な矩形波とみなすことができる。また、信号の入出力の遅延時間は一定とみなし、それぞれのIC間の配線遅延は無視する。グラウンドと電源線の配線による抵抗も無視して構わない。
+
+一方で、動作周波数が高い回路では、インダクタンスとキャパシタンス成分の影響が無視できなくなる。動作周波数が低い回路では矩形波とみなせたクロックは、動作周波数が高くなると高調波成分を考慮する必要がある。また、信号の遅延や反射、クロストークも大きな問題となる。電源線の配線も、高周波のICになるほど、グラウンド・バウンス・ノイズが大きくなるため、グラウンドと電源線のインピーダンス整合が重要となる。
+
+\subsection{伝搬速度}
+
+基板上を伝わる信号の伝搬速度$v_{\mathrm{p}}$は、
+\begin{equation}
+ v_{\mathrm p} = {c \over \sqrt{\varepsilon_{\mathrm eff}}} \quad \mathrm{[m/s]}
+  \label{eq:v_p}
+\end{equation}
+で表される。ここで、$c$は真空中の光の速さ、$\varepsilon_{\mathrm eff}$は実効比誘電率である。(\ref{eq:v_p})から、実効比誘電率を4と仮定すると、$v_{\mathrm p}\sim1.5 \times 10^{8}$ m/sとなり、基板上では1 ns当たり15 cm信号が伝搬する。
+
+信号は矩形波で伝送され、矩形波はフーリエ級数を用いて、式(\ref{eq:square_wave})に表されるような無限の正弦波に分解される。
+\begin{equation}
+ S(t) = {4 \over \pi}\sum_{k=1}^{\infty}\frac{\sin[2\pi(2k-1)ft]}{2k-1}
+  \label{eq:square_wave}
+\end{equation}
+図\ref{fig:sq}のに示すように、矩形波の周期と同じ正弦波（基本正弦波; $k=1$）に10倍までの高調波を足し合わせると（10倍高調波; $k=10$）、ほぼ矩形波が再現される。逆に言えば、信号を正確に伝送するためには、10倍高調波程度は正確に伝送する必要があるということである。
+
+動作周波数200 MHzのRHEAの10倍高調波は2 GHzになる。したがって、この高調波の基板上における波長の長さ$\lambda_{\mathrm{RHEA}}$は
+\begin{equation}
+ \lambda_{\mathrm{RHEA}} = {v_{\mathrm p} \over f} = {1.5 \times 10^{8} \ \mathrm{m/s} \over 2 \ \mathrm{GHz}} = 75 \quad \mathrm{[mm]}
+\end{equation}
+となる。一般に、信号線の長さが10倍高調波の1/8波長を超えると信号の遅れなどの問題が発生する。これにより、RHEAに要求される配線精度は、75 mm/8 $\sim$ 9.4 mmになる。
+
+\begin{figure}[htbp]
+ \begin{tabular}{cc}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[height=5cm, clip]{figures/sq_sin.pdf}
+%    \caption{正弦波と矩形波}
+%    \label{fig:sq_sin}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[height=5cm, clip]{figures/sq_10.pdf}
+%    \caption{10倍高調波による矩形波の形成}
+%    \label{fig:sq_10}
+  \end{minipage}
+ \end{tabular}
+ \caption{正弦波と矩形波（左）と10倍高調波による矩形波の形成（右）。信号は矩形波で伝送され、矩形波は正弦波に分解される。左図のように基本正弦波の10倍までの高調波を足し合わせると、ほぼ矩形波に近い形となる。}
+ \label{fig:sq}
+\end{figure}
+
+
+\subsection{特性インピーダンスと反射ノイズ}
+
+図\ref{fig:prop_line}に示すように、動作周波数が高い回路には、グラウンドと信号線の間にインダクタンスとキャパシタンス、レジスタンス成分が存在する。グラウンドと信号線からなる伝送線の特性インピーダンス$Z_{0}$は、
+\begin{equation}
+ Z_{0} = \sqrt{\frac{R + \mathrm{j}\omega L}{G + \mathrm{j}\omega C}} \quad \mathrm{[\Omega/m]}
+  \label{eq:char_impedance}
+\end{equation}
+で与えられる。ここで、$R$、$L$、$G$、$C$はそれぞれ単位長さ当たりのレジスタンス、インダクタンス、コンダクタンス、キャパシタンスである。また、$\omega$は角周波数を表し、動作周波数$f$とは$\omega = 2 \pi f$の関係にある。jは虚数単位である。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=13cm]{figures/prop_line.pdf}
+ \caption{伝送線の等価回路。$R$、$L$、$G$、$C$はそれぞれ単位長さ当たりのレジスタンス、インダクタンス、コンダクタンス、キャパシタンスである。}
+ \label{fig:prop_line}
+\end{figure}
+
+この特性インピーダンスの値が一定でない場合、(\ref{eq:reflect})式で表される信号の反射が発生する。
+\begin{equation}
+ \Gamma = {{Z_{\mathrm r} - Z_{0}} \over Z_{\mathrm r} + Z_{0}}
+  \label{eq:reflect}
+\end{equation}
+ここで、$\Gamma$は反射係数、$Z_{\mathrm r}$は入力インピーダンスである。
+
+動作周波数が高い回路の場合、$Z_{0}$が一定である必要がある。特性インピーダンスは信号線の導体幅や厚さ、グラウンド間の絶縁間隙、比誘電率で決まるため、高周波の回路になるほど高い工作精度が求められる。
+
+\subsection{実際の基板の配線}
+
+RHEAのいくつかの信号線は200 MHzで信号を伝搬している。たとえば、ADCとDACのデータを伝搬している線がそうである。先の考察から、これらの信号線は、9.4 mm以上の精度で配線する必要がある。しかし、工作精度の限界から、実際には10 mmの精度でそれぞれの信号線を配線している（図\ref{fig:eq_wire}）。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=10cm]{figures/eq_wire.pdf}
+ \caption{FMC LPCからDACへのデータ信号の等張配線。この図では3つの対が等張に配線されていることが確認できる。残りの4対は内層で配線される。}
+ \label{fig:eq_wire}
+\end{figure}
+
+基板内の差動配線の特性インピーダンス（差動インピーダンス）は100 $\Omega$に設計している。ただし、DACの差動信号は、200 $\Omega$の差動インピーダンスにしている。一般に、差動インピーダンスが大きくなれば、その分だけ導体幅・厚さなどを小さく必要がある。つまり、高い工作精度を要求する。この部分も工作精度の限界から、実際には差動100 $\Omega$になっている。
+
+これら設計と実物の違いは、どこまで問題になるか事前ににシミュレーションするのは難しい。というより、事前にシミュレーションをするよりも、実際にものを作ってそれを評価してしまう方が低コストであると考える。また、この点はFMC150も同様の実装になっているが、制作精度が原因となって誤動作するような問題は確認されていない。
+
+\section{試作}
+
+試作したアナログ基板の写真を図\ref{fig:rhea}に示す。制作はプリント基板制作会社「（有）ジー・エヌ・ディー\footnote{http://www.gn-d.jp/}」に依頼した。このアナログ基板RHEAの評価を次章で行う。
+
+% \if0
+\begin{figure}[htbp]
+ \begin{tabular}{cc}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[height=5.5cm, clip]{figures/rhea_0.png}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[height=6cm, clip]{figures/rhea_1.png}
+  \end{minipage}
+ \end{tabular}
+ \caption{RHEA Ver. 1.0。FMC150と比較すると、部品数が少なさがひと目で確認できる。表面（左）4つのポートの前にあるトランス部分は磁気遮蔽シールドを取り付けられる。}
+ \label{fig:rhea}
+\end{figure}
+% \fi

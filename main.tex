@@ -4,9 +4,11 @@
 %\geometry{landscape}
 %\usepackage[parfill]{parskip}
 \usepackage[dvipdfm]{graphicx, color}
-% \graphicspath{figures/}
 \usepackage{amssymb}
 \usepackage{epstopdf}
+\usepackage{wrapfig} % 図の回り込み
+\usepackage{booktabs}
+
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \newcommand{\bhline}[1]{\noalign{\hrule height #1}}
@@ -55,7 +57,8 @@ MKIDは極低温（$< 250$ mK）で動作するため、冷却光学系への熱流入を抑えることが肝要
 % \include{chapter/cosmology}
 % \include{chapter/groundbird}
 \include{chapter/mkid}
-\include{chapter/pcb}
+\include{chapter/spec}
+\include{chapter/design}
 \include{chapter/evaluation}
 \include{chapter/conclusion}
 
@@ -65,7 +68,7 @@ MKIDは極低温（$< 250$ mK）で動作するため、冷却光学系への熱流入を抑えることが肝要
 % \include{acknowledgement/acknowledgement}
 
 % \begin{thebibliography}{9}
-%  \bibitem{}
+%  \bibitem{}電子材料（工業調査会, 2005）Vol. 44
 % \end{thebibliography}
 
 \newpage

@@ -1,5 +1,5 @@
-%%Title: ./figures/low-pass.png
+%%Title: ./figures/low-pass.pdf
 %%Creator: extractbb 20110311
-%%BoundingBox: 0 0 315 289
-%%CreationDate: Wed Dec 31 16:11:13 2014
+%%BoundingBox: 0 0 718 290
+%%CreationDate: Fri Jan  2 15:06:17 2015
 

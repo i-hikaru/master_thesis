@@ -1,13 +1,22 @@
 \chapter{試作基板RHEAの評価}
 
-\section{試作時の諸問題の洗い出しと解決}
-
-\section{バンド幅}
+RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目は消費電力の低減、そしてユーザビリティの向上である。本章ではこれらの評価について述べる。
 
 \section{消費電力の評価}
 
 \section{クロックの簡素化の評価}
 
 \section{帯域の評価}
+
+図\ref{fig:lpf_circuit}で示したように、RHEAには帯域を制限するLPFが存在しない。そのため、サンプリング周波数/2（100 MHz）付近までDACの信号強度が減衰しないことをオシロスコープを用いて確認する。
+
+図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。RHEAではLPFによりカットされていた82 MHz以上の周波数領域でも信号強度が下がっていないことが確認できる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=10cm]{figures/comp_dac_output.pdf}
+ \caption{FMC150とRHEAにおけるDACの信号強度の比較。RHEAは高周波領域（$>$80 MHz）で信号強度が減衰していない。数十kHzまでの直流成分はACカップルしているため、信号が弱い。}
+ \label{fig:comp_dac_output}
+\end{figure}
 
 \section{従来のアナログ基板との比較}
