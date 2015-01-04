@@ -1,5 +1,6 @@
-\documentclass[12pt]{jreport} 
-\usepackage{geometry}
+\documentclass[11pt, a4paper]{jreport} 
+% \usepackage{geometry}
+\usepackage[top=30truemm, bottom=30truemm, left=30truemm, right=30truemm]{geometry}
 \geometry{letterpaper}
 %\geometry{landscape}
 %\usepackage[parfill]{parskip}
@@ -8,6 +9,11 @@
 \usepackage{epstopdf}
 \usepackage{wrapfig} % 図の回り込み
 \usepackage{booktabs}
+\usepackage{afterpage}
+\usepackage{multirow}
+
+\baselineskip  1.8zw
+
 
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -21,11 +27,12 @@
 
 % \title{CMB偏光観測実験GroundBIRDのためのMKID多重読み出しの広帯域化に向けたアナログボードの開発}
 % \title{超伝導検出器の多重読み出しに用いるプリント基板の開発}
-\title{超伝導検出器多重読み出し用\\フロントエンド回路の開発}
-\author{総合研究大学院大\\
+\title{\Huge 超伝導検出器多重読み出し用\\フロントエンド回路の開発}
+\author{総合研究大学院大学 \\
 高エネルギー加速器科学研究科\\素粒子原子核専攻\\\\学籍番号: 20111451\\石塚 光}
 \date{平成27年1月9日}
 
+\usepackage{amsmath}	% required for `\split' (yatex added)
 \begin{document}
 
 %%% debug

@@ -24,22 +24,22 @@
 
 Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である。図\ref{fig:mkid}右上に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。
 
-図\ref{fig:mkid}左下にMKIDの等価回路を示す。MKIDはLC回路のひとつである。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのカップリングキャパシタンスを表す。
+図\ref{fig:mkid}左下にMKIDの等価回路を示す。MKIDはLC回路のひとつである。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
 
 アンテナで受信した電波が共振器内のクーパー対を解離し、インダクタンスが変化する。MKIDはその変化を共振状態の変化として検出する。共振周波数は4--6 GHzに設定されることが多い。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=14cm]{figures/mkid.png}
- \caption{MKIDの検出原理。受信した電波のエネルギーが$h\nu > 2\Delta$より大きいとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成される（上左）。MKIDの等価回路。準粒子数の変化は系インダクタンスを変化させる（下左）。MKID（LC回路）が電波を受信すると、実線から破線へと共振周波数が変化する（中）。MKIDの基板図。アンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはACカップルしている（右上）。信号線の断面図。CPW（CoPlanar Waveguide）のジオメトリーを表す（右下）。}
+ \includegraphics[width=15cm]{figures/mkid.pdf}
+ \caption{MKIDの検出原理。(a) 受信した電波のエネルギー$h\nu$が$2\Delta$より大きいとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。(b) MKIDの等価回路。準粒子数の変化は系インダクタンスを変化させる。これにより、共振周波数が変化する。(c), (d) MKID（LC回路）が電波を受信すると、実線から破線へと共振周波数が変化する。振幅と位相の変化の読み出し例。(e) MKIDの基板図。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。(f) 信号線の断面図。CPW（CoPlanar Waveguide）のジオメトリーを表す。}
  \label{fig:mkid}
 \end{figure}
 
 \section{周波数多重読み出し}
 
-次世代のCMB偏光観測にとって、検出器の多素子化は重要な課題である。前章で述べたように、GroundBIRDは500個のMKIDを搭載する。読み出し系の一部は、室温系に設置するため、冷却系への読み出し線からの熱流入の抑制が肝要となる。この鍵を握るのが信号の多重化である。
+次世代のCMB偏光観測にとって、検出器の多素子化は重要な課題である。前章で述べたように、GroundBIRDは783個のMKIDを搭載する。室温系と冷却系をつなぐ読み出し線からの熱流入の抑制が肝要となる。この鍵を握るのが信号の多重化である。
 
-信号の多重化には、主に周波数分割多重と時間分割多重、空間分割多重、符号分割多重など、様々な技術が存在する。MKIDは共振器の長さを変えることで、共振周波数を調整することができる。図\ref{fig:mkids}に示すように、少しずつ共振器の長さの異なったMKIDをフィードライン上に並べることで、周波数空間に信号を多重化することが可能となる。したがって、MKIDの読み出しは周波数分割多重が用いられる。
+信号の多重化には、周波数分割多重と時間分割多重、空間分割多重、符号分割多重など、様々な技術が存在する。MKIDは共振器の長さによって、個々の共振周波数を調整することができる。図\ref{fig:mkids}に示すように、共振周波数の異なるMKIDをフィードライン上に並べれば、周波数空間に信号を多重化できる。つまり、MKIDは周波数分割多重読み出しに最適な検出器である。
 
 \begin{figure}[htbp]
  \centering
@@ -54,7 +54,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{読み出し系の構成と大まかな流れ}
 
-読み出し系の構成を図\ref{fig:readout_system}に示す。読み出し系は大きく 4 つの要素に分けられる:
+読み出し系の構成を図\ref{fig:readout_system}に示す。読み出し系は大きく 4 つの要素に分けられる。
 % \begin{enumerate}
 %  \item 「冷却回路」: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
 %  \item 「MHz/GHzコンバーター」: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
@@ -105,30 +105,121 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{読み出し原理}
 
+% \subsubsection{I/Q変調}
 
-\section{既存の読み出し系}
+$N$個のMKIDの多重読み出しを考える。個々のMKIDの共振周波数$f_{i}$（$=2\pi\omega_{i}$）とし、LOの周波数を$f_{j}$（$=2\pi\omega_j$）とする。
+
+DACから出力した多重化した正弦波$\sum_{i=0}^{N}\sin \omega_{i}$と余弦波$\sum_{i=0}^{N}\cos \omega_{i}$は、ミキサーによってLOの信号と混合する。混合した信号は合成され、このフィード信号$S_{\mathrm{in}}$がMKIDに入力する。
+\begin{equation}
+ \begin{split}
+ S_{\mathrm{in}} &= \sum_{i=0}^{N}\sin \omega_{i}t \times \sin \omega_{j}t +
+  \sum_{i=0}^{N}\cos \omega_{i}t \times \cos \omega_{j}t \\
+ &= \sum_{i=0}^{N}\cos (\omega_{i} - \omega_{j})t
+ \end{split}
+\end{equation}
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm, angle=90]{figures/readout_system_1.pdf}
- \caption{既存のMKIDの読み出し系}
- \label{fig:readout_system_now}
+ \includegraphics[width=15cm]{figures/ddc.pdf}
+ \caption{}
+ \label{fig:ddc}
+\end{figure}
+
+\section{既存の読み出し系}
+
+% \begin{wrapfigure}{r}{70mm}
+%  \centering
+%  \includegraphics[width=12cm, angle=270]{figures/readout_system_1.pdf}
+%  \caption{既存の読み出し系}
+%  \label{fig:readout_system_now}
+% \end{wrapfigure}
+
+既存の読み出し系を図\ref{fig:existing_readout}に示す。デジタル基板とアナログ基板の概要についてまとめた後、既存の読み出し系において解決すべき課題について議論する。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/existing_readout.pdf}
+ \caption{既存の読み出し系}
+ \label{fig:existing_readout}
+\end{figure}
+
+\clearpage
+\subsection{デジタル基板}
+
+\subsubsection{Kintex-7 FPGA評価キッド}
+
+デジタル基板は、Xilinx社\footnote{http://xilinx.com/}のKintex-7 FPGA評価キッド（KC705）を用いる（図\ref{fig:kintex-7}の緑色の基板）。FPGAとはField Programmable Gate Arrayの略で、文字通りフィールド（ユーザー側）でプログラム可能な論理ゲートをアレイ化したデバイスである。FPGAは、ユーザーが設計から実装まで行うことができ、仕様や設計を開発途中で変更しやすいという特徴がある。これにより、ASIC（Application Specific Integrated Circuit）等と比べて、開発費・開発期間などの開発コストを大幅に削減することができる。
+
+KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するために用いるFMC（Fpga Mezzanine Card）インターフェースが実装されている。また、このデジタル基板で処理したデータは、イーサネットを用いて、PC等のオフラインに転送する。
+
+ハードウェアのコーディングや論理合成、実装、FPGAへのダウンロードは、統合開発環境Vivadoを用いて行った。
+
+\begin{table}[htbp]
+ \centering
+ \caption{Kintex-7 FPGA（XC7K325T）の主な特性}
+ \label{tbl:kintex-7}
+ \begin{tabular}{cc|r}
+  \toprule
+  Logic Cells           & & 326,080 \\
+  \multirow{2}{*}{CLBs} & Slices                  & 50,950 \\
+                        & Max Distributed RAM [Kb]& 4,000 \\
+  DSP Slices            & & 840 \\
+                        & 18 Kb &  890 \\
+  Block RAM Blocks      & 36 Kb &  445 \\
+                        & Max [Kb] & 160,020 \\
+  CMTs                  & & 10 \\
+  PCle                  & & 1 \\
+  GTXs                  & & 16 \\
+  XADC Blocks           & & 1 \\
+  Total I/O Banks       & & 10 \\
+  Max User I/O          & & 500 \\
+  \bottomrule
+ \end{tabular}
+\end{table}
+
+% \begin{wrapfigure}{l}{50mm}
+% %  \vspace{-9mm}
+%  \centering
+%  \includegraphics[width=50mm]{figures/kintex-7-device.jpg}
+% %  \vspace{-7mm}
+%  \caption{}
+%  \label{fig:kintex-7_fpga}
+% \end{wrapfigure}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/kc705fmc150.png}
+ \caption{Kintex-7 FPGA評価キッド（KC705）とFMC150。KC705は、micro-USBやLAN、HDMIなどのインターフェースが実装されている。また、FMC（Fpga Mezzanine Card）と呼ばれる拡張スロットがある。アナログ基板とはこのFMCで接続する。}
+ \label{fig:kintex-7}
+\end{figure}
+
+\subsection{アナログ基板}
+
+\subsubsection{FMC150}
+
+既存の読み出し系で用いているアナログ基板は、4DSP社\footnote{http://www.4dsp.com/}のFMC150という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150}にFMC150のブロック図と基板図を示す。このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15.5cm]{figures/fmc150.pdf}
+ \caption{FMC150のブロック図と基板図。FMC150は汎用通信機を対象として開発されているため、基板上でつくるクロックの他に、外部クロックを入力するポートやトリガーポートが実装されている。}
+ \label{fig:fmc150}
 \end{figure}
 
 \subsection{解決すべき課題}
 
 FMC150はADCやDACの性能は読み出し系として満足する。しかし、読み出し系には不必要な機能が実装されているために、その性能を十分に活かせていない。また、性能以外にもユーザーの利便性を阻害する仕様が解決すべき課題として存在する。
 
-\subsubsection{ローパスフィルターによる帯域の制限}
+\subsubsection{LPFによる帯域の制限}
 
-多重読み出しするためには、なるべく広い帯域を確保する必要がある。FMC150は図\ref{fig:low-pass}のようなローパスフィルターが実装されているため、82 MHz 以上の帯域を使用することができない。
+多重読み出しするためには、なるべく広い帯域を確保する必要がある。FMC150は図\ref{fig:low-pass}のようなローパス・フィルター（LPF）が実装されているため、70 MHz 以上で出力強度が急激に下がる。
 
-読み出しの多重度は帯域の広さに比例する。MKIDの利点を最大化するためには、もっとも重要な点のひとつである。
+読み出しの多重度は帯域の広さに比例する。MKIDの利点を最大化するためには、もっとも重要な要素である。
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/low-pass.pdf}
- \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、それより高い周波数は$-124.9$ dB/decadeで減衰する。}
+ \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する。}
  \label{fig:low-pass}
 \end{figure}
 
@@ -150,18 +241,25 @@ FMC150はADCやDACの性能は読み出し系として満足する。しかし、読み出し系には不必要な
 
 \subsubsection{消費電力の過大}
 
-消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上に発熱すると、読み出し系が不安定に、電源を供給しているデジタル基板がシャットダウンすることが確認されている。また、図\ref{fig:fan}のような冷却ファンによる排熱処理を怠ると基板上のICが熱破損する\footnote{実際に、冷却ファンなしで1時間程度運転し破損した}。
-
-\begin{figure}[htbp]
+\begin{wrapfigure}{r}{65mm}
+ \vspace{-9mm}
  \centering
- \includegraphics[width=10cm]{figures/fan.pdf}
+ \includegraphics[width=65mm]{figures/fan.pdf}
+ \vspace{-7mm}
  \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須である。}
  \label{fig:fan}
-\end{figure}
+\end{wrapfigure}
 
+消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上になると、意図せぬ誤動作をする。また、電源を供給しているデジタル基板が電力供給過多で強制シャットダウンすることが確認されている。つまり、安定動作が保証されていないという決定的な欠点がある。
+
+また、図\ref{fig:fan}のような、冷却ファンによる排熱処理を怠ると基板上のICが熱破損する。CMB偏光観測は空気の薄い高地で行うため、排熱に対する安全マージン大きくとらなければならない。
+
+\clearpage
 \subsubsection{ユーザビリティの毀損}
 
-FMC150はクロックを分周して使うことを前提に設計されている。そのため、水晶発振器の周波数は245.76 MHzのもが搭載されている。しかし、現在の用途はクロックを様々な周波数に分周して使うことではない。クロックの周波数はADCとDACのサンプリング・レートを決めるため、できるだけ高い周波数のものが好ましいが、周波数分解能の値も重要である。実際にMKIDの測定を行う際は、まず帯域全体をスイープして、どの周波数にそれぞれのMKIDの共振ピークがあるか測定する。次に、それぞれのMKIDについてを定点観測を行う。このとき、ユーザーはあるMKIDの共振周ピーク付近に周波数を設定する必要がある。その際、指定する周波数は分解能の倍数に設定しなければならない。たとえば、FMC150で読み出し系を構成した場合、12.288 kHzの倍数にする必要がある。これは、ユーザーにとって非常に使いづらく誤った測定を誘発する。
+FMC150は元来、汎用通信機を対象として開発されているため、クロックを分周して使うことを前提に設計されている。そのため、水晶発振器の周波数は245.76 MHzのもが搭載されている。しかし、MKIDの読み出しに関しては、クロックを様々な周波数に分周して使うことはない。
+
+クロックの周波数はADCとDACのサンプリング・レートを決めるため、できるだけ高い周波数のものが好ましいが、周波数分解能の値も重要である。実際にMKIDの測定を行う際は、まず帯域全体をスイープして、どの周波数にそれぞれのMKIDの共振ピークがあるか測定する。次に、それぞれの共振についてを共振状態を定常測定する。このとき、ユーザーはあるMKIDの共振周ピーク付近に周波数を設定する必要がある。その際、指定する周波数は分解能の倍数に設定しなければならない。たとえば、FMC150で読み出し系を構築した場合、12.288 kHzの倍数にする必要がある。これは、ユーザーにとって非常に使いづらく誤った測定を誘発する。
 
 また、読み出し系は冷却回路やMHz/GHzコンバーターで数GHzの信号を扱うため、同軸ケーブルのコネクターはSMA（Sub-Miniature version A）コネクターを用いている。一方で、FMC150はMMCX（Micro-Miniature CoaXial）を採用している。%測定を行う上で、ユーザーはコネクターの繋ぎ変えを頻繁に行う。そのときに、
-コネクターの規格が不揃いだとユーザーの生産性を下げる。また、ユーザー側に規格変換のための余計なコネクター等の接続部品が増えることは、潜在的なバグを発生させる。
+コネクターの規格が不揃いであると、ユーザーの生産性を下げる。また、ユーザー側に規格変換のための余計なコネクター等の接続部品が増えることは、潜在的なバグを発生させる。

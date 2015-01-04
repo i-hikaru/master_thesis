@@ -1,5 +1,5 @@
-%%Title: ./figures/mkid.png
+%%Title: ./figures/mkid.pdf
 %%Creator: extractbb 20110311
-%%BoundingBox: 0 0 784 491
-%%CreationDate: Wed Dec 31 12:58:45 2014
+%%BoundingBox: 0 0 695 409
+%%CreationDate: Sun Jan  4 00:57:35 2015
 

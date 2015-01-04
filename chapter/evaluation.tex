@@ -10,6 +10,26 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 
 図\ref{fig:lpf_circuit}で示したように、RHEAには帯域を制限するLPFが存在しない。そのため、サンプリング周波数/2（100 MHz）付近までDACの信号強度が減衰しないことをオシロスコープを用いて確認する。
 
+\subsection{評価方法}
+
+信号強度の測定は、図\ref{fig:measure_dac_output}のようにして行う。デジタル基板上にあるFPGAでMHz帯の周波数をもつ正弦波と余弦波のデジタル信号を生成する。生成したデジタル信号は、FMCを介してアナログ基板上のDACに送られ、DACでデジタル信号をアナログ信号に変換する。そして、そのアナログ信号をオシロスコープで測定する。実際に測定している様子を図\ref{fig:measure_dac_output_rhea}に示す。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/measure_dac_output.pdf}
+ \caption{DACの信号強度を測定するためのセットアップ。デジタル基板とアナログ基板はFMCで接続する。DACからの信号は同軸ケーブルを伝ってオシロスコープに入力する。}
+ \label{fig:measure_dac_output}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/measure_dac_output_rhea.pdf}
+ \caption{RHEAで1 MHzの正弦波と余弦波を測定している様子}
+ \label{fig:measure_dac_output_rhea}
+\end{figure}
+
+\subsection{評価}
+
 図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。RHEAではLPFによりカットされていた82 MHz以上の周波数領域でも信号強度が下がっていないことが確認できる。
 
 \begin{figure}[htbp]
@@ -18,5 +38,23 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
  \caption{FMC150とRHEAにおけるDACの信号強度の比較。RHEAは高周波領域（$>$80 MHz）で信号強度が減衰していない。数十kHzまでの直流成分はACカップルしているため、信号が弱い。}
  \label{fig:comp_dac_output}
 \end{figure}
+
+% \begin{figure}[htbp]
+%  \begin{tabular}{cc}
+%   \begin{minipage}{0.5\hsize}
+%    \centering
+%    \includegraphics[height=5cm, clip]{figures/measure_dac_output.pdf}
+%    \caption{}
+%    \label{fig:measure_dac_output}
+%   \end{minipage}
+%   \begin{minipage}{0.5\hsize}
+%    \centering
+%    \includegraphics[height=5cm, clip]{figures/comp_dac_output.pdf}
+%    \caption{FMC150とRHEAにおけるDACの信号強度の比較。RHEAは高周波領域（$>$80 MHz）で信号強度が減衰していない。数十kHzまでの直流成分はACカップルしているため、信号が弱い。}
+%    \label{fig:comp_dac_output}
+%   \end{minipage}
+%  \end{tabular}
+% \end{figure}
+
 
 \section{従来のアナログ基板との比較}
