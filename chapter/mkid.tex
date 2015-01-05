@@ -107,9 +107,9 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 % \subsubsection{I/Q変調}
 
-$N$個のMKIDの多重読み出しを考える。個々のMKIDの共振周波数$f_{i}$（$=2\pi\omega_{i}$）とし、LOの周波数を$f_{j}$（$=2\pi\omega_j$）とする。
+$N$個のMKIDの多重読み出しを考える。個々のMKIDの共振周波数$f_{i}$（$=\omega_{i}/2\pi$）とし、LOの周波数を$f_{j}$（$=\omega_j/2\pi$）とする。
 
-DACから出力した多重化した正弦波$\sum_{i=0}^{N}\sin \omega_{i}$と余弦波$\sum_{i=0}^{N}\cos \omega_{i}$は、ミキサーによってLOの信号と混合する。混合した信号は合成され、このフィード信号$S_{\mathrm{in}}$がMKIDに入力する。
+多重化した正弦波$\sum_{i=0}^{N}\sin \omega_{i}$と余弦波$\sum_{i=0}^{N}\cos \omega_{i}$は、ミキサーによってLOの信号と混合する。混合した信号は合成され、このフィード信号$S_{\mathrm{in}}$がMKIDに入力する。
 \begin{equation}
  \begin{split}
  S_{\mathrm{in}} &= \sum_{i=0}^{N}\sin \omega_{i}t \times \sin \omega_{j}t +
@@ -120,7 +120,7 @@ DACから出力した多重化した正弦波$\sum_{i=0}^{N}\sin \omega_{i}$と余弦波$\sum_{i=0
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/ddc.pdf}
+ \includegraphics[width=14cm]{figures/ddc.pdf}
  \caption{}
  \label{fig:ddc}
 \end{figure}

@@ -1,10 +1,87 @@
-\chapter{試作基板RHEAの評価}
+\chapter{試作基板の評価}
 
 RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目は消費電力の低減、そしてユーザビリティの向上である。本章ではこれらの評価について述べる。
 
+\section{クロック信号の確認}
+
+試作基板の動作確認として、クロック信号の確認を行った。4章で議論したように、信号は矩形波で伝送する。クロック信号が矩形波としてみなせるか、また仕様どおりの振幅や周波数をもつか、オシロスコープを用いて確認する。
+
+\subsection{基板納品時のトラブル}
+
+納品された試作基板のクロック信号を確認するために、カウンター回路をデジタル基板上のFPGAに実装し、カウンターの上位ビットをLEDに出力することで、クロック信号の有無と大雑把な周波数を調べた。
+
+調べたクロック信号は、ADCのサンプリング・クロックとクロック・ファンアウト・バッファからのクロック（システム・クロック）で、ともに200 MHzのクロック信号である。しかし、クロック信号は仕様と大きく異なった。実装したカウンター回路は、一定周期でカウントアップせず、ADCのサンプリング・クロックとシステム・クロックも同期していなかった。
+
+原因を調べた結果、水晶発振器の型番が回路図のものと異なっていることがわかった。納品時に実装されていた水晶発振器の信号規格はLVDSで、回路図ではLV-PECLを指定しているため、コモン・モードの違いでクロック・ファンアウト・バッファの入力閾値を超えられないために、正規の信号が出力されていなかった。
+
+このトラブルは、水晶発振器を回路図どおりのものに替えることで解決した。図\ref{fig:clock}と図\ref{fig:osc_probe}に、それぞれ水晶発振器の交換後にオシロスコープで測定したクロック信号とその測定方法を示す。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15cm]{figures/clock.pdf}
+ \caption{オシロスコープで測定した基板上の各場所におけるクロック信号。(a) 水晶発振器のクロック信号。(b) ADCへ入力しているクロック信号。(c) クロック・ファンアウト・バッファへ入力しているクロック信号。(d) ADCのサンプリング・クロック信号。(e) クロック・ファンアウト・バッファからFMCへの信号（システム・クロック）。(f) DACへ入力しているクロック信号。}
+ \label{fig:clock}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15cm]{figures/osc_probe.pdf}
+ \caption{図\ref{fig:clock}において、オシロスコープでプローブした場所。クロック信号は差動信号であるため、通常は差動プローブを用いて測定する。ここでの目的は、ICを交換したことによる大雑把な信号の確認であるため、一方の差動信号は開放してパッシブ・プローブで測定している。}
+ \label{fig:osc_probe}
+\end{figure}
+
+
+水晶発振器のICの足は全部で6本あり、半田面は1.6 mm $\times$ 1.5 mm、ピン同士の間隔は最小で2.54 mmとADCやDACなどの他のICと比較してピン同士の間隔マージン大きいため、比較的簡単にICの交換ができる。これについては、次章の「さらなる改善」にも関係する。
+
+\clearpage
 \section{消費電力の評価}
 
-\section{クロックの簡素化の評価}
+表\ref{tbl:rhea_ic}が示すように、RHEAはPLLの排除や電源回路の見直し、ADCの省電力版への変更により、大幅に消費電力を削減する狙いがある。そこで、直流電源とそれに内蔵する電流計を用いて従来のアナログ基板とRHEAとで消費電力の比較を行う。
+
+\subsection{評価方法}
+
+消費電力の測定は、図\ref{fig:measure_power_schem}のようにして行う。アナログ基板の電源は、FMCを介してデジタル基板から供給される。デジタル基板は、通常AC100 Vから、ACアダプターでDC12 Vに変換している。この測定では、直流電源で12 Vをつくり、その電流量をモニターすることで、デジタル基板とアナログ基板の総消費電力を計算し、その値からデジタル基板の電力消費を差し引くことで、アナログ基板の消費電力を推定した。
+
+図\ref{fig:measure_power_schem}のテスターは、直流電源とデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンドピンの電圧差をテスターで測定し、すべての測定で12 Vの一定電圧がかかるようにする。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=10cm]{figures/measure_power_schem.pdf}
+ \caption{消費電力を測定するための装置構成。デジタル基板に供給するDC12 Vを電流計の付いた直流電源から供給し、デジタル基板に流れた電流量を測定する。直流電源からデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンドピンの電圧差をテスターで測定する。}
+ \label{fig:measure_power_schem}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/measure_power.pdf}
+ \caption{RHEAの消費電力の測定}
+ \label{fig:measure_power}
+\end{figure}
+
+\subsection{評価}
+
+表\ref{tbl:power}にデジタル基板の電力消費を差し引いた、それぞれのアナログ基板の消費電力の比較をまとめる。「状態」は読み出し系の現在の動作状態を表す。「省電力率」は次の式で定義する。
+\begin{equation}
+ \mathrm{省電力率} \equiv 1 - {\mathrm{RHEAの消費電力}\over \mathrm{FMC150の消費電力}}
+  \label{eq:power}
+\end{equation}
+
+表\ref{tbl:power}より、仕様策定の目標値である「従来の消費電力の50\%」が概ね達成されていることがわかる。また、消費電力が大きく、最も発熱していたPLLがなくなったことにより、必須であったUSB扇風機（図\ref{fig:fan}）が不要になった。これは読み出し系の簡素化の点からも大きな進展である。
+
+\begin{table}[htbp]
+ \centering
+ \caption{RHEAとFMC150の消費電力の比較}
+ \label{tbl:power}
+ \begin{tabular}{cccc}
+  \toprule
+  \multirow{2}{*}{状態} & \multicolumn{2}{c}{消費電力 [W]} & \multirow{2}{*}{省電力率[\%]} \\
+                        & RHEA & FMC150 &  \\\hline
+  待機状態       & 1.8      & 5.9        & 69 \\
+  1 ch.読み出し  & 4.7      & 11.4       & 59 \\
+  32 ch.読み出し & 7.9      & 15.1       & 48 \\
+  \bottomrule
+ \end{tabular}
+\end{table}
 
 \section{帯域の評価}
 
@@ -17,7 +94,7 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=12cm]{figures/measure_dac_output.pdf}
- \caption{DACの信号強度を測定するためのセットアップ。デジタル基板とアナログ基板はFMCで接続する。DACからの信号は同軸ケーブルを伝ってオシロスコープに入力する。}
+ \caption{DACの信号強度を評価するための測定方法。デジタル基板とアナログ基板はFMCで接続する。DACからの信号は同軸ケーブルを伝ってオシロスコープに入力する。}
  \label{fig:measure_dac_output}
 \end{figure}
 
@@ -56,5 +133,23 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 %  \end{tabular}
 % \end{figure}
 
-
 \section{従来のアナログ基板との比較}
+
+RHEAと従来のアナログ基板FMC150との実際の基板を評価した結果を表\ref{tbl:comp_fmc150}にまとめる。
+
+RHEAは、
+
+\begin{table}[htbp]
+ \centering
+ \caption{RHEAとFMC150の比較（$^{*}$: 消費電力は32 ch.読み出しのもの）}
+ \label{tbl:comp_fmc150}
+ \begin{tabular}{cccc}
+  \toprule
+               & &RHEA      & FMC150  \\\hline
+  帯域 [MHz]   & &$\pm$100  & $\pm$70 \\
+  消費電力 [W]$^{*}$ & &7.9 & 15.1 \\
+  \multirow{2}{*}{サンプリング周波数 [MHz]} & ADC & 200 & 245.76 \\
+  & DAC & 200 & 491.52 \\
+  \bottomrule
+ \end{tabular}
+\end{table}
