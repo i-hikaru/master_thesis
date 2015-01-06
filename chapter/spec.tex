@@ -30,23 +30,21 @@
  \item コネクターの規格をMMCXからSMAに変更する。
 \end{enumerate}
 
-\section{仕様}
+\clearpage
 
-\begin{wrapfigure}{r}{65mm}
- \vspace{-7mm}
- \centering
- \includegraphics[width=65mm]{figures/trade-off.pdf}
- \vspace{-10mm}
- \caption{回路における広帯域性と省電力性の関係}
- \label{fig:trade-off}
- \vspace{-10mm}
-\end{wrapfigure}
+\section{仕様}
 
 要求分析に基いて、新しいアナログ基板RHEA\footnote{RHEAは、「Rhea is a High spEed Analog board」の略で、南米に生息する陸鳥（ground bird）からその名を付けた。}の仕様を策定する。読み出し系の性能を決める上で、広帯域性（高速化・高周波化）と省電力性（低電圧化・低電流化）をどう両立させるかが重要な点となる。
 
 一般に回路の高速化・高周波化と低電力化はトレードオフの関係にある（図\ref{fig:trade-off}）。回路は高速化・高周波化するほど、不要電磁波が増加し、他の電子機器に影響を与える。また、低電圧化や低電流化、動作マージンの減少により、ノイズ・マージンが低下することで、不要電磁波を受けて誤作動する蓋然性も高くなる。
 
-\afterpage{\clearpage}
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=10cm]{figures/trade-off.pdf}
+ \caption{回路における帯域の広さ（周波の高さ）と消費電力の関係}
+ \label{fig:trade-off}
+\end{figure}
+
 \subsection{アナログ基板のブロック図}
 
 \begin{figure}[htbp]

@@ -1,4 +1,4 @@
-\chapter{試作基板の評価}
+\chapter{試作アナログ基板の評価}
 
 RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目は消費電力の低減、そしてユーザビリティの向上である。本章ではこれらの評価について述べる。
 
@@ -6,15 +6,25 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 
 試作基板の動作確認として、クロック信号の確認を行った。4章で議論したように、信号は矩形波で伝送する。クロック信号が矩形波としてみなせるか、また仕様どおりの振幅や周波数をもつか、オシロスコープを用いて確認する。
 
-\subsection{基板納品時のトラブル}
+\subsection{基板納品時のトラブルとその解決}
 
 納品された試作基板のクロック信号を確認するために、カウンター回路をデジタル基板上のFPGAに実装し、カウンターの上位ビットをLEDに出力することで、クロック信号の有無と大雑把な周波数を調べた。
 
-調べたクロック信号は、ADCのサンプリング・クロックとクロック・ファンアウト・バッファからのクロック（システム・クロック）で、ともに200 MHzのクロック信号である。しかし、クロック信号は仕様と大きく異なった。実装したカウンター回路は、一定周期でカウントアップせず、ADCのサンプリング・クロックとシステム・クロックも同期していなかった。
+調べたクロック信号は、ADCのサンプリング・クロックとクロック・ファンアウト・バッファからのクロック（システム・クロック）で、ともに200 MHzのクロック信号である。
 
-原因を調べた結果、水晶発振器の型番が回路図のものと異なっていることがわかった。納品時に実装されていた水晶発振器の信号規格はLVDSで、回路図ではLV-PECLを指定しているため、コモン・モードの違いでクロック・ファンアウト・バッファの入力閾値を超えられないために、正規の信号が出力されていなかった。
+しかし、LEDの明滅は、仕様のクロック信号から予想されるものと大きく異なった。実装したカウンター回路は、一定周期でカウントアップしておらず、ADCのサンプリング・クロックとシステム・クロックも同期していなかった。
 
-このトラブルは、水晶発振器を回路図どおりのものに替えることで解決した。図\ref{fig:clock}と図\ref{fig:osc_probe}に、それぞれ水晶発振器の交換後にオシロスコープで測定したクロック信号とその測定方法を示す。
+そこで、オシロスコープを用いてクロック信号の波形を確認した。まず、クロック信号を生成している水晶発振器の出力をプローブすると、200 MHz周期のクロック信号が確認できた。次に、クロック・ファンアウト・バッファの出力をプローブしてみると、グラウンドのノイズを増幅したような信号が見えるだけで、クロック信号とは異なることが判明した。
+
+クロック・ファンアウト・バッファは、信号規格によって、配線方法が異なる。たとえば、RHEAで使用するADCとDACの入力クロックの信号規格は、LV-PECLであるため、クロック・ファンアウト・バッファは、LV-PECLのクロック信号を入力し、同規格の信号を3つに分配して出力する設計になっている。
+
+データシートを確認したところ、基板上のクロック・ファンアウト・バッファの配線方法は、LV-PECLになっており、この部分に問題がないことがわかった。
+
+クロック・ファンアウト・バッファが正しく動作していることがわかったため、消去法で、水晶発振器をもう一度詳しく調べた。すると、水晶発振器の型番が回路図のものと異なっていることが判明した。納品時に実装されていた水晶発振器の信号規格は、LVDSという信号規格であったため、正規の信号が出力されていなかった。
+
+このトラブルは、水晶発振器を回路図どおりのものに替えることで解決した。図\ref{fig:clock}と図\ref{fig:osc_probe}に、それぞれ、水晶発振器の交換後にオシロスコープで測定したクロック信号とその測定方法を示す。
+
+水晶発振器のICの足は全部で6本あり、半田面は1.6 mm $\times$ 1.5 mm、ピン同士の間隔は最小で2.54 mmとADCやDACなどの他のICと比較してピン同士の間隔マージン大きいため、比較的簡単にICの交換ができる。これについては、本章の「さらなる改善」にも関係する。
 
 \begin{figure}[htbp]
  \centering
@@ -30,8 +40,7 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
  \label{fig:osc_probe}
 \end{figure}
 
-
-水晶発振器のICの足は全部で6本あり、半田面は1.6 mm $\times$ 1.5 mm、ピン同士の間隔は最小で2.54 mmとADCやDACなどの他のICと比較してピン同士の間隔マージン大きいため、比較的簡単にICの交換ができる。これについては、次章の「さらなる改善」にも関係する。
+図\ref{fig:clock}の波形を見ると、波形が歪んでおり矩形波に見えないが、これは差動出力の一端とグラウンドをパッシブ・プローブで測定しているためである。つまり差動信号の一端が開放されているためにコモン・モードが安定せず、反射の影響が見えている。本来、オシロスコープで差動信号を読む際は、差動プローブを用いて測定する。ここでは、水晶発振器を交換したことによるクロック信号の変化を確認することが目的であるため、図\ref{fig:osc_probe}のような構成で測定を行った。
 
 \clearpage
 \section{消費電力の評価}
@@ -58,38 +67,39 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
  \label{fig:measure_power}
 \end{figure}
 
-\subsection{評価}
+\subsection{評価結果}
 
-表\ref{tbl:power}にデジタル基板の電力消費を差し引いた、それぞれのアナログ基板の消費電力の比較をまとめる。「状態」は読み出し系の現在の動作状態を表す。「省電力率」は次の式で定義する。
-\begin{equation}
- \mathrm{省電力率} \equiv 1 - {\mathrm{RHEAの消費電力}\over \mathrm{FMC150の消費電力}}
-  \label{eq:power}
-\end{equation}
+表\ref{tbl:power}にデジタル基板の電力消費を差し引いた、それぞれのアナログ基板の消費電力の比較をまとめる。「状態」は読み出し系の現在の動作状態を表す。% 「省電力率」は次の式で定義する。
+% \begin{equation}
+%  \mathrm{省電力率} \equiv 1 - {\mathrm{RHEAの消費電力}\over \mathrm{FMC150の消費電力}}
+%   \label{eq:power}
+% \end{equation}
 
-表\ref{tbl:power}より、仕様策定の目標値である「従来の消費電力の50\%」が概ね達成されていることがわかる。また、消費電力が大きく、最も発熱していたPLLがなくなったことにより、必須であったUSB扇風機（図\ref{fig:fan}）が不要になった。これは読み出し系の簡素化の点からも大きな進展である。
+表\ref{tbl:power}より、仕様策定の目標値である「従来の消費電力の半分」が概ね達成されていることがわかる。また、消費電力が大きく、最も発熱していたPLLがなくなったことにより、必須であったUSB扇風機（図\ref{fig:fan}）が不要になった。これは読み出し系の簡素化の点からも大きな進展である。
 
 \begin{table}[htbp]
  \centering
- \caption{RHEAとFMC150の消費電力の比較}
+ \caption{RHEA（本研究）とFMC150（既存の市販品）の消費電力の比較}
  \label{tbl:power}
  \begin{tabular}{cccc}
   \toprule
-  \multirow{2}{*}{状態} & \multicolumn{2}{c}{消費電力 [W]} & \multirow{2}{*}{省電力率[\%]} \\
-                        & RHEA & FMC150 &  \\\hline
-  待機状態       & 1.8      & 5.9        & 69 \\
-  1 ch.読み出し  & 4.7      & 11.4       & 59 \\
-  32 ch.読み出し & 7.9      & 15.1       & 48 \\
+  \multirow{2}{*}{状態} & \multicolumn{2}{c}{消費電力 [W]} & \multirow{2}{*}{電力比（RHEA/FMC150）} \\
+                 & RHEA & FMC150 &      \\\hline
+  待機状態       & 1.8  & 5.9    & 0.31 \\
+  1 ch.読み出し  & 4.7  & 11.4   & 0.41 \\
+  32 ch.読み出し & 7.9  & 15.1   & 0.52 \\
   \bottomrule
  \end{tabular}
 \end{table}
 
+\clearpage
 \section{帯域の評価}
 
 図\ref{fig:lpf_circuit}で示したように、RHEAには帯域を制限するLPFが存在しない。そのため、サンプリング周波数/2（100 MHz）付近までDACの信号強度が減衰しないことをオシロスコープを用いて確認する。
 
 \subsection{評価方法}
 
-信号強度の測定は、図\ref{fig:measure_dac_output}のようにして行う。デジタル基板上にあるFPGAでMHz帯の周波数をもつ正弦波と余弦波のデジタル信号を生成する。生成したデジタル信号は、FMCを介してアナログ基板上のDACに送られ、DACでデジタル信号をアナログ信号に変換する。そして、そのアナログ信号をオシロスコープで測定する。実際に測定している様子を図\ref{fig:measure_dac_output_rhea}に示す。
+信号強度の測定は、図\ref{fig:measure_dac_output}のようにして行う。デジタル基板上にあるFPGAでMHz帯の周波数をもつ正弦波と余弦波のデジタル信号を生成する。生成したデジタル信号は、FMCを介してアナログ基板上のDACに送られ、DACでデジタル信号をアナログ信号に変換する。そして、そのアナログ信号強度をオシロスコープで測定する。実際に測定している様子を図\ref{fig:measure_dac_output_rhea}に示す。
 
 \begin{figure}[htbp]
  \centering
@@ -105,51 +115,79 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
  \label{fig:measure_dac_output_rhea}
 \end{figure}
 
-\subsection{評価}
+\clearpage
 
-図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。RHEAではLPFによりカットされていた82 MHz以上の周波数領域でも信号強度が下がっていないことが確認できる。
+信号強度$P$は、出力した正弦波（余弦波）の最大値と最小値の電圧差（$V_{\mathrm{pp}}$）を測定し、次の式でエネルギーに変換する。
+\begin{equation}
+ P = 10\log_{10}\left({V_{\mathrm{pp}}^{2} \over R} \times {1\over 1000}\right) \quad \mathrm{[dBm]}
+\end{equation}
+ここで、$R$は終端抵抗を表し、$R=$ 50 $\Omega$である。
+
+\subsection{評価結果}
+
+図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。FMC150ではLPFにより、高周波数領域において、その信号強度が減衰していた。
+
+一方、RHEAでは高周波領域においても高い信号強度を維持していることが確認できる。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=10cm]{figures/comp_dac_output.pdf}
- \caption{FMC150とRHEAにおけるDACの信号強度の比較。RHEAは高周波領域（$>$80 MHz）で信号強度が減衰していない。数十kHzまでの直流成分はACカップルしているため、信号が弱い。}
+ \includegraphics[width=12cm]{figures/dac_output_fmc150.png}
+ \caption{RHEA（本研究）とFMC150（既存の市販品）におけるDACの信号強度の比較。RHEAは高周波領域においてもで信号強度を維持している。数十kHzまでの直流成分はACカップルしているため、両者とも信号強度が弱い。}
  \label{fig:comp_dac_output}
 \end{figure}
 
-% \begin{figure}[htbp]
-%  \begin{tabular}{cc}
-%   \begin{minipage}{0.5\hsize}
-%    \centering
-%    \includegraphics[height=5cm, clip]{figures/measure_dac_output.pdf}
-%    \caption{}
-%    \label{fig:measure_dac_output}
-%   \end{minipage}
-%   \begin{minipage}{0.5\hsize}
-%    \centering
-%    \includegraphics[height=5cm, clip]{figures/comp_dac_output.pdf}
-%    \caption{FMC150とRHEAにおけるDACの信号強度の比較。RHEAは高周波領域（$>$80 MHz）で信号強度が減衰していない。数十kHzまでの直流成分はACカップルしているため、信号が弱い。}
-%    \label{fig:comp_dac_output}
-%   \end{minipage}
+\clearpage
+\section{評価結果まとめ}
+
+以上より、評価をまとめると次のようになる:
+\begin{enumerate}
+ \item 帯域は$\pm$100 MHzに広がり、従来の1.4倍広帯域化した。
+ \item 消費電力は、32 ch.多重読み出し時で7.9 Wであり、従来のおよそ半分になった。
+ \item （USB扇風機が不要になった。）
+\end{enumerate}
+
+% \begin{table}[htbp]
+%  \centering
+%  \caption{RHEAとFMC150の比較（$^{*}$: 消費電力は32 ch.読み出しのもの）}
+%  \label{tbl:comp_fmc150}
+%  \begin{tabular}{cccc}
+%   \toprule
+%                & &RHEA      & FMC150  \\\hline
+%   帯域 [MHz]   & &$\pm$100  & $\pm$70 \\
+%   消費電力 [W]$^{*}$ & &7.9 & 15.1 \\
+%   \multirow{2}{*}{サンプリング周波数 [MHz]} & ADC & 200 & 245.76 \\
+%   & DAC & 200 & 491.52 \\
+%   \bottomrule
 %  \end{tabular}
-% \end{figure}
+% \end{table}
 
-\section{従来のアナログ基板との比較}
+\section{さらなる高みを目指した改造案の検討}
 
-RHEAと従来のアナログ基板FMC150との実際の基板を評価した結果を表\ref{tbl:comp_fmc150}にまとめる。
+アナログ基板RHEAのさらなる改造（RHEA改; 図\ref{fig:rhea_kai}）として、ADCとDACのサンプリング周波数をより高くすることが考えられる。RHEAに搭載しているADC（ADS4249）とDAC（DAC3283）の最大サンプル・レートはそれぞれ、250 MSPSと800 MSPSである。つまり、RHEAにはあと25 MHzの翼を広げる余地がある。
 
-RHEAは、
-
-\begin{table}[htbp]
+\begin{figure}[htbp]
  \centering
- \caption{RHEAとFMC150の比較（$^{*}$: 消費電力は32 ch.読み出しのもの）}
- \label{tbl:comp_fmc150}
- \begin{tabular}{cccc}
-  \toprule
-               & &RHEA      & FMC150  \\\hline
-  帯域 [MHz]   & &$\pm$100  & $\pm$70 \\
-  消費電力 [W]$^{*}$ & &7.9 & 15.1 \\
-  \multirow{2}{*}{サンプリング周波数 [MHz]} & ADC & 200 & 245.76 \\
-  & DAC & 200 & 491.52 \\
-  \bottomrule
- \end{tabular}
-\end{table}
+ \includegraphics[width=11cm]{figures/rhea_kai.pdf}
+ \caption{RHEAのさらなる改造により到達する境地}
+ \label{fig:rhea_kai}
+\end{figure}
+
+\subsection{ADCのサンプリング周波数をあげる}
+
+ADCとDACのサンプリング周波数は読み出し系の帯域を決定する大きな要素である。そこで、これらのサンプリング周波数をADCの最大サンプリング・レートである250 MHzにする。つまり、水晶発振器の周波数を250 MHzに変更する。これにより、帯域は125 MHzまで拡大する。
+
+この水晶発振器の変更は、5.1.1「基板納品時のトラブルと解決」で述べたように、半田ごてを使えば、現在のRHEAを使って行うことができるため、比較的簡単にに試すことができる。
+
+\subsection{DACのサンプリング周波数を大幅に上げる}
+
+DAC3283には出力波形をそれぞれ2倍、4倍に補完する機能が実装されている。RHEAではこの補完機能は使用していないが、DACのサンプリング周波数を200 MHzから800 MHzにすることで、4倍の補完機能を使用することが可能となる。これにより、高周波でもよりなめらかな波を生成することが可能となり、ノイズ耐性に強いアナログ基板になる。
+
+4倍の補完機能を実装するために必要な変更は次のふたつである:
+\begin{enumerate}
+ \item 水晶発振器の周波数を200 MHzから800 MHzにする。
+ \item クロック・ファンアウト・バッファを分周器機能付きのもにする。
+\end{enumerate}
+
+前款で述べたように、1.は比較的簡単に変更することができる。
+
+2.は水晶発振器が出力した800 MHzのクロック信号をDACにはそのまま入力し、ADCとFPGAには4分周（200 MHz）して入力する。たとえば、Texas InstrumentsのCDCM1804\footnote{http://www.ti.com/lit/ds/symlink/cdcm1804.pdf}を使うとこの回路を実現することができる。ただし、この変更は回路図の変更を要し、新しい基板を作りなおすことになる。

@@ -2,24 +2,6 @@
 
 本章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しについて述べたあとに、市販のアナログ基板を用いた読み出し系の概要とその不満点を挙げる。本論文の主旨は、この不満を解消するものである。
 
-% \begin{figure}[htbp]
-%  \begin{tabular}{cc}
-%   \begin{minipage}{0.5\hsize}
-%    \centering
-%    \includegraphics[height=50mm, clip]{figures/mkid_one.eps}
-%    \caption{MKID}
-%    \label{fig:mkid}
-%   \end{minipage}
-%   %\setcounter{figure}{1} % 図番号カウンターが更新されないとき
-%   \begin{minipage}{0.5\hsize}
-%    \centering
-%    \includegraphics[height=50mm, clip]{figures/mkid_one_equiv.eps}
-%    \caption{MKID の等価回路。}
-%    \label{fig:mkid_equiv}
-%   \end{minipage}
-%  \end{tabular}
-% \end{figure}
-
 \section{動作原理}
 
 Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である。図\ref{fig:mkid}右上に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。
@@ -55,18 +37,14 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 \subsection{読み出し系の構成と大まかな流れ}
 
 読み出し系の構成を図\ref{fig:readout_system}に示す。読み出し系は大きく 4 つの要素に分けられる。
-% \begin{enumerate}
-%  \item 「冷却回路」: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
-%  \item 「MHz/GHzコンバーター」: MKIDに入力する読み出し信号を高周波（4--8 GHz）に変換（アップ・コンバード）、またはMKIDから出力される読み出し信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
-%  \item 「アナログ基板」: デジタル変調信号をアナログ信号に変換して送信し、アナログ信号を受信してデジタル信号に変換する部分。
-%  \item 「デジタル基板」: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
-% \end{enumerate}
+
 \begin{description}
  \item [冷却回路]: MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
  \item [MHz/GHzコンバーター]: MKIDに入力するフィード信号（読み出し用変調信号）を高周波（4--8 GHz）に変換（アップ・コンバード）、また、MKIDを通った後に出力されるフィード信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
  \item [アナログ基板]: デジタル変調信号をアナログ信号に変換して送信し、入力したアナログ信号を受信してデジタル信号に変換する部分。
  \item [デジタル基板]: アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
 \end{description}
+
 本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
 
 \begin{figure}[htbp]
@@ -85,23 +63,6 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \item 増幅した信号と2.の基準信号をI/Qミキサーでダウン・コンバードする。
  \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
 \end{enumerate}
-
-% \begin{figure}[htbp]
-%  \begin{tabular}{cc}
-%   \begin{minipage}{0.3\vsize}
-%    \centering
-%    \includegraphics[height=55mm, clip]{figures/readout_system.png}
-%    \label{fig:readout_system}
-%    \caption{MKIDの読み出し系の概念図}
-%   \end{minipage}
-%   \begin{minipage}{0.6\hsize}
-%    \centering
-%    \includegraphics[height=55mm, clip]{figures/readout_system_1.pdf}
-%    \caption{既存のMKIDの読み出し系}
-%    \label{fig:readout_system_now}
-%   \end{minipage}
-%  \end{tabular}
-% \end{figure}
 
 \subsection{読み出し原理}
 
@@ -126,13 +87,6 @@ $N$個のMKIDの多重読み出しを考える。個々のMKIDの共振周波数$f_{i}$（$=\omega_{i}/2
 \end{figure}
 
 \section{既存の読み出し系}
-
-% \begin{wrapfigure}{r}{70mm}
-%  \centering
-%  \includegraphics[width=12cm, angle=270]{figures/readout_system_1.pdf}
-%  \caption{既存の読み出し系}
-%  \label{fig:readout_system_now}
-% \end{wrapfigure}
 
 既存の読み出し系を図\ref{fig:existing_readout}に示す。デジタル基板とアナログ基板の概要についてまとめた後、既存の読み出し系において解決すべき課題について議論する。
 
@@ -177,35 +131,37 @@ KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するた
  \end{tabular}
 \end{table}
 
-% \begin{wrapfigure}{l}{50mm}
-% %  \vspace{-9mm}
-%  \centering
-%  \includegraphics[width=50mm]{figures/kintex-7-device.jpg}
-% %  \vspace{-7mm}
-%  \caption{}
-%  \label{fig:kintex-7_fpga}
-% \end{wrapfigure}
-
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=12cm]{figures/kc705fmc150.png}
+ \includegraphics[width=15cm]{figures/kintex-7_fmc150.pdf}
  \caption{Kintex-7 FPGA評価キッド（KC705）とFMC150。KC705は、micro-USBやLAN、HDMIなどのインターフェースが実装されている。また、FMC（Fpga Mezzanine Card）と呼ばれる拡張スロットがある。アナログ基板とはこのFMCで接続する。}
  \label{fig:kintex-7}
 \end{figure}
 
+\clearpage
 \subsection{アナログ基板}
 
 \subsubsection{FMC150}
 
-既存の読み出し系で用いているアナログ基板は、4DSP社\footnote{http://www.4dsp.com/}のFMC150という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150}にFMC150のブロック図と基板図を示す。このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
+既存の読み出し系で用いているアナログ基板は、4DSP社\footnote{http://www.4dsp.com/}のFMC150という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150_block}、\ref{fig:fmc150_dim}にそれぞれFMC150のブロック図と基板図を示す。
+
+このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15.5cm]{figures/fmc150.pdf}
- \caption{FMC150のブロック図と基板図。FMC150は汎用通信機を対象として開発されているため、基板上でつくるクロックの他に、外部クロックを入力するポートやトリガーポートが実装されている。}
- \label{fig:fmc150}
+ \includegraphics[width=12cm]{figures/fmc150_block.png}
+ \caption{FMC150のブロック図。FMC150は汎用通信機を対象として開発されているため、基板上でつくるクロックの他に、外部クロックを入力するポートやトリガーポートが実装されている。また、基板上にあるICが大きく発熱するため、基板温度をモニターするICが搭載されている。}
+ \label{fig:fmc150_block}
 \end{figure}
 
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/fmc150_dim.png}
+ \caption{FMC150の基板図の表面（第1層）。表面に主要ICであるADCとDAC、PLLが実装されている。FMC150は大きな電力を要するが、電源を供給する電源回路は裏面に実装されている。}
+ \label{fig:fmc150_dim}
+\end{figure}
+
+\clearpage
 \subsection{解決すべき課題}
 
 FMC150はADCやDACの性能は読み出し系として満足する。しかし、読み出し系には不必要な機能が実装されているために、その性能を十分に活かせていない。また、性能以外にもユーザーの利便性を阻害する仕様が解決すべき課題として存在する。
@@ -241,18 +197,16 @@ FMC150はADCやDACの性能は読み出し系として満足する。しかし、読み出し系には不必要な
 
 \subsubsection{消費電力の過大}
 
-\begin{wrapfigure}{r}{65mm}
- \vspace{-9mm}
- \centering
- \includegraphics[width=65mm]{figures/fan.pdf}
- \vspace{-7mm}
- \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須である。}
- \label{fig:fan}
-\end{wrapfigure}
-
 消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上になると、意図せぬ誤動作をする。また、電源を供給しているデジタル基板が電力供給過多で強制シャットダウンすることが確認されている。つまり、安定動作が保証されていないという決定的な欠点がある。
 
 また、図\ref{fig:fan}のような、冷却ファンによる排熱処理を怠ると基板上のICが熱破損する。CMB偏光観測は空気の薄い高地で行うため、排熱に対する安全マージン大きくとらなければならない。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=12cm]{figures/fan.pdf}
+ \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須である。}
+ \label{fig:fan}
+\end{figure}
 
 \clearpage
 \subsubsection{ユーザビリティの毀損}
