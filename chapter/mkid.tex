@@ -1,24 +1,34 @@
 \chapter{超伝導検出器MKIDとその読み出し}
 
-本章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しについて述べたあとに、市販のアナログ基板を用いた読み出し系の概要とその不満点を挙げる。本論文の主旨は、この不満を解消するものである。
+本章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しについて述べたあとに、市販のアナログ基板を用いた読み出し系の概要とその不満点を挙げる。本論文の目的は、これらの不満を解消する新たなアナログ基板の開発である。
 
 \section{動作原理}
 
-Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{MKID}。図\ref{fig:mkid}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。
+Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{MKID}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。
 
-図\ref{fig:mkid}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
+図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
 
-アンテナで受信した電波のエネルギーが共振器内のクーパー対のギャップエネルギーより大きいと、それを解離する（図\ref{fig:mkid}(c)）。このとき、共振器のインダクタンスが変化する。MKIDはその変化を共振状態の変化として検出する（図\ref{fig:mkid}(d)、(e)）。共振周波数は4--6 GHzに設定されることが多い。
+アンテナで受信した電波のエネルギーが共振器内のクーパー対のギャップエネルギーより大きいと、それを解離する。このとき、共振器のインダクタンスが変化する。MKIDはその変化を共振状態の変化として検出する（図\ref{fig:mkid_2}(a)、(b)）。共振周波数は4--6 GHzに設定されることが多い。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/mkid.pdf}
- \caption{MKIDの検出原理。(a) MKIDの基板図。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。(b) MKIDの等価回路。準粒子数の変化は系インダクタンスを変化させる。これにより、共振周波数が変化する。(c) 受信した電波のエネルギー$h\nu$が$2\Delta$より大きいとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。(d), (e) MKID（LC回路）が電波を受信すると、実線から破線へと共振周波数が変化する。振幅と位相の変化の読み出し例。%(f) 信号線の断面図。CPW（CoPlanar Waveguide）のジオメトリーを表す。
-}
- \label{fig:mkid}
+ \hspace{-20mm}
+ \includegraphics[width=12cm]{figures/mkid_1.pdf}
+ % \caption{MKIDの検出原理。(a) MKIDの基板図。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。(b) MKIDの等価回路。準粒子数の変化は系インダクタンスを変化させる。これにより、共振周波数が変化する。(c) 受信した電波のエネルギー$h\nu$が$2\Delta$より大きいとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。(d), (e) MKID（LC回路）が電波を受信すると、実線から破線へと共振周波数が変化する。振幅と位相の変化の読み出し例。%(f) 信号線の断面図。CPW（CoPlanar Waveguide）のジオメトリーを表す。
+% }
+ \caption{MKIDの検出原理。MKID一素子の写真(a)とその等価回路(b)。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。受信した電波のエネルギー$h\nu$が2$\Delta$より大きとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。共振器内の準粒子数変化にともなって、インダクタンスが変化する。これにより、共振状態が変化する。つまり、MKIDは共振周波数の変化によって、受信信号の強度を測定する。}
+ \label{fig:mkid_1}
 \end{figure}
 
-\clearpage
+\begin{figure}[htbp]
+ \centering
+%  \hspace{-20mm}
+ \includegraphics[width=14cm]{figures/mkid_2.pdf}
+ \caption{MKIDへの信号入射にともなう共振状態の変化は、共振周波数とその振幅、位相の変化として検出できる。読み出し系の役割は、これらの変化を計測することである。}
+ \label{fig:mkid_2}
+\end{figure}
+
+% \clearpage
 
 \section{周波数多重読み出し}
 
@@ -66,28 +76,6 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
 
-% \begin{figure}[htbp]
-%  \centering
-%  \includegraphics[width=12cm]{figures/readout_system.png}
-%  \caption{MKIDの読み出し系の概念図}
-%  \label{fig:readout_system}
-% \end{figure}
-
-% \begin{figure}[htbp]
-%  \centering
-%  \includegraphics[width=12cm]{figures/existing_readout.pdf}
-%  \caption{既存の読み出し系の各構成要素の写真}
-%  \label{fig:existing_readout}
-% \end{figure}
-
-\begin{figure}[htbp]
- \centering
- \vspace{-10mm}
- \includegraphics[width=23cm, angle=90]{figures/readout.pdf}
- \caption{(a) MKIDの読み出し系の概念図。(b) 既存の読み出し系の各構成要素の写真。}
- \label{fig:readout_sys}
-\end{figure}
-
 読み出しの大まかな流れは次のようになる:
 \begin{enumerate}
  \item デジタル基板でデジタル変調信号を生成し、アナログ基板のDAC（Digital to Analog Converter）でアナログ変調して出力する。変調信号とは、複数の周波数（本研究の場合は、100 MHz以下のMHz帯）を重ね合わせた信号である。
@@ -98,43 +86,182 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
 \end{enumerate}
 
+\clearpage
+
+\begin{figure}[htbp]
+ \centering
+ \vspace{-10mm}
+ \includegraphics[width=23cm, angle=90]{figures/readout_sys.pdf}
+ \caption{(a) MKIDの読み出し系の概念図。(b) 既存の読み出し系の各構成要素の写真。}
+ \label{fig:readout_sys}
+\end{figure}
+
+\clearpage
+
 \subsection{DDC方式による読み出し原理}
 
-$N$個のDDC方式によるMKIDの多重読み出しを考える。個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）とし、LOの周波数を$f_{j}$（$=\omega_j/2\pi$）とする。
+アップ・コンバートとダウン・コンバート、MKIDによる変調を図\ref{fig:iq_md}に示す。図\ref{fig:readout_sys}のI/Qミキサー（I/Q Mix）は、構成要素に分解すると、2つの混合器とハイブリッド・カプラーからなる。
 
-DACの出力信号の振幅をを1に規格する。
+分配器（Div）と混合器（Mix）、ハイブリッド・カプラー（Hyb）、MKID、ローパス・フィルター（LPF）は、理想的な素子であるとして次のように定義する。
 
-理想的な素子であるとして、$Div(E)$、$Mixer(\alpha, \beta)$、$Hyb(\alpha, \beta)$を次のように定義する。
+\begin{description}
+ \item[Div:]
 
-% 多重化した正弦波$\sum_{i=0}^{N}\sin \omega_{i}$と余弦波$\sum_{i=0}^{N}\cos \omega_{i}$は、ミキサーによってLOの信号と混合する。混合した信号は合成され、このフィード信号$S_{\mathrm{in}}$がMKIDに入力する。
+% 	    \ 
 
-% \begin{equation}
-%  \begin{split}
-%  S_{\mathrm{in}} &= \sum_{i=0}^{N}\sin \omega_{i}t \times \sin \omega_{j}t +
-%   \sum_{i=0}^{N}\cos \omega_{i}t \times \cos \omega_{j}t \\
-%  &= \sum_{i=0}^{N}\cos (\omega_{i} - \omega_{j})t
-%  \end{split}
-% \end{equation}
+	    分配器は、信号のエネルギー$E$を$n$分割する。
+	    \begin{equation}
+	     \mathrm{Div}(E, n) \equiv \frac{E}{n}
+	    \end{equation}
+ \item[Mix:]
+
+% 	    \ 
+
+	    混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
+	    \begin{equation}
+	     \mathrm{Mix}(S_{1}, S_{2}) \equiv S_{1}S_{2}
+	    \end{equation}
+ \item[Hyb, Hyb$^{-1}$:]
+
+% 	    \ 
+
+	    ハイブリッド・カプラーは、2つの入力信号$S_{1}(\theta_{1})$、$S_{2}(\theta_{2})$に対し、位相を保ったもの（0回転）と$\pi/2$回転したものを合成（和算）する（Hyb）。逆に、1つの入力信号$S_{1}(\theta_{1})$をそのままのにしたものと$-\pi/2$したものに分解する（Hyb$^{-1}$）。
+	    \begin{align}
+	     \mathrm{Hyb}\left(S_{1}(\theta_{1}), S_{1}(\theta_{2})\right)
+	     &\equiv S_{1}(\theta_{1}) + S_{2}\left(\theta_{2} + \frac{\pi}{2}\right) \\
+	     \mathrm{Hyb^{-1}}\left(S_{12}(\theta_{1}, \theta_{2})\right)
+	      &\equiv \begin{cases}
+		      S_{1}(\theta_{1}) \\
+		      S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
+		     \end{cases}
+	    \end{align}
+ \item[MKID:]
+
+% 	    \ 
+
+	    MKIDは、ある信号の振幅$A$と位相$\theta$に対して次のような変換をする。
+	    \begin{equation}
+	     A \rightarrow A', \quad \theta \rightarrow \theta + \phi
+	    \end{equation}
+%  \item[LNA:] ある信号の振幅$A$を$\alpha$倍する。
+% 	    \begin{equation}
+% 	     \mathrm{LNA}(S(A, t), \alpha) \equiv S(\alpha A, t)
+% 	    \end{equation}
+ \item[LPF:]
+
+% 	    \ 
+
+	    LPFは、ある信号$S(t)=\sum_{i}\mathrm{e}^{\mathrm{j}\omega_{i}t}$に対し、周波数$\omega_{\mathrm{c}}$より大きい項をゼロにする。
+	    \begin{equation}
+	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}}) \equiv \sum_{\omega_{i} < \omega_{\mathrm{c}}} \mathrm{e}^{\mathrm{j}\omega_{i}t}
+	    \end{equation}
+\end{description}
+
+これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{j}$（$=\omega_j/2\pi$）とする。
+
+\subsubsection{アップ・コンバート}
+
+DACの出力信号$S_{1}(t)$、$S_{2}(t)$は、次のように書ける。
+\begin{equation}
+ \begin{aligned}
+  S_{1}(t) &= \sum_{i=1}^{N}\cos \omega_{i}t, \quad (i = 1, 2, \cdots, N) \\
+  S_{2}(t) &= \sum_{i=1}^{N}\sin \omega_{i}t, \quad (i = 1, 2, \cdots, N)
+ \end{aligned}
+\end{equation}
+
+Divで分配した、LO信号$S_{3}(t)=A\cos \omega_{\mathrm{LO}}t$と$S_{1}(t)$、$S_{2}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{1}'(t)$、$S_{2}'(t)$とすると、
+\begin{equation}
+ \begin{aligned}
+  S_{1}'(t) &= \mathrm{Mix}(S_{1}(t), S_{3}(t))
+%  = \sum_{i=1}^{N}A\cos \omega_{i}t \cos \omega_{\mathrm{LO}}t
+  = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\cos(\omega_{i} + \omega_{\mathrm{LO}})t - \cos(\omega_{i} - \omega_{\mathrm{LO}})t\biggl\} \\
+  S_{2}'(t) &= \mathrm{Mix}(S_{2}(t), S_{3}(t))
+%  = \sum_{i=1}^{N}A\sin \omega_{i}t \cos \omega_{\mathrm{LO}}t
+  = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\sin(\omega_{i} + \omega_{\mathrm{LO}})t + \sin(\omega_{i} - \omega_{\mathrm{LO}})t\biggr\} 
+ \end{aligned}
+\end{equation}
+となる。混合後の信号$S_{1}'(t)$、$S_{2}'(t)$をHybで合成し、フィード信号$S_{\mathrm{feed}}(t)$にする。
+\begin{equation}
+ S_{\mathrm{feed}}(t) = \mathrm{Hyb}\left(S_{1}'(t), S_{2}'(t)\right) = \sum_{i=1}^{N}A\cos(\omega_{i} + \omega_{\mathrm{LO}})t
+\end{equation}
+
+\subsubsection{MKIDによる変調}
+
+フィード信号$S_{\mathrm{feed}}(t)$は、MKIDにより以下の変換を受ける。%、$S_{\mathrm{feed}}'(t)$になる。
+\begin{equation}
+ S_{\mathrm{feed}(t)} \rightarrow S_{\mathrm{feed}}'(t)
+  = \sum_{i=1}^{N}A_{i}'\left[\cos(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right]
+\end{equation}
+
+\subsubsection{ダウン・コンバート}
+
+MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$によって分解される。
+\begin{equation}
+ \mathrm{Hyb}^{-1}\left(S_{\mathrm{feed}}'(t)\right)
+  = \begin{cases}     
+     \displaystyle \sum_{i=1}^{N} A_{i}'\cos\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] = S_{1}''(t) \\
+     \displaystyle \sum_{i=1}^{N} A_{i}'\sin\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] = S_{2}''(t)
+    \end{cases}
+\end{equation}
+
+分解した信号$S_{1}''(t)$、$S_{2}''(t)$は、再度MixでLO信号$S_{3}(t)$と混合し、$S_{1}'''(t)$と$S_{2}'''(t)$をADCに入力する。
+\begin{equation}
+ \begin{aligned}
+  S_{1}'''(t) = \mathrm{Mix}(S_{1}''(t), S_{3}(t))
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\cos(\omega_{i}t + \phi_{i}) + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\} \\
+  S_{2}'''(t) = \mathrm{Mix}(S_{2}''(t), S_{3}(t))
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i}) + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\} \\
+ A_{i}'' &= A_{i}'A
+  \label{eq:adc_input}
+ \end{aligned}
+\end{equation}
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=15cm]{figures/iq_md.pdf}
- \caption{}
+ \caption{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
  \label{fig:iq_md}
 \end{figure}
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/lpf_fpga.pdf}
- \caption{}
+ \includegraphics[width=16cm]{figures/lpf_fpga.pdf}
+ \caption{ADCへ入力した信号は、LO信号による高調波成分を含んでいる。MKIDの信号を取り出すために、デジタル基板上のFPGAにLPF（ローパス・フィルター）を実装する。}
  \label{fig:lpf_fpga}
 \end{figure}
 
-\section{既存の読み出し系}
+\subsubsection{ダウン・サンプリング}
+
+次に、ADCに入力した信号をFPGAに実装したLPFを使ってMKIDの変調成分だけを取り出す。これをダウン・サンプリングと呼ぶ。
+\begin{equation}
+ \begin{aligned}
+  \mathrm{LPF}(S_{1}'''(t), \omega_{\mathrm{LO}})
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) = I(t) \\
+  \mathrm{LPF}(S_{2}'''(t), \omega_{\mathrm{LO}})
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \sin(\omega_{i}t + \phi_{i}) = Q(t)
+  \label{eq:down_sampling}
+ \end{aligned}
+\end{equation}
+
+既存の読み出し系で、以上に述べた方法を用いて読み出したMKIDの信号を図\ref{fig:mkid_real}に示す。式(\ref{eq:down_sampling})より、あるひとつのMKIDについての$I_{k}(t)$、$Q_{k}(t)$を得る。ここで、$1 \leq k \leq N$である。複素平面上の実軸に$I_{k}(t)$を虚軸に$Q_{k}(t)$描くと図\ref{fig:mkid_real}(a)のようになる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15cm]{figures/mkid_real.pdf}
+ \caption{既存の読み出し系で読みだしたMKIDの信号を複素平面上に描いたもの(a)。振幅読み出し(b)と位相読み出し(c)。}
+ \label{fig:mkid_real}
+\end{figure}
+
+\clearpage
+
+\subsection{帯域と多重度の関係}
+
+\section{市販品で構築したフロントエンド回路とその課題}
 
 既存の市販品のみで構成したフロントエンド回路を図\ref{fig:readout_sys}(b)に示す。デジタル基板とアナログ基板の概要についてまとめた後、その解決すべき課題について議論する。
 
 \clearpage
+
 \subsection{デジタル基板}
 
 \subsubsection{Kintex-7 FPGA評価キッド}
@@ -176,6 +303,7 @@ KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するた
 \end{figure}
 
 \clearpage
+
 \subsection{アナログ基板}
 
 \subsubsection{FMC150}
@@ -218,22 +346,6 @@ FMC150はADCやDACの性能はMKIDの読み出し系として利用可能である。しかし、読み出し系
  \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する。}
  \label{fig:low-pass}
 \end{figure}
-
-% \begin{figure}[htbp]
-%  \begin{tabular}{cc}
-%   \begin{minipage}{0.5\hsize}
-%    \centering
-%    \includegraphics[height=5cm, clip]{figures/low-pass.png}
-%    \label{fig:readout_system}
-%   \end{minipage}
-%   \begin{minipage}{0.5\hsize}
-%    \centering
-%    \includegraphics[height=5cm, clip]{figures/low-pass_1.png}
-%    \label{fig:readout_system_now}
-%   \end{minipage}
-%  \end{tabular}
-%  \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、それより高い周波数は$-124.9$ dB/decadeで減衰する。}
-% \end{figure}
 
 \subsubsection{消費電力・発熱の過大}
 

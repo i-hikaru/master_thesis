@@ -1,0 +1,310 @@
+\chapter{読み出し系}
+
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{DDC}とFFT（Fast Fourier Transform）方式\cite{FFT}の二種類が存在し、本論文では共振周波数をより高い精度で設定できるDDC方式による読み出しについて述べる。
+
+\section{読み出し系の構成と大まかな流れ}
+
+読み出し系の構成を図\ref{fig:readout_sys}(a)に示す。読み出し系は大きく 4 つの要素に分けられる。
+
+\begin{description}
+ \item [冷却回路]
+
+	     \ 
+
+	     MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
+ \item [MHz/GHzコンバーター]
+
+	     \ 
+
+	     MKIDに入力するフィード信号（読み出し用変調信号）を高周波（4--8 GHz）に変換（アップ・コンバード）、また、MKIDを通った後に出力されるフィード信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
+ \item [アナログ基板]
+
+	     \ 
+
+	     デジタル変調信号をアナログ信号に変換して送信し、入力したアナログ信号を受信してデジタル信号に変換する部分。
+ \item [デジタル基板]
+
+	     \ 
+
+	     アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
+\end{description}
+
+本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
+
+読み出しの大まかな流れは次のようになる:
+\begin{enumerate}
+ \item デジタル基板でデジタル変調信号を生成し、アナログ基板のDAC（Digital to Analog Converter）でアナログ変調して出力する。変調信号とは、複数の周波数（本研究の場合は、100 MHz以下のMHz帯）を重ね合わせた信号である。
+ \item 局所発振器（LO）で出力した基準信号（通常、数GHz程度）とDACから出力したアナログ変調信号（MHz帯）をI/Q（In-phase/Quadrature-phase）ミキサーでGHz帯にアップ・コンバートしてフィード信号とする。
+ \item フィード信号をMKIDに入力する。MKIDの共振器の共振によってフィード信号が変化する。アンテナ入力信号を共振状態（振幅と位相）の変化として計測する。
+ \item MKIDの共振情報を含むフィード信号をLNAで増幅する。
+ \item 増幅した信号と2.の基準信号をI/Qミキサーでダウン・コンバードする。
+ \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
+\end{enumerate}
+
+\clearpage
+
+\begin{figure}[htbp]
+ \centering
+ \vspace{-10mm}
+ \includegraphics[width=23cm, angle=90]{figures/readout_sys.pdf}
+ \caption{(a) MKIDの読み出し系の概念図。(b) 既存の読み出し系の各構成要素の写真。}
+ \label{fig:readout_sys}
+\end{figure}
+
+\clearpage
+
+\section{DDC方式による読み出し原理}
+
+アップ・コンバートとダウン・コンバート、MKIDによる変調を図\ref{fig:iq_md}に示す。図\ref{fig:readout_sys}のI/Qミキサー（I/Q Mix）は、構成要素に分解すると、2つの混合器とハイブリッド・カプラーからなる。
+
+分配器（Div）と混合器（Mix）、ハイブリッド・カプラー（Hyb）、MKID、ローパス・フィルター（LPF）は、理想的な素子であるとして次のように定義する。
+
+\begin{description}
+ \item[Div]
+
+	    \ 
+
+	    分配器は、信号のエネルギー$E$を$n$分割する。
+	    \begin{equation}
+	     \mathrm{Div}(E, n) \equiv \frac{E}{n}
+	    \end{equation}
+ \item[Mix]
+
+	    \ 
+
+	    混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
+	    \begin{equation}
+	     \mathrm{Mix}(S_{1}, S_{2}) \equiv S_{1}S_{2}
+	    \end{equation}
+ \item[Hyb, Hyb$^{-1}$]
+
+	    \ 
+
+	    ハイブリッド・カプラーは、2つの入力信号$S_{1}(\theta_{1})$、$S_{2}(\theta_{2})$に対し、位相を保ったもの（0回転）と$\pi/2$回転したものを合成（和算）する（Hyb）。逆に、1つの入力信号$S_{1}(\theta_{1})$をそのままのにしたものと$-\pi/2$したものに分解する（Hyb$^{-1}$）。
+	    \begin{align}
+	     \mathrm{Hyb}\left(S_{1}(\theta_{1}), S_{1}(\theta_{2})\right)
+	     &\equiv S_{1}(\theta_{1}) + S_{2}\left(\theta_{2} + \frac{\pi}{2}\right) \\
+	     \mathrm{Hyb^{-1}}\left(S_{12}(\theta_{1}, \theta_{2})\right)
+	      &\equiv \begin{cases}
+		      S_{1}(\theta_{1}) \\
+		      S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
+		     \end{cases}
+	    \end{align}
+ \item[MKID]
+
+	    \ 
+
+	    MKIDは、ある信号の振幅$A$と位相$\theta$に対して次のような変換をする。
+	    \begin{equation}
+	     A \rightarrow A', \quad \theta \rightarrow \theta + \phi
+	    \end{equation}
+%  \item[LNA:] ある信号の振幅$A$を$\alpha$倍する。
+% 	    \begin{equation}
+% 	     \mathrm{LNA}(S(A, t), \alpha) \equiv S(\alpha A, t)
+% 	    \end{equation}
+ \item[LPF]
+
+	    \ 
+
+	    LPFは、ある信号$S(t)=\sum_{i}\mathrm{e}^{\mathrm{j}\omega_{i}t}$に対し、周波数$\omega_{\mathrm{c}}$より大きい項をゼロにする。
+	    \begin{equation}
+	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}}) \equiv \sum_{\omega_{i} < \omega_{\mathrm{c}}} \mathrm{e}^{\mathrm{j}\omega_{i}t}
+	    \end{equation}
+\end{description}
+
+これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{j}$（$=\omega_j/2\pi$）とする。
+
+\subsection{アップ・コンバート}
+
+DACの出力信号$S_{1}(t)$、$S_{2}(t)$は、次のように書ける。
+\begin{equation}
+ \begin{aligned}
+  S_{1}(t) &= \sum_{i=1}^{N}\cos \omega_{i}t \\
+  S_{2}(t) &= \sum_{i=1}^{N}\sin \omega_{i}t 
+ \end{aligned}
+\end{equation}
+
+Divで分配した、LO信号$S_{3}(t)=A\cos \omega_{j}t$と$S_{1}(t)$、$S_{2}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{1}'(t)$、$S_{2}'(t)$とすると、
+\begin{equation}
+ \begin{aligned}
+  S_{1}'(t) &= \mathrm{Mix}(S_{1}(t), S_{3}(t))
+%  = \sum_{i=1}^{N}A\cos \omega_{i}t \cos \omega_{j}t
+  = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\cos(\omega_{i} + \omega_{j})t - \cos(\omega_{i} - \omega_{j})t\biggl\} \\
+  S_{2}'(t) &= \mathrm{Mix}(S_{2}(t), S_{3}(t))
+%  = \sum_{i=1}^{N}A\sin \omega_{i}t \cos \omega_{j}t
+  = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\sin(\omega_{i} + \omega_{j})t + \sin(\omega_{i} - \omega_{j})t\biggr\} 
+ \end{aligned}
+\end{equation}
+となる。混合後の信号$S_{1}'(t)$、$S_{2}'(t)$をHybで合成し、フィード信号$S_{\mathrm{feed}}(t)$にする。
+\begin{equation}
+ S_{\mathrm{feed}}(t) = \mathrm{Hyb}\left(S_{1}'(t), S_{2}'(t)\right) = \sum_{i=1}^{N}A\cos(\omega_{i} + \omega_{j})t
+\end{equation}
+
+\subsection{MKIDによる変調}
+
+フィード信号$S_{\mathrm{feed}}(t)$は、MKIDにより以下の変換を受ける。%、$S_{\mathrm{feed}}'(t)$になる。
+\begin{equation}
+ S_{\mathrm{feed}(t)} \rightarrow S_{\mathrm{feed}}'(t)
+  = \sum_{i=1}^{N}A_{i}'\left[\cos(\omega_{i} + \omega_{j})t + \phi_{i}\right]
+\end{equation}
+
+\subsection{ダウン・コンバート}
+
+MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$によって分解される。
+\begin{equation}
+ \mathrm{Hyb}^{-1}\left(S_{\mathrm{feed}}'(t)\right)
+  = \begin{cases}     
+     \displaystyle \sum_{i=1}^{N} A_{i}'\cos\left[(\omega_{i} + \omega_{j})t + \phi_{i}\right] = S_{1}''(t) \\
+     \displaystyle \sum_{i=1}^{N} A_{i}'\sin\left[(\omega_{i} + \omega_{j})t + \phi_{i}\right] = S_{2}''(t)
+    \end{cases}
+\end{equation}
+
+分解した信号$S_{1}''(t)$、$S_{2}''(t)$は、再度MixでLO信号$S_{3}(t)$と混合し、$S_{1}'''(t)$と$S_{2}'''(t)$をADCに入力する。
+\begin{equation}
+ \begin{aligned}
+  S_{1}'''(t) = \mathrm{Mix}(S_{1}''(t), S_{3}(t)) &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\cos(\omega_{i}t + \phi_{i}) + \cos\left[(\omega_{i} + 2\omega_{j})t + \phi_{i}\right]\biggr\} \\
+  S_{2}'''(t) = \mathrm{Mix}(S_{2}''(t), S_{3}(t)) &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i}) + \sin\left[(\omega_{i} + 2\omega_{j})t + \phi_{i}\right]\biggr\} \\
+ A_{i}'' &= A_{i}'A
+  \label{eq:adc_input}
+ \end{aligned}
+\end{equation}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15cm]{figures/iq_md.pdf}
+ \caption{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
+ \label{fig:iq_md}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=16cm]{figures/lpf_fpga.pdf}
+ \caption{ADCへ入力した信号は、LO信号による高調波成分を含んでいる。MKIDの信号を取り出すために、デジタル基板上のFPGAにLPF（ローパス・フィルター）を実装する。}
+ \label{fig:lpf_fpga}
+\end{figure}
+
+\section{帯域と多重度の関係}
+
+\section{既存の読み出し系によるMKIDの読み出し}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=15cm]{figures/mkid_real.pdf}
+ \caption{既存の読み出し系で読みだしたMKIDの信号を複素平面上に描いたもの(a)。振幅読み出し(b)と位相読み出し(c)。}
+ \label{fig:mkid_real}
+\end{figure}
+
+\section{市販品で構築したフロントエンド回路とその課題}
+
+既存の市販品のみで構成したフロントエンド回路を図\ref{fig:readout_sys}(b)に示す。デジタル基板とアナログ基板の概要についてまとめた後、その解決すべき課題について議論する。
+
+\clearpage
+
+\section{デジタル基板}
+
+\subsection{Kintex-7 FPGA評価キッド}
+
+デジタル基板は、Xilinx社\footnote{http://xilinx.com/}のKintex-7 FPGA評価キッド（KC705）\cite{KC705}を用いる（図\ref{fig:kintex-7}の緑色の基板）。FPGAとはField Programmable Gate Arrayの略で、文字通りフィールド（ユーザー側）でプログラム可能な論理ゲートをアレイ化したデバイスである。FPGAは、ユーザーが設計から実装まで行うことができ、仕様や設計を開発途中で変更しやすいという特徴がある。これにより、ASIC（Application Specific Integrated Circuit）等と比べて、開発費・開発期間などの開発コストを大幅に削減することができる。
+
+KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するために用いるFMC（Fpga Mezzanine Card）インターフェースが実装されている。また、このデジタル基板で処理したデータは、イーサネットを用いて、PC等のオフラインに転送する。
+
+ハードウェアのコーディングや論理合成、実装、FPGAへのダウンロードは、統合開発環境Vivado\cite{Vivado}を用いて行った。
+
+\begin{table}[htbp]
+ \centering
+ \caption{Kintex-7 FPGA（XC7K325T）の主な特性}
+ \label{tbl:kintex-7}
+ \begin{tabular}{cc|r}
+  \toprule
+  Logic Cells           & & 326,080 \\
+  \multirow{2}{*}{CLBs} & Slices                  & 50,950 \\
+                        & Max Distributed RAM [Kb]& 4,000 \\
+  DSP Slices            & & 840 \\
+                        & 18 Kb &  890 \\
+  Block RAM Blocks      & 36 Kb &  445 \\
+                        & Max [Kb] & 160,020 \\
+  CMTs                  & & 10 \\
+  PCle                  & & 1 \\
+  GTXs                  & & 16 \\
+  XADC Blocks           & & 1 \\
+  Total I/O Banks       & & 10 \\
+  Max User I/O          & & 500 \\
+  \bottomrule
+ \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=21cm, angle=90]{figures/kintex-7_fmc150.pdf}
+ \caption{Kintex-7 FPGA評価キッド（KC705）とFMC150で構成したフロントエンド回路。KC705は、micro-USBやLAN、HDMIなどのインターフェースが実装されている。また、FMC（Fpga Mezzanine Card）と呼ばれる拡張スロットがある。アナログ基板とはこのFMCで接続する。}
+ \label{fig:kintex-7}
+\end{figure}
+
+\clearpage
+
+\section{アナログ基板}
+
+\subsection{FMC150}
+
+既存の読み出し系で用いているアナログ基板は、4DSP社\footnote{http://www.4dsp.com/}のFMC150\cite{FMC150}という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150_block}、\ref{fig:fmc150_dim}にそれぞれFMC150のブロック図と基板図を示す。
+
+このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=100mm]{figures/fmc150_block.png}
+ \caption{FMC150のブロック図。FMC150は汎用通信機を対象として開発されているため、基板上でつくるクロックの他に、外部クロックを入力するポートやトリガーポートが実装されている。また、基板上にあるICが大きく発熱するため、基板温度をモニターするICが搭載されている。しかしながら、冷却装置は実装されていない（後述2.4.3を参照）。}
+ \label{fig:fmc150_block}
+\end{figure}
+
+\begin{figure}[!htb]
+ \centering
+ \vspace{-2mm}
+ \includegraphics[width=100mm]{figures/fmc150_dim.png}
+ \vspace{-2mm}
+ \caption{FMC150の基板図の表面（第1層）。表面に主要ICであるADCとDAC、PLLが実装されている。FMC150は大きな電力を要するが、電源を供給する電源回路は裏面に実装されている。}
+ \label{fig:fmc150_dim}
+\end{figure}
+
+\clearpage
+
+\section{解決すべき課題}
+
+FMC150はADCやDACの性能はMKIDの読み出し系として利用可能である。しかし、読み出し系には不必要な機能が実装されているために、その性能を十分に活かせていない。また、性能以外にもユーザーの利便性を阻害する仕様が解決すべき課題として存在する。
+
+\subsection{LPFによる帯域の制限}
+
+読み出しの多重度は帯域の広さに比例する。MKIDの利点を最大化するためには、もっとも重要な要素である。
+
+多重読み出しするためには、なるべく広い帯域を確保する必要がある。FMC150は図\ref{fig:low-pass}(a)のようなローパス・フィルター（LPF）が実装されているため、70 MHz 以上で出力強度が急激に下がる（図\ref{fig:low-pass}(b)）。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=14cm]{figures/low-pass.pdf}
+ \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する。}
+ \label{fig:low-pass}
+\end{figure}
+
+\subsection{消費電力・発熱の過大}
+
+消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上になると、意図せぬ誤動作をする。また、電源を供給しているデジタル基板が電力供給過多で、頻繁に強制シャットダウンすることが確認されている。つまり、安定動作が保証されていないという決定的な欠点がある。
+
+また、図\ref{fig:fan}のような、冷却ファンによる排熱処理を怠ると基板上のICが熱破損する。CMB偏光観測は空気の薄い高地で行うため、排熱に対する安全マージン大きくとらなければならない。これも解決すべき重要な過大である。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=14cm]{figures/fan.pdf}
+ \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須である。}
+ \label{fig:fan}
+\end{figure}
+
+\clearpage
+
+\subsection{ユーザビリティの毀損}
+
+FMC150は元来、汎用通信機を対象として開発されているため、クロックを分周して使うことを前提に設計されている。そのため、水晶発振器の周波数は245.76 MHzのもが搭載されている。しかし、MKIDの読み出しに関しては、クロックを様々な周波数に分周して使うことはない。
+
+クロックの周波数はADCとDACのサンプリング・レートを決めるため、できるだけ高い周波数のものが好ましいが、周波数分解能の値も重要である。実際にMKIDの測定を行う際は、まず帯域全体をスイープして、どの周波数にそれぞれのMKIDの共振ピークがあるか測定する。次に、それぞれの共振についてを共振状態を定常測定する。このとき、ユーザーはあるMKIDの共振周ピーク付近に周波数を設定する必要がある。その際、指定する周波数は分解能の倍数に設定しなければならない。たとえば、FMC150で読み出し系を構築した場合、12.288 kHzの倍数にする必要がある。これは、ユーザーにとって非常に使いづらく誤った測定を誘発する。
+
+また、読み出し系は冷却回路やMHz/GHzコンバーターで数GHzの信号を扱うため、同軸ケーブルのコネクターはSMA（Sub-Miniature version A）コネクターを用いている。一方で、FMC150はMMCX（Micro-Miniature CoaXial）を採用している。%測定を行う上で、ユーザーはコネクターの繋ぎ変えを頻繁に行う。そのときに、
+コネクターの規格が不揃いであると、ユーザーの生産性を下げる。また、ユーザー側に規格変換のための余計なコネクター等の接続部品が増えることは、潜在的なバグを発生させる。
