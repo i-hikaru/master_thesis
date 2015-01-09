@@ -4,9 +4,7 @@
 
 \section{動作原理}
 
-Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{MKID}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。
-
-図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
+Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{MKID}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
 
 アンテナで受信した電波のエネルギーが共振器内のクーパー対のギャップエネルギーより大きいと、それを解離する。このとき、共振器のインダクタンスが変化する。MKIDはその変化を共振状態の変化として検出する（図\ref{fig:mkid_2}(a)、(b)）。共振周波数は4--6 GHzに設定されることが多い。
 
@@ -45,7 +43,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \section{読み出し系}
 
-読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{DDC}とFFT（Fast Fourier Transform）方式\cite{FFT}の二種類が存在し、本論文では共振周波数をより高い精度で設定できるDDC方式による読み出しについて述べる。
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{DDC}とFFT（Fast Fourier Transform）方式\cite{FFT}の二種類が存在し、本論文では共振周波数をより高い精度で設定できる（つまり、検出感度を最大限に発揮できる）という観点から、DDC方式による読み出しに注力した開発を行う。
 
 \subsection{読み出し系の構成と大まかな流れ}
 
@@ -61,7 +59,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 	     \ 
 
-	     MKIDに入力するフィード信号（読み出し用変調信号）を高周波（4--8 GHz）に変換（アップ・コンバード）、また、MKIDを通った後に出力されるフィード信号を低周波（$< 100$ MHz）に変換（ダウン・コンバート）する部分。
+	     MKIDに入力するフィード信号（読み出し用変調信号）をMHz帯からGHz帯に変換（アップ・コンバード）、また、MKIDを通った後に出力されるフィード信号をGHz帯からMHz帯に変換（ダウン・コンバート）する部分。
  \item [アナログ基板]
 
 	     \ 
@@ -71,10 +69,9 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 	     \ 
 
-	     アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する部分。
+	     アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する（信号復調等を行う）部分。
 \end{description}
-
-本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
+本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。なお、冷却回路、MHz/GHzコンバーターの構成要素の型番や特性一覧は付録\ref{sec:parts_spec}に記述する。
 
 読み出しの大まかな流れは次のようになる:
 \begin{enumerate}
@@ -100,7 +97,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{DDC方式による読み出し原理}
 
-アップ・コンバートとダウン・コンバート、MKIDによる変調を図\ref{fig:iq_md}に示す。図\ref{fig:readout_sys}のI/Qミキサー（I/Q Mix）は、構成要素に分解すると、2つの混合器とハイブリッド・カプラーからなる。
+アップ・コンバートとダウン・コンバートを含むフィード信号の合成・分離と、MKIDとの共振による信号の状態変化を図\ref{fig:iq_md}に模式する。図\ref{fig:readout_sys}のI/Qミキサー（I/Q Mix）は、構成要素に分解すると、2つの混合器とハイブリッド・カプラーからなる。
 
 分配器（Div）と混合器（Mix）、ハイブリッド・カプラー（Hyb）、MKID、ローパス・フィルター（LPF）は、理想的な素子であるとして次のように定義する。
 
@@ -255,6 +252,15 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 \clearpage
 
 \subsection{帯域と多重度の関係}
+
+前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる。\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その制作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1モジュールあたり102個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=10cm]{figures/multiplex.pdf}
+ \caption{読み出し系の帯域と多重度の関係。読み出し多重度の上限は、帯域の広さに比例する。つまり、広い帯域の読み出し回路ほど多重度を大きくできる。}
+ \label{fig:multiplex}
+\end{figure}
 
 \section{市販品で構築したフロントエンド回路とその課題}
 
