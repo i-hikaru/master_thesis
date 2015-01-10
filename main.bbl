@@ -1,0 +1,33 @@
+\providecommand{\href}[2]{#2}\begingroup\raggedright\begin{thebibliography}{1}
+
+\bibitem{1981mnras.195..467S}
+K.~{Sato}, {\it First-order phase transition of a vacuum and the expansion of
+  the universe},  {\em Monthly Notices of the Royal Astronomical Society} {\bf
+  195} (May, 1981) 467--479.
+
+\bibitem{PhysRevD.23.347}
+A.~H. Guth, {\it Inflationary universe: A possible solution to the horizon and
+  flatness problems},  {\em Phys. Rev. D} {\bf 23} (Jan, 1981) 347--356.
+
+\bibitem{mkid}
+P.~K. Day {\em et.~al.}, {\it A broadband superconducting detector suitable for
+  use in large arrays},  {\em Nature} {\bf 425} (Oct., 2003) 817--821.
+
+\bibitem{gao}
+J.~Gao, {\em The Physics of Superconducting Microwave Resonators}.
+\newblock PhD thesis, California Institute of Technology Pasadena, California,
+  2008.
+
+\bibitem{ddc}
+
+
+\bibitem{fft}
+
+
+\bibitem{kc705}
+Xilinx, {\em KC705 Evaluation Board for the Kintex-7 FPGA User Guide}, 2014.
+
+\bibitem{vivado}
+Xilinx, {\em Vivado Design Suite User Guide}, 2013.
+
+\end{thebibliography}\endgroup

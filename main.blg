@@ -1,0 +1,69 @@
+This is JBibTeX, Version 0.99c-j0.33 (euc) (Web2C 7.5.4)
+The top-level auxiliary file: /Users/hikaru/master_thesis/main.aux
+A level-1 auxiliary file: chapter/introduction.aux
+A level-1 auxiliary file: chapter/mkid.aux
+A level-1 auxiliary file: chapter/spec.aux
+A level-1 auxiliary file: chapter/design.aux
+A level-1 auxiliary file: chapter/evaluation.aux
+A level-1 auxiliary file: chapter/conclusion.aux
+A level-1 auxiliary file: appendix/appendix.aux
+The style file: JHEP-2.bst
+Reallocated wiz_functions (elt_size=4) to 3400 items from 0.
+Database file #1: master_thesis.bib
+Repeated entry---line 58 of file master_thesis.bib
+ : @manual{kc705
+ :              ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "fmc150"
+Warning--I didn't find a database entry for "gnd_noise"
+Warning--empty author in ddc
+Warning--empty title in ddc
+Warning--empty author in fft
+Warning--empty title in fft
+"-" can't start a style-file command---line 1092 of file JHEP-2.bst
+ : 
+ : --Boundary_(ID_83ETiXpi6fr1CohpRcMVUQ)--
+(Error may have been on previous line)
+You've used 8 entries,
+            2125 wiz_defined-function locations,
+            548 strings with 4301 characters,
+and the built_in function-call counts, 1545 in all, are:
+= -- 156
+> -- 23
+< -- 0
++ -- 13
+- -- 5
+* -- 97
+:= -- 207
+add.period$ -- 9
+call.type$ -- 8
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 86
+empty$ -- 171
+format.name$ -- 5
+if$ -- 389
+int.to.chr$ -- 0
+int.to.str$ -- 8
+missing$ -- 18
+newline$ -- 28
+num.names$ -- 4
+pop$ -- 30
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 61
+stack$ -- 0
+substring$ -- 92
+swap$ -- 30
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 4
+while$ -- 12
+width$ -- 9
+write$ -- 64
+is.kanji.str$ -- 0
+(There were 2 error messages)

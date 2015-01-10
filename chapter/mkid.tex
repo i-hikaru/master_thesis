@@ -4,23 +4,20 @@
 
 \section{動作原理}
 
-Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{MKID}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
+Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{mkid, gao}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードラインから構成される。図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
 
 アンテナで受信した電波のエネルギーが共振器内のクーパー対のギャップエネルギーより大きいと、それを解離する。このとき、共振器のインダクタンスが変化する。MKIDはその変化を共振状態の変化として検出する（図\ref{fig:mkid_2}(a)、(b)）。共振周波数は4--6 GHzに設定されることが多い。
 
 \begin{figure}[htbp]
  \centering
- \hspace{-20mm}
- \includegraphics[width=12cm]{figures/mkid_1.pdf}
- % \caption{MKIDの検出原理。(a) MKIDの基板図。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。(b) MKIDの等価回路。準粒子数の変化は系インダクタンスを変化させる。これにより、共振周波数が変化する。(c) 受信した電波のエネルギー$h\nu$が$2\Delta$より大きいとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。(d), (e) MKID（LC回路）が電波を受信すると、実線から破線へと共振周波数が変化する。振幅と位相の変化の読み出し例。%(f) 信号線の断面図。CPW（CoPlanar Waveguide）のジオメトリーを表す。
-% }
- \caption{MKIDの検出原理。MKID一素子の写真(a)とその等価回路(b)。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。受信した電波のエネルギー$h\nu$が2$\Delta$より大きとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。共振器内の準粒子数変化にともなって、インダクタンスが変化する。これにより、共振状態が変化する。つまり、MKIDは共振周波数の変化によって、受信信号の強度を測定する。}
+ \hspace{-15mm}
+ \includegraphics[width=12.5cm]{figures/mkid_1.png}
+ \caption[一素子のMKIDとその等価回路]{MKID一素子の写真(a)とその等価回路(b)。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。受信した電波のエネルギー$h\nu$が2$\Delta$より大きとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。共振器内の準粒子数変化にともなって、インダクタンスが変化する。これにより、共振状態が変化する。つまり、MKIDは共振周波数の変化によって、受信信号の強度を測定する。}
  \label{fig:mkid_1}
 \end{figure}
 
 \begin{figure}[htbp]
  \centering
-%  \hspace{-20mm}
  \includegraphics[width=14cm]{figures/mkid_2.pdf}
  \caption{MKIDへの信号入射にともなう共振状態の変化は、共振周波数とその振幅、位相の変化として検出できる。読み出し系の役割は、これらの変化を計測することである。}
  \label{fig:mkid_2}
@@ -43,7 +40,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \section{読み出し系}
 
-読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{DDC}とFFT（Fast Fourier Transform）方式\cite{FFT}の二種類が存在し、本論文では共振周波数をより高い精度で設定できる（つまり、検出感度を最大限に発揮できる）という観点から、DDC方式による読み出しに注力した開発を行う。
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Digital-Down Conversion）方式\cite{ddc}とFFT（Fast Fourier Transform）方式\cite{fft}の二種類が存在し、本論文では共振周波数をより高い精度で設定できる（つまり、検出感度を最大限に発揮できる）という観点から、DDC方式による読み出しに注力した開発を行う。
 
 \subsection{読み出し系の構成と大まかな流れ}
 
@@ -245,7 +242,7 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=15cm]{figures/mkid_real.pdf}
- \caption{既存の読み出し系で読みだしたMKIDの信号を複素平面上に描いたもの(a)。振幅読み出し(b)と位相読み出し(c)。}
+ \caption[既存の読み出し系によるMKIDの読み出し例]{(a) 既存の読み出し系で読み出したMKIDの信号を複素平面上に描写した図。振幅読み出し(b)と位相読み出し(c)。}
  \label{fig:mkid_real}
 \end{figure}
 
@@ -253,12 +250,12 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 
 \subsection{帯域と多重度の関係}
 
-前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる。\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その制作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1モジュールあたり102個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
+前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1モジュールあたり102個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=10cm]{figures/multiplex.pdf}
- \caption{読み出し系の帯域と多重度の関係。読み出し多重度の上限は、帯域の広さに比例する。つまり、広い帯域の読み出し回路ほど多重度を大きくできる。}
+ \includegraphics[width=9cm]{figures/multiplex.pdf}
+ \caption[読み出し系の帯域と多重度の関係]{読み出し系の帯域と多重度の関係。読み出し多重度の上限は、帯域の広さに比例する。つまり、広い帯域の読み出し回路ほど多重度を大きくできる。}
  \label{fig:multiplex}
 \end{figure}
 
@@ -272,11 +269,11 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 
 \subsubsection{Kintex-7 FPGA評価キッド}
 
-デジタル基板は、Xilinx社\footnote{http://xilinx.com/}のKintex-7 FPGA評価キッド（KC705）\cite{KC705}を用いる（図\ref{fig:kintex-7}の緑色の基板）。FPGAとはField Programmable Gate Arrayの略で、文字通りフィールド（ユーザー側）でプログラム可能な論理ゲートをアレイ化したデバイスである。FPGAは、ユーザーが設計から実装まで行うことができ、仕様や設計を開発途中で変更しやすいという特徴がある。これにより、ASIC（Application Specific Integrated Circuit）等と比べて、開発費・開発期間などの開発コストを大幅に削減することができる。
+デジタル基板は、Xilinx\footnote{http://xilinx.com/}により開発されているKintex-7 FPGA評価キッド（KC705）\cite{kc705}を用いる（図\ref{fig:kintex-7}の緑色の基板）。FPGAとはField Programmable Gate Arrayの略で、文字通りフィールド（ユーザー側）でプログラム可能な論理ゲートをアレイ化したデバイスである。FPGAは、ユーザーが設計から実装まで行うことができ、仕様や設計を開発途中で変更しやすいという特徴がある。これにより、ASIC（Application Specific Integrated Circuit）等と比べて、開発費・開発期間などの開発コストを大幅に削減することができる。
 
 KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するために用いるFMC（Fpga Mezzanine Card）インターフェースが実装されている。また、このデジタル基板で処理したデータは、イーサネットを用いて、PC等のオフラインに転送する。
 
-ハードウェアのコーディングや論理合成、実装、FPGAへのダウンロードは、統合開発環境Vivado\cite{Vivado}を用いて行った。
+ハードウェアのコーディングや論理合成、実装、FPGAへのダウンロードは、統合開発環境「Vivado Design Suite\cite{vivado}」を用いて行った。
 
 \begin{table}[htbp]
  \centering
@@ -314,7 +311,7 @@ KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するた
 
 \subsubsection{FMC150}
 
-既存の読み出し系で用いているアナログ基板は、4DSP社\footnote{http://www.4dsp.com/}のFMC150\cite{FMC150}という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150_block}、\ref{fig:fmc150_dim}にそれぞれFMC150のブロック図と基板図を示す。
+既存の読み出し系で用いているアナログ基板は、4DSP社\footnote{http://www.4dsp.com/}のFMC150\cite{fmc150}という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150_block}、\ref{fig:fmc150_dim}にそれぞれFMC150のブロック図と基板図を示す。
 
 このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
 
