@@ -15,13 +15,13 @@
 \usepackage{amsmath}
 \usepackage{bm}
 % \usepackage{pdfpages}
+\usepackage{okumacro}
 
 % \baselineskip  1.8zw
 \renewcommand{\baselinestretch}{1.1}
 
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
-% \newcommand{\bhline}[1]{\noalign{\hrule height #1}}
 
 \addtolength{\textheight}{2.4cm}
 \renewcommand{\bibname}{参考文献}
@@ -33,29 +33,31 @@
 
 \begin{document}
 
-%%% debug
-% \textwidth 4.0 in
-% \baselineskip 0.8 cm
-
 \maketitle
 
 \begin{abstract}
-宇宙マイクロ波背景放射（Cosmic Microwave Background; CMB）の温度異方性の精密測定により、ビッグバン宇宙模型は宇宙の標準模型として今日定着している。しかし、この模型には「地平線問題」・「平坦性問題」・「残存粒子問題」などの未解決な問題がある。これらを解決する有力な理論が、インフレーション理論である。インフレーション理論は、宇宙初期の時空の指数関数的な膨張によって、これらの問題を一挙に解決する。この急激な膨張は、原始重力波を生成し、その痕跡はCMBの偏光地図上の非対称パターン「$B$モード」として観測できる。
 
-GroundBIRD実験はこの原始重力波による$B$モードの検出を目的とした地上実験である。一般に、観測領域を制限するのは検出器の$1/f$ノイズである。GroundBIRDはこのノイズの影響を受けない観測を行うために、望遠鏡自身が高速で回転（20 RPM）しながら測定を行う。超伝導検出器MKID（Microwave Kinetic Inductance Detector）は、時間応答性が比較的良く、この高速回転観測に適した検出器である。
+ 宇宙マイクロ波背景放射（Cosmic Microwave Background; CMB）の温度異方性の精密測定により、ビッグバン宇宙模型は宇宙の標準模型として今日定着している。しかし、この模型には「地平線問題」・「平坦性問題」・「残存粒子問題」などの未解決な問題がある。これらを解決する有力な理論が、インフレーション理論である。インフレーション理論は、宇宙初期の時空の指数関数的な膨張によって、これらの問題を一挙に解決する。この急激な膨張は、原始重力波を生成し、その痕跡はCMBの偏光地図上の非対称パターン「$B$モード」として観測できる。
 
-CMB観測用のMKIDは、極低温（$\lesssim$ 250 mK）で動作するため、冷却光学系への熱流入を抑えることが肝要である。MKIDは一本の読み出し線を用いて多数の素子を読み出すことが容易なため、配線数を大幅に低減することができる。現在、市販のADC/DAC基板（アナログ基板）とFPGA（Field-Programmable Gate Array）評価基板を組み合わせて、比較的簡単に読み出し系を構成している。しかしながら、この市販品にはローパスフィルターが実装されている。そのため透過特性が悪く、使用帯域が制限されている。また、クロック生成器の周辺が必要以上に複雑であり、かつ、消費電力が大きく動作が不安定という致命的な問題がある。これら三つの問題を解決するために、広帯域かつシンプル・省電力な構成のアナログ基板の開発を行った。
+ GroundBIRD実験はこの原始重力波による$B$モードの検出を目的とした地上実験である。一般に、観測領域を制限するのは検出器の$1/f$ノイズである。GroundBIRDはこのノイズの影響を受けない観測を行うために、望遠鏡自身が高速で回転（20 RPM）しながら測定を行う。超伝導検出器MKID（Microwave Kinetic Inductance Detector）は、時間応答性が比較的良く、この高速回転観測に適した検出器である。
+
+ CMB観測用のMKIDは、極低温（$\lesssim$ 250 mK）で動作するため、冷却光学系への熱流入を抑えることが肝要である。MKIDは一本の読み出し線を用いて多数の素子を読み出すことが容易なため、配線数を大幅に低減することができる。現在、市販のADC/DAC基板（アナログ基板）とFPGA（Field-Programmable Gate Array）評価基板を組み合わせて、比較的簡単に読み出し系を構成している。しかしながら、この市販品にはローパスフィルターが実装されている。そのため透過特性が悪く、使用帯域が制限されている。これは結果として、読み出した重度を制限する。をまた、クロック生成器の周辺が必要以上に複雑であり、かつ、消費電力が大きく動作が不安定という致命的な問題がある。これら三つの問題を解決するために、広帯域かつシンプル・省電力な構成のアナログ基板の開発を行った。
 
 本研究で開発したRHEAは、MKIDの読み出しに最適化したアナログ基板である。帯域を制限していた原因であるローパスフィルターを排除して、帯域をおよそ30\%広げることに成功した。消費電力も大きく、現在の用途に不釣合いな位相同期回路（PLL）の代わりに必要最低限の機能をもったクロック・ファンアウト・バッファを搭載し、回路の簡素化と省電力性を向上した。その他種々のICを選定しなおし、さらに電源回路を見直すことで、フロントエンド回路全体の消費電力は従来の半分に抑えることができた。これらの改善は、回路全体の簡素化と同時に、ユーザーによる制御ファームウェアのコーディングの容易さをもたらす。
 
 以上より、MKIDの読み出しに最適化した試作アナログ基板RHEAは、策定した仕様通りに完成した。今後、実際のMKIDを使っての使用実績を積み重ねるという課題は残るものの、GroundBIRD実験で用いるMKIDの読み出し系として満足することを確認した。また、クロック・アップによる帯域の拡大、デジタル基板と分離した構成のためFPGA商品の性能向上の恩恵を直ちに反映できる等の魅力的な伸びしろも有する。
 \end{abstract}
 
-%%%   contents   %%%
+%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents %
+%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 % \listoffigures
 % \listoftables
 
+%%%%%%%%%%%%%%%%%
+% Main Contents %
+%%%%%%%%%%%%%%%%%
 \include{chapter/introduction}
 % \include{chapter/cosmology}
 % \include{chapter/groundbird}
@@ -66,13 +68,17 @@ CMB観測用のMKIDは、極低温（$\lesssim$ 250 mK）で動作するため、冷却光学系への熱流
 \include{chapter/evaluation}
 \include{chapter/conclusion}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix and Acknowledgement %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
 \include{appendix/appendix}
 % \include{acknowledgement/acknowledgement}
 
+%%%%%%%%%%%%%%%%
+% Bibliography %
+%%%%%%%%%%%%%%%%
 % \begin{thebibliography}{9}
-
 %  \bibitem{inflation}
 %  \bibitem{MKID}
 %  \bibitem{DDC}

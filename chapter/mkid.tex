@@ -40,7 +40,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \section{読み出し系}
 
-読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Digital-Down Conversion）方式\cite{ddc}とFFT（Fast Fourier Transform）方式\cite{fft}の二種類が存在し、本論文では共振周波数をより高い精度で設定できる（つまり、検出感度を最大限に発揮できる）という観点から、DDC方式による読み出しに注力した開発を行う。
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{ddc}とFFT（Fast Fourier Transform）方式\cite{fft}の二種類が存在し、本論文では共振周波数をより高い精度で設定でき（つまり、検出感度を最大限に発揮できる）、かつ、各MKIDの共振周波数をオンラインで調整できる（つまり、観測時間を最大化できる）というふたつの観点から、DDC方式による読み出しに注力した開発を行う。
 
 \subsection{読み出し系の構成と大まかな流れ}
 
@@ -86,7 +86,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \centering
  \vspace{-10mm}
  \includegraphics[width=23cm, angle=90]{figures/readout_sys.pdf}
- \caption{(a) MKIDの読み出し系の概念図。(b) 既存の読み出し系の各構成要素の写真。}
+ \caption[MKIDの読み出し系の概念図と既存の読み出し系の構成]{(a) MKIDの読み出し系の概念図。(b) 既存の読み出し系の各構成要素の写真。}
  \label{fig:readout_sys}
 \end{figure}
 
@@ -103,9 +103,9 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 % 	    \ 
 
-	    分配器は、信号のエネルギー$E$を$n$分割する。
+	    分配器は、信号のエネルギー$E$を$1/n$に等分配する。
 	    \begin{equation}
-	     \mathrm{Div}(E, n) \equiv \frac{E}{n}
+	     \mathrm{Div}(E, n) :=\frac{E}{n}
 	    \end{equation}
  \item[Mix:]
 
@@ -113,21 +113,21 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 	    混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
 	    \begin{equation}
-	     \mathrm{Mix}(S_{1}, S_{2}) \equiv S_{1}S_{2}
+	     \mathrm{Mix}(S_{1}, S_{2}) := S_{1}S_{2}
 	    \end{equation}
  \item[Hyb, Hyb$^{-1}$:]
 
 % 	    \ 
 
-	    ハイブリッド・カプラーは、2つの入力信号$S_{1}(\theta_{1})$、$S_{2}(\theta_{2})$に対し、位相を保ったもの（0回転）と$\pi/2$回転したものを合成（和算）する（Hyb）。逆に、1つの入力信号$S_{1}(\theta_{1})$をそのままのにしたものと$-\pi/2$したものに分解する（Hyb$^{-1}$）。
+	    ハイブリッド・カプラーは、2つの入力信号$S_{1}(\theta_{1})$、$S_{2}(\theta_{2})$に対し、位相を保存したもの（0回転）と位相を$\pi/2$回転したものを合成（和算）する（Hyb）。逆に、1つの入力信号$S_{12}(\theta_{1}, \theta_{2})$に対し、位相を保存したものと位相を$-\pi/2$回転したものに分解する（Hyb$^{-1}$）。
 	    \begin{align}
 	     \mathrm{Hyb}\left(S_{1}(\theta_{1}), S_{1}(\theta_{2})\right)
-	     &\equiv S_{1}(\theta_{1}) + S_{2}\left(\theta_{2} + \frac{\pi}{2}\right) \\
+	     &:= S_{1}(\theta_{1}) + S_{2}\left(\theta_{2} + \frac{\pi}{2}\right) \\
 	     \mathrm{Hyb^{-1}}\left(S_{12}(\theta_{1}, \theta_{2})\right)
-	      &\equiv \begin{cases}
-		      S_{1}(\theta_{1}) \\
-		      S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
-		     \end{cases}
+	     &:= \begin{cases}
+		  S_{1}(\theta_{1}) \\
+		  S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
+		 \end{cases}
 	    \end{align}
  \item[MKID:]
 
@@ -147,36 +147,36 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 	    LPFは、ある信号$S(t)=\sum_{i}\mathrm{e}^{\mathrm{j}\omega_{i}t}$に対し、周波数$\omega_{\mathrm{c}}$より大きい項をゼロにする。
 	    \begin{equation}
-	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}}) \equiv \sum_{\omega_{i} < \omega_{\mathrm{c}}} \mathrm{e}^{\mathrm{j}\omega_{i}t}
+	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}}) := \sum_{\omega_{i} < \omega_{\mathrm{c}}} \mathrm{e}^{\mathrm{j}\omega_{i}t}
 	    \end{equation}
 \end{description}
 
-これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{j}$（$=\omega_j/2\pi$）とする。
+これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{\mathrm{LO}}$（$=\omega_{\mathrm{LO}}/2\pi$）とする。
 
 \subsubsection{アップ・コンバート}
 
 DACの出力信号$S_{1}(t)$、$S_{2}(t)$は、次のように書ける。
 \begin{equation}
  \begin{aligned}
-  S_{1}(t) &= \sum_{i=1}^{N}\cos \omega_{i}t, \quad (i = 1, 2, \cdots, N) \\
-  S_{2}(t) &= \sum_{i=1}^{N}\sin \omega_{i}t, \quad (i = 1, 2, \cdots, N)
+  S_{1}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t, \quad (i = 1, 2, \cdots, N) \\
+  S_{2}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t, \quad (i = 1, 2, \cdots, N)
  \end{aligned}
 \end{equation}
 
-Divで分配した、LO信号$S_{3}(t)=A\cos \omega_{\mathrm{LO}}t$と$S_{1}(t)$、$S_{2}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{1}'(t)$、$S_{2}'(t)$とすると、
+Divで分配した、LO信号$S_{3}(t)=A\cos \omega_{\mathrm{LO}}t$とDACの出力信号$S_{1}(t)$、$S_{2}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{13}(t)$、$S_{23}(t)$とすると、
 \begin{equation}
  \begin{aligned}
-  S_{1}'(t) &= \mathrm{Mix}(S_{1}(t), S_{3}(t))
+  S_{13}(t) &:= \mathrm{Mix}(S_{1}(t), S_{3}(t))
 %  = \sum_{i=1}^{N}A\cos \omega_{i}t \cos \omega_{\mathrm{LO}}t
   = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\cos(\omega_{i} + \omega_{\mathrm{LO}})t - \cos(\omega_{i} - \omega_{\mathrm{LO}})t\biggl\} \\
-  S_{2}'(t) &= \mathrm{Mix}(S_{2}(t), S_{3}(t))
+  S_{23}(t) &:= \mathrm{Mix}(S_{2}(t), S_{3}(t))
 %  = \sum_{i=1}^{N}A\sin \omega_{i}t \cos \omega_{\mathrm{LO}}t
   = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\sin(\omega_{i} + \omega_{\mathrm{LO}})t + \sin(\omega_{i} - \omega_{\mathrm{LO}})t\biggr\} 
  \end{aligned}
 \end{equation}
-となる。混合後の信号$S_{1}'(t)$、$S_{2}'(t)$をHybで合成し、フィード信号$S_{\mathrm{feed}}(t)$にする。
+となる。混合後の信号$S_{13}(t)$、$S_{23}(t)$をHybで合成し、フィード信号$S_{\mathrm{feed}}(t)$にする。
 \begin{equation}
- S_{\mathrm{feed}}(t) = \mathrm{Hyb}\left(S_{1}'(t), S_{2}'(t)\right) = \sum_{i=1}^{N}A\cos(\omega_{i} + \omega_{\mathrm{LO}})t
+ S_{\mathrm{feed}}(t) := \mathrm{Hyb}\left(S_{13}(t), S_{23}(t)\right) = \sum_{i=1}^{N}A\cos(\omega_{i} + \omega_{\mathrm{LO}})t
 \end{equation}
 
 \subsubsection{MKIDによる変調}
@@ -193,27 +193,27 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 \begin{equation}
  \mathrm{Hyb}^{-1}\left(S_{\mathrm{feed}}'(t)\right)
   = \begin{cases}     
-     \displaystyle \sum_{i=1}^{N} A_{i}'\cos\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] = S_{1}''(t) \\
-     \displaystyle \sum_{i=1}^{N} A_{i}'\sin\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] = S_{2}''(t)
+     \displaystyle \sum_{i=1}^{N} A_{i}'\cos\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{1}'(t) \\
+     \displaystyle \sum_{i=1}^{N} A_{i}'\sin\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{2}'(t)
     \end{cases}
 \end{equation}
 
-分解した信号$S_{1}''(t)$、$S_{2}''(t)$は、再度MixでLO信号$S_{3}(t)$と混合し、$S_{1}'''(t)$と$S_{2}'''(t)$をADCに入力する。
+分解した信号$S_{1}'(t)$、$S_{2}'(t)$は、再度MixでLO信号$S_{3}(t)$と混合し、$S_{13}'(t)$と$S_{23}'(t)$をADCに入力する。
 \begin{equation}
  \begin{aligned}
-  S_{1}'''(t) = \mathrm{Mix}(S_{1}''(t), S_{3}(t))
+  S_{13}'(t) := \mathrm{Mix}(S_{1}'(t), S_{3}(t))
   &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\cos(\omega_{i}t + \phi_{i}) + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\} \\
-  S_{2}'''(t) = \mathrm{Mix}(S_{2}''(t), S_{3}(t))
-  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i}) + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\} \\
- A_{i}'' &= A_{i}'A
+  S_{23}'(t) := \mathrm{Mix}(S_{2}'(t), S_{3}(t))
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i}) + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\}
   \label{eq:adc_input}
  \end{aligned}
 \end{equation}
+ここで、$A_{i}'':=A_{i}'A$とした。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=15cm]{figures/iq_md.pdf}
- \caption{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
+ \includegraphics[width=15cm]{figures/ddc_up-down.png}
+ \caption[I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調]{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
  \label{fig:iq_md}
 \end{figure}
 
