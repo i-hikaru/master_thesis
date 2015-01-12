@@ -1,5 +1,28 @@
 \chapter{付録}
 
+\section{膨張する宇宙}
+
+一様等方に膨張する宇宙の計量として、次のような計量を考える。
+\begin{equation}
+ \mathrm{d}s^{2} = g_{\mu\nu} \mathrm{d}x^{\mu} \mathrm{d}x^{\nu} = -c^{2}\mathrm{d}{t}^{2} + a^{2}(t)\gamma_{ij}\mathrm{d}x^{i}\mathrm{d}x^{j}
+\end{equation}
+ここで、$\gamma_{ij}$は時間に依存しない3次元一様等方計量である。したがって、4次元計量$g_{\mu\nu}$の各成分は、
+\begin{equation}
+%  \begin{aligned}
+  g_{00} = -1, \quad g_{0i} = g_{i0} = 0, \quad g_{ij} = a^{2}\gamma_{ij}, \\
+%   g^{00} = -1, \quad g^{0i} = g^{i0} = 0, \quad g^{ij} = \frac{1}{a^{2}}\gamma^{ij}
+%  \end{aligned}
+ \label{eq:gmn}
+\end{equation}
+となる。式(\ref{eq:gmn})から、クリストッフェル記号$\chris{\mu}{\nu}{\rho}$を求めると次のようになる。
+\begin{equation}
+ \begin{aligned}
+  \chris{0}{0}{0} &= \chris{0}{0}{i} = \chris{i}{0}{0} = 0, \quad
+  \chris{0}{i}{j} = \frac{a\dot{a}}{c}\gamma_{ij}, \quad \chris{i}{0}{j} = \frac{\dot{a}}{ca}\krone{i}{j}, \\
+  \chris{i}{j}{k} &= \frac{1}{2}\gamma^{il}(\gamma_{lk,j} + \gamma_{jl,k} - \gamma_{jk,l})
+ \end{aligned}
+\end{equation}
+
 \section{ビッグバン宇宙模型}
 
 \subsubsection{ビッグバン宇宙模型の問題点}

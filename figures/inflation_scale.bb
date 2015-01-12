@@ -1,5 +1,5 @@
-%%Title: ./figures/inflation_scale.pdf
+%%Title: ./figures/inflation_scale.png
 %%Creator: extractbb 20110311
-%%BoundingBox: 0 0 408 326
-%%CreationDate: Sat Jan 10 20:03:12 2015
+%%BoundingBox: 0 0 609 521
+%%CreationDate: Mon Jan 12 17:32:12 2015
 
