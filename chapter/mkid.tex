@@ -23,7 +23,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \label{fig:mkid_2}
 \end{figure}
 
-% \clearpage
+\clearpage
 
 \section{周波数多重読み出し}
 
@@ -36,6 +36,17 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \includegraphics[width=15cm]{figures/mkids.pdf}
  \caption{異なる共振周波数をもつ、多素子化したMKID（MKIDアレイ）の基板図とその等価回路。MKIDは周波数空間に信号を多重化し、それを一本のフィードラインで読み出す。}
  \label{fig:mkids}
+\end{figure}
+
+\subsection{帯域と多重度の関係}
+
+前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1モジュールあたり102個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=9cm]{figures/multiplex.pdf}
+ \caption[読み出し系の帯域と多重度の関係]{読み出し系の帯域と多重度の関係。読み出し多重度の上限は、帯域の広さに比例する。つまり、広い帯域の読み出し回路ほど多重度を大きくできる。}
+ \label{fig:multiplex}
 \end{figure}
 
 \section{読み出し系}
@@ -248,17 +259,6 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 \end{figure}
 
 \clearpage
-
-\subsection{帯域と多重度の関係}
-
-前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1モジュールあたり102個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
-
-\begin{figure}[htbp]
- \centering
- \includegraphics[width=9cm]{figures/multiplex.pdf}
- \caption[読み出し系の帯域と多重度の関係]{読み出し系の帯域と多重度の関係。読み出し多重度の上限は、帯域の広さに比例する。つまり、広い帯域の読み出し回路ほど多重度を大きくできる。}
- \label{fig:multiplex}
-\end{figure}
 
 \section{市販品で構築したフロントエンド回路とその課題}
 
