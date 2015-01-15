@@ -13,7 +13,7 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/debug_led.pdf}
- \caption{クロック信号の確認に使ったデジタル基板に実装されているLED。28-bitのカウンターを用意し、その最上位ビットを出力することで、200 MHzのクロックであれば、おおよそ1秒（0.75 sec）の周期でLEDが明滅する。}
+ \caption[デバック用LED]{クロック信号の確認に使ったデジタル基板に実装されているLED。28-bitのカウンターを用意し、その最上位ビットを出力することで、200 MHzのクロックであれば、おおよそ1秒（0.75 sec）の周期でLEDが明滅する。}
  \label{fig:debug_led}
 \end{figure}
 
@@ -41,14 +41,15 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
  \label{fig:clock}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[!h]
  \centering
- \includegraphics[width=15cm]{figures/osc_probe.pdf}
- \caption{図\ref{fig:clock}において、オシロスコープでプローブした場所。クロック信号は差動信号であるため、通常は差動プローブを用いて測定する。ここでの目的は、ICを交換したことによる大雑把な信号の確認であるため、一方の差動信号は開放してパッシブ・プローブで測定している。}
+ \includegraphics[width=14cm]{figures/osc_probe.pdf}
+ \vspace{-5mm}
+ \caption[オシロスコープでプローブした場所]{オシロスコープでプローブした場所。クロック信号は差動信号であるため、通常は差動プローブを用いて測定する。ここでの目的は、ICを交換したことによる大雑把な信号の確認であるため、一方の差動信号は開放してパッシブ・プローブで測定している。}
  \label{fig:osc_probe}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 \section{消費電力の評価}
 
@@ -58,23 +59,23 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 
 消費電力の測定は、図\ref{fig:measure_power_schem}のようにして行う。アナログ基板の電源は、FMCを介してデジタル基板から供給される。デジタル基板は、通常AC100 Vから、ACアダプターでDC12 Vに変換している。この測定では、直流電源で12 Vをつくり、その電流量をモニターして、デジタル基板とアナログ基板の総消費電力を計算する。さらに、その値からデジタル基板（アナログ基板を抜いて測定）の電力消費を差し引いて、アナログ基板の消費電力を推定した。
 
-図\ref{fig:measure_power_schem}のテスターは、直流電源とデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンドピンの電圧差をテスターで測定し、すべての測定で12 Vの一定電圧がかかるようにする。図\ref{fig:measure_power}に、実際の測定構成の写真を示す。
-
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
  \includegraphics[width=10cm]{figures/measure_power_schem.pdf}
- \caption{消費電力を測定するための装置構成。デジタル基板に供給するDC12 Vを電流計の付いた直流電源から供給し、デジタル基板に流れた電流量を測定する。直流電源からデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンドピンの電圧差をテスターで測定する。}
+ \caption[消費電力を測定するための装置構成]{消費電力を測定するための装置構成。デジタル基板に供給するDC12 Vを電流計の付いた直流電源から供給し、デジタル基板に流れた電流量を測定する。直流電源からデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンドピンの電圧差をテスターで測定する。}
  \label{fig:measure_power_schem}
 \end{figure}
 
-\begin{figure}[htbp]
+図\ref{fig:measure_power_schem}のテスターは、直流電源とデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンドピンの電圧差をテスターで測定し、すべての測定で12 Vの一定電圧がかかるようにする。図\ref{fig:measure_power}に、実際の測定構成の写真を示す。
+
+\begin{figure}[!h]
  \centering
- \includegraphics[width=12cm]{figures/measure_power.pdf}
+ \includegraphics[width=14cm]{figures/measure_power.pdf}
  \caption{RHEAの消費電力の測定}
  \label{fig:measure_power}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 \subsection{評価結果}
 
@@ -99,27 +100,27 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 
 \section{帯域の評価}
 
-図\ref{fig:lpf_circuit}で示したように、RHEAには帯域を制限するLPF（ローパス・フィルター）が存在しない。100 MHzまでDACの信号強度が減衰しないことをオシロスコープを用いて測定し、帯域の拡大を確認する。
+図\ref{fig:lpf_circuit}で示したように、RHEAには帯域を制限するLPF（ローパス・フィルター）が存在しない。そこで、実際に100 MHzまでDACの信号強度が減衰しないことをオシロスコープを用いて測定し、帯域の拡大を確認する。
 
 \subsection{評価方法}
 
 信号強度の測定は、図\ref{fig:measure_dac_output}のようにして行う。デジタル基板上にあるFPGAでMHz帯の周波数をもつ正弦波と余弦波のデジタル信号を生成する。生成したデジタル信号は、FMCを介してアナログ基板上のDACに送られ、DACでデジタル信号をアナログ信号に変換する。そして、そのアナログ信号強度をオシロスコープで測定する。実際に測定している様子を図\ref{fig:measure_dac_output_rhea}に示す。
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
  \includegraphics[width=12cm]{figures/measure_dac_output.pdf}
  \caption{DACの信号強度を評価するための測定方法。デジタル基板とアナログ基板はFMCで接続する。DACからの信号は同軸ケーブルを伝ってオシロスコープに入力する。}
  \label{fig:measure_dac_output}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
- \includegraphics[width=12cm]{figures/measure_dac_output_rhea.pdf}
+ \includegraphics[width=14cm]{figures/measure_dac_output_rhea.pdf}
  \caption{RHEAで1 MHzの正弦波と余弦波を測定している様子}
  \label{fig:measure_dac_output_rhea}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 信号強度$P$は、出力した正弦波（余弦波）の最大値と最小値の電圧差$V_{\mathrm{pp}}$を測定し、次の式でエネルギーに変換する。
 \begin{equation}
@@ -127,18 +128,20 @@ RHEAは従来のアナログ基板に対して三つの改善を行った。ひとつ目は広帯域化、ふたつ目
 \end{equation}
 ここで、$R$は終端抵抗を表し、$R=$ 50 $\Omega$である。
 
+\clearpage
+
 \subsection{評価結果}
 
 図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。FMC150ではLPFにより、高周波数領域において、その信号強度が減衰していた。一方、RHEAでは高周波領域においても高い信号強度を維持していることが確認できる。
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
  \includegraphics[width=12cm]{figures/dac_output_fmc150.png}
- \caption{RHEA（本研究）とFMC150（既存の市販品）におけるDACの信号強度の比較。RHEAは高周波領域においてもで信号強度を維持している。数十kHzまでの直流成分はAC結合しているため、両者とも信号強度が弱い。AC結合は信号のベースラインのドリフトを防ぐので、このような高周波回路には必須である。}
+ \caption[RHEA（本研究）とFMC150（既存の市販品）におけるDACの信号強度の比較]{RHEA（本研究）とFMC150（既存の市販品）におけるDACの信号強度の比較。RHEAは高周波領域においてもで信号強度を維持している。数十kHzまでの直流成分はAC結合しているため、両者とも信号強度が弱い。AC結合は信号のベースラインのドリフトを防ぐので、このような高周波回路には必須である。}
  \label{fig:comp_dac_output}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 \section{評価結果まとめ}
 
