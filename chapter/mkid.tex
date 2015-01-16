@@ -4,7 +4,7 @@
 
 \section{動作原理}
 
-Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{mkid, mazin, gao}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、読み出し線から構成される。図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
+Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{mkid, mazin, gao}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードライン（読み出し線）から構成される。図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
 
 \begin{figure}[htbp]
  \centering
@@ -27,14 +27,14 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \section{周波数多重読み出し}
 
-次世代のCMB偏光観測にとって、検出器の多素子化は重要な課題である。前章で述べたように、GroundBIRDは783個のMKIDを搭載する。室温系と冷却系をつなぐ読み出し線からの熱流入の抑制が肝要となる。この鍵を握るのが信号の多重化である。
+次世代のCMB偏光観測にとって、検出器の多素子化は重要な課題である。前章で述べたように、GroundBIRDは848個のMKIDを搭載する。室温系と冷却系をつなぐフィードラインからの熱流入の抑制が肝要となる。この鍵を握るのが信号の多重化である。
 
-信号の多重化には、周波数分割多重と時間分割多重、空間分割多重、符号分割多重など、様々な技術が存在する。MKIDは共振器の長さによって、個々の共振周波数を調整することができる。図\ref{fig:mkids}に示すように、共振周波数の異なるMKIDを読み出し線上に並べれば、周波数空間に信号を多重化できる。つまり、MKIDは周波数分割多重読み出しに最適な検出器である。
+信号の多重化には、周波数分割多重と時間分割多重、空間分割多重、符号分割多重など、様々な技術が存在する。MKIDは共振器の長さによって、個々の共振周波数を調整することができる。図\ref{fig:mkids}に示すように、共振周波数の異なるMKIDをフィードライン上に並べれば、周波数空間に信号を多重化できる。つまり、MKIDは周波数分割多重読み出しに最適な検出器である。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/mkids.pdf}
- \caption[異なる共振周波数をもつ、多素子化したMKID（MKIDアレイ）の基板図とその等価回路]{異なる共振周波数をもつ、多素子化したMKID（MKIDアレイ）の基板図とその等価回路。MKIDは周波数空間に信号を多重化し、それを一本の読み出し線で信号を読み出す。}
+ \caption[異なる共振周波数をもつ、多素子化したMKID（MKIDアレイ）の基板図とその等価回路]{異なる共振周波数をもつ、多素子化したMKID（MKIDアレイ）の基板図とその等価回路。MKIDは周波数空間に信号を多重化し、それを一本のフィードラインで信号を読み出す。}
  \label{fig:mkids}
 \end{figure}
 
@@ -256,7 +256,7 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=15cm]{figures/mkid_real.pdf}
- \caption[既存の読み出し系によるMKIDの読み出し例]{(a) 既存の読み出し系で読み出したMKIDの信号を複素平面上に描写した図。振幅読み出し(b)と位相読み出し(c)。}
+ \caption[既存の読み出し系によるMKIDの読み出し例]{(a) 実際に読み出したMKIDの$I$、$Q$信号を複素平面上に描写した図。振幅読み出し(b)と位相読み出し(c)。これらは後述(2.4)のフロントエンド回路を使って測定した。}
  \label{fig:mkid_real}
 \end{figure}
 
@@ -362,7 +362,7 @@ FMC150はADCやDACの性能はMKIDの読み出し系として利用可能である。しかし、読み出し系
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/fan.pdf}
- \caption{FMC150のエアフローを向上させるために取り付けたUSB扇風機。ICの排熱処理は必須である。}
+ \caption{FMC150のエアフローを向上させるために取り付けた冷却ファン（ここでは、USB扇風機を使用）。ICの排熱処理が必須である。}
  \label{fig:fan}
 \end{figure}
 
