@@ -216,13 +216,19 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 \begin{equation}
  \begin{aligned}
   S_{13}'(t) := \mathrm{Mix}(S_{1}'(t), S_{3}(t))
-  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\cos(\omega_{i}t + \phi_{i}) + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\} \\
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2}
+  \biggl\{\cos(\omega_{i}t + \phi_{i})
+  + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
+  \biggr\} \\
+%   &\sim \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i})
   S_{23}'(t) := \mathrm{Mix}(S_{2}'(t), S_{3}(t))
-  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i}) + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]\biggr\}
+  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i})
+  + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
+  \biggr\}
   \label{eq:adc_input}
  \end{aligned}
 \end{equation}
-ここで、$A_{i}'':=A_{i}'A$とした。
+ここで、$A_{i}'':=A_{i}'A$とし、高調波成分は無視する。
 
 \begin{figure}[htbp]
  \centering
@@ -231,29 +237,68 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
  \label{fig:iq_md}
 \end{figure}
 
+% \subsubsection{復調}
+
+% ADCに入力した信号はFPGAに実装したDDS（Direct Digital Synthesizers）の信号$S_{\mathrm{I}}(t):=\sum_{j=1}^{N} \cos \omega_{j}t$、$S_{\mathrm{Q}}(t):=\sum_{j=1}^{N} \sin \omega_{j}t$をそれぞれMixで混合する。
+% \begin{equation}
+%  \begin{aligned}
+%   S_{13}{''}(t) := \mathrm{Mix}(S_{13}{'}(t), S_{\mathrm{I}})
+%   &= \sum_{i, j=1}^{N} \frac{A_{i}{''}}{4}
+%   \biggl\{
+%     \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
+%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
+%   &\qquad
+%   + \cos[(\omega_{i} + \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
+%   + \cos[(\omega_{i} - \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
+%   \biggr\} \\
+%   S_{23}{''}(t) := \mathrm{Mix}(S_{13}'(t), S_{\mathrm{Q}})
+%   &= \sum_{i, j=1}^{N} \frac{A_{i}{''}}{4}
+%   \biggl\{
+%     \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
+%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
+%   &\qquad 
+%   + \cos[(\omega_{i} + \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
+%   + \cos[(\omega_{i} - \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
+%   \biggr\}
+%  \end{aligned}
+% \end{equation}
+% Mixからの信号$S_{13}''(t)$、$S_{23}''(t)$をAddで合成する。
+% \begin{equation}
+%  \begin{aligned}
+%   I(t) := \mathrm{Add}(S_{13}''(t), S_{23}''(t))
+%   = \sum_{i, j=1}^{N}\frac{A_{i}''}{2}
+%   \biggl\{
+%    [\cos(\omega_{i} - \omega_{j})t + \phi_{i}]
+%   + \cos(\omega_{i} - \omega_{j} + 2\omega_{\mathrm{LO}})t
+%   \biggr\}
+%  \end{aligned}
+% \end{equation}
+
+
+
+% 次に、ADCに入力した信号をFPGAに実装したLPFを使ってMKIDの変調成分だけを取り出す。これをダウン・サンプリングと呼ぶ。
+% \begin{equation}
+%  \begin{aligned}
+%   \mathrm{LPF}(S_{1}'''(t), \omega_{\mathrm{LO}})
+%   &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) = I(t) \\
+%   \mathrm{LPF}(S_{2}'''(t), \omega_{\mathrm{LO}})
+%   &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \sin(\omega_{i}t + \phi_{i}) = Q(t)
+%   \label{eq:down_sampling}
+%  \end{aligned}
+% \end{equation}
+
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=16cm]{figures/lpf_fpga.pdf}
+%  \includegraphics[width=16cm]{figures/lpf_fpga.pdf}
+ \includegraphics[width=15cm]{figures/down_sampling.pdf}
  \caption{ADCへ入力した信号は、LO信号による高調波成分を含んでいる。MKIDの信号を取り出すために、デジタル基板上のFPGAにLPF（ローパス・フィルター）を実装する。}
  \label{fig:lpf_fpga}
 \end{figure}
 
-\subsubsection{ダウン・サンプリング}
-
-次に、ADCに入力した信号をFPGAに実装したLPFを使ってMKIDの変調成分だけを取り出す。これをダウン・サンプリングと呼ぶ。
-\begin{equation}
- \begin{aligned}
-  \mathrm{LPF}(S_{1}'''(t), \omega_{\mathrm{LO}})
-  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) = I(t) \\
-  \mathrm{LPF}(S_{2}'''(t), \omega_{\mathrm{LO}})
-  &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \sin(\omega_{i}t + \phi_{i}) = Q(t)
-  \label{eq:down_sampling}
- \end{aligned}
-\end{equation}
 
 既存の読み出し系で、以上に述べた方法を用いて読み出したMKIDの信号を図\ref{fig:mkid_real}に示す。式(\ref{eq:down_sampling})より、あるひとつのMKIDについての$I_{k}(t)$、$Q_{k}(t)$を得る。ここで、$1 \leq k \leq N$である。複素平面上の実軸に$I_{k}(t)$を虚軸に$Q_{k}(t)$描くと図\ref{fig:mkid_real}(a)のようになる。
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/mkid_real.pdf}
  \caption[既存の読み出し系によるMKIDの読み出し例]{(a) 実際に読み出したMKIDの$I$、$Q$信号を複素平面上に描写した図。振幅読み出し(b)と位相読み出し(c)。これらは後述(2.4)のフロントエンド回路を使って測定した。}
