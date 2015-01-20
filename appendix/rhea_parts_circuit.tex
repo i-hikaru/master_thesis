@@ -1,6 +1,34 @@
 \chapter{試作アナログ基板RHEAの構成部品仕様一覧と回路図}
+\label{app:rhea_parts_sircuit}
+
+RHEAに使用したICチップ等の構成部品一覧を表\ref{tbl:rhea_spec}にまとめる。また、これらの部品を用いて設計した回路図を次項以降に載せる。
+
+\begin{table}[!h]
+ \centering
+ \caption{RHEAの構成部品使用一覧}
+ \label{tbl:rhea_spec}
+ \begin{tabular}{ccc}
+  \toprule
+  型番          & 製造元            & 備考 \\\hline
+  ADS4249       & Texas Instruments & ADC \\
+  DAC3283       & Texas Instruments & DAC \\
+  LMZ12001      & Texas Instruments & スイッチング・レギュレーター \\
+  TPS79601      & Texas Instruments & リニア・レギュレーター \\
+  TPS73701      & Texas Instruments & リニア・レギュレーター \\
+  SN74LVC1G34   & Texas Instruments & バッファ・ゲート \\
+  SN74AVC4T245  & Texas Instruments & バス・トランシーバー \\
+  EG-2102CA     & Epson             & 水晶発振器 \\
+  ADCLK944      & Analog Devices    & クロック・ファンアウト・バッファ \\
+  ASP-127797-01 & Samtec            & FPGA FMC LPCコネクター \\
+  142-0701-801  & Cinch Connectivity Solutions & SMAコネクター \\
+  TC1-1T+       & Mini Circuits     & トランス \\
+  TC4-1W        & Mini Circuits     & トランス \\
+  \bottomrule
+ \end{tabular}
+\end{table}
 
 \clearpage
+
 \begin{figure}[htbp]
 \vspace*{-26.5mm}
 \hspace{-28.8mm}

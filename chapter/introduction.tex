@@ -132,9 +132,118 @@
 \end{equation}
 ¤È¤Ê¤ë¡£¼°(\ref{eq:slow-roll_diff})¡¢(\ref{eq:expanding_index_slow-roll})¤è¤ê¡¢$|\phi_{\mathrm f}-\phi_{\mathrm i}|\sim c^{2}G^{-1/2}$¤è¤êÂç¤­¤¤ÃÍ¤Ç¤¢¤ì¤Ð¡¢$N$¤Ï½½Ê¬Âç¤­¤¯¤Ê¤ë¡£¤Ä¤Þ¤ê¡¢½½Ê¬Ä¹¤¤¥¤¥ó¥Õ¥ì¡¼¥·¥ç¥ó¤Ï¡¢¤³¤Î¤è¤¦¤ËÈæ³ÓÅª¾®¤µ¤Ê·¹¤­¤ò»ý¤Ä¥Ý¥Æ¥ó¥·¥ã¥ë¤Ë¤è¤Ã¤Æµ¯¤³¤ë¡£
 
+\subsection{±§ÃèÏÀÅªÀÝÆ°}
+
+±§Ãè¤Ï´°Á´¤Ë°ìÍÍÅùÊý¤Ç¤Ï¤Ê¤¤¡£¤³¤ì¤ÏÀ±¤ä¶ä²Ï¤¬Â¸ºß¤·¤Æ¤¤¤ë¤³¤È¤«¤é¤â¼«ÌÀ¤Ç¤¢¤ë¡£¤½¤³¤Ç¡¢°ìÍÍÅùÊý±§Ãè¤«¤é¤ÎÀÝÆ°¤ò¹Í¤¨¤ë¡£
+\begin{equation}
+ \phi(t, \bm{x}) = \bar{\phi}(t) + \delta\phi(t, \bm{x}), \quad g_{\mu\nu}(t, \bm{x}) = \bar{g}_{\mu\nu}(t) + \delta g_{\mu\nu}(t, \bm{x})
+\end{equation}
+¤³¤³¤Ç¡¢$\bar{\phi}(t)$¤È$\bar{g}_{\mu\nu}(t)$¤Ï°ìÍÍÀ®Ê¬¤òÉ½¤·¡¢$\delta \phi(t, \bm{x})$¤È$\delta{g_{\mu\nu}}(t, \bm{x})$¤Ï¤½¤ÎÀÝÆ°¤òÉ½¤¹¡£¤³¤Î·×ÎÌ¤Ë¤ª¤±¤ëÀþÁÇ$\mathrm{d}s^{2}$¤Ï¡¢
+\begin{equation}
+\begin{aligned}
+ \mathrm{d}s^{2} &= g_{\mu\nu}\mathrm{d}x^{\mu}\mathrm{d}x^{\nu} \\
+ &= -(1 + 2\Phi)\mathrm{d}t^{2} + 2a B_{i}\mathrm{d}x^{i}\mathrm{d}t + a^{2}[(1 - \Psi)\delta_{ij} + E_{ij})]\mathrm{d}x^{i}\mathrm{d}x^{j}
+ \end{aligned}
+\end{equation}
+¤ÇÉ½¤µ¤ì¤ë¡£¤³¤³¤Ç¡¢$B_{i}$¡¢$E_{ij}$¤Ï¡¢
+\begin{equation}
+ \begin{aligned}
+  B_{i}  := \partial_{i}B - S_{i}, \quad (\partial^{i}S_{i} &= 0), \\
+  E_{ij} := 2\partial_{ij}E + 2\partial_{(i}F_{j)} + h_{ij}, \quad (\partial^{i} F_{i} &= 0, \ h^{i}{}_{i} = \partial^{i}h_{ij} = 0)
+ \end{aligned}
+\end{equation}
+¤Ç¤¢¤ë¡£¼Â¶õ´Ö¤Ë¤ª¤±¤ë¡¢¥¹¥«¥é¡¼¡¦¥Ù¥¯¥È¥ë¡¦¥Æ¥ó¥½¥ëÀÝÆ°¤Ï¡¢
+¤½¤ì¤¾¤ìÊ¬²ò¤Ç¤­¤ë¤³¤È¤¬ÃÎ¤é¤ì¤Æ¤ª¤ê¡¢ÆÈÎ©¤Ë¹Í¤¨¤é¤ì¤ë¡£
+¤Þ¤¿¡¢¥Ù¥¯¥È¥ëÀÝÆ°$S_{i}$¡¢$F_{i}$¤Ï¡¢
+±§Ãè¤ÎËÄÄ¥¤Ë¤·¤¿¤¬¤Ã¤Æ¸º¿ê¤¹¤ëÀ®Ê¬¤Ç¤¢¤ë¤È¤·¤Æ¤³¤³¤Ç¤Ï°·¤ï¤Ê¤¤¡£
+
+¥Æ¥ó¥½¥ëÀÝÆ°¤Ï¡¢ºÂÉ¸ÊÑ´¹
+\begin{equation}
+ \begin{aligned}
+  t     &\rightarrow t + \alpha \\
+  x^{i} &\rightarrow x^{i} + \delta^{ij}\beta_{,j}
+ \end{aligned}
+\end{equation}
+¤ËÂÐ¤·¤ÆÉÔÊÑ¡Ê¥²¡¼¥¸ÉÔÊÑ¡Ë¤À¤¬¡¢¥¹¥«¥é¡¼ÀÝÆ°¤Ï¼¡¤Î¤è¤¦¤ÊÊÑ´¹¤ò¼õ¤±¤ë¡£
+\begin{align}
+ \Phi &\rightarrow \Phi - \dot{\alpha} \\
+ B    &\rightarrow B + a^{-1}\alpha - a\dot{\beta} \\
+ E    &\rightarrow E - \beta \\
+ \Psi &\rightarrow \Psi + H\alpha
+\end{align}
+¤Þ¤¿¡¢¥¹¥«¥é¡¼¾ì¤ÎÀÝÆ°$\delta \phi$¤Ï
+\begin{equation}
+ \delta \phi \rightarrow \delta \phi - \dot{\phi}\delta t
+\end{equation}
+¤ÈÊÑ´¹¤µ¤ì¤ë¡£
+
+\subsubsection{¥¹¥«¥é¡¼ÀÝÆ°}
+
+¥¹¥«¥é¡¼ÀÝÆ°¤Ï¡¢°ìÍÍ¤ÊÄ¶¶ÊÌÌ¾å$\xi$¤Î¶ÊÎ¨ÀÝÆ°¤Ë¤è¤êÍ¿¤¨¤é¤ì¤ë\cite{PhysRevD.28.679}¡£
+\begin{equation}
+ -\xi := \Psi + \frac{H}{\dot{\bar{\rho}}}\delta \rho
+  \label{eq:xi}
+\end{equation}
+¼°(\ref{eq:xi})¤Ï¡¢¥¹¥í¡¼¥í¡¼¥ë¡¦¥¤¥ó¥Õ¥ì¡¼¥·¥ç¥ó¤Î¾ì¹ç¡¢
+\begin{equation}
+ -\xi \approx \Psi + \frac{H}{\bar{\dot{\phi}}}\delta \phi =: \mathcal{R}
+  \label{eq:xi'}
+\end{equation}
+¤È¶á»÷¤Ç¤­¤ë¡£¥¹¥«¥é¡¼¤æ¤é¤®¤Î¥Ñ¥ï¡¼¥¹¥Ú¥¯¥È¥ë¤Ï¡¢
+\begin{equation}
+ \left<\mathcal{R}_{\bm{k}}\mathcal{R}_{\bm{k}'}\right>
+  = (2\pi)^{3}\delta(\bm{k} + \bm{k'})P_{\mathcal{R}}(k),
+  \quad \Delta_{\mathrm s}^{2}
+  := \Delta_{\mathrm{\mathcal R}}^{2}
+  = \frac{k^{3}}{2\pi^{2}}P_{\mathcal R}(k)
+  \label{eq:ps}
+\end{equation}
+¤È¤Ê¤ë¡£¤³¤³¤Ç¡¢$\left<\cdots\right>$¤Ï¡¢¤æ¤é¤®¤Î¥¢¥ó¥µ¥ó¥Ö¥ëÊ¿¶Ñ¤Ç¤¢¤ë¡£¥Ñ¥ï¡¼¥¹¥Ú¥¯¥È¥ë¤Î¥¹¥±¡¼¥ë°ÍÂ¸À­¤ò¹Í¤¨¤ë¤È¤­¡¢¼¡¤Î¤è¤¦¤Ê»ØÉ¸¤¬ÍÑ¤¤¤é¤ì¤ë¡£
+\begin{equation}
+ n_{\mathrm s} - 1 := \frac{\mathrm{d}\ln \Delta_{\mathrm{s}}^{2}}{\mathrm{d}\ln k}, \quad \alpha_{\mathrm s} := \frac{\mathrm{d}n_{\mathrm s}}{\mathrm{d}\ln k}
+  \label{eq:n_s}
+\end{equation}
+¤³¤³¤Ç¡¢¥¹¥±¡¼¥ëÉÔÊÑ¤Ç¤¢¤ë¤È¤­¡¢$n_{\mathrm s}=1$¤Ç¤¢¤ë¡£
+spatially-flat¥²¡¼¥¸¤ò¹Í¤¨¤ë¤È¡¢¼°(\ref{eq:xi'})¤Ë¤ª¤¤¤Æ$\Psi=0$¤È¤Ê¤ê¡¢$\mathcal{R}$¤È¥¤¥ó¥Õ¥ì¡¼¥·¥ç¥ó¤Î¥¹¥«¥é¡¼¾ì¤Î´Ø·¸¤Ï¡¢
+\begin{equation}
+ \left< \mathcal{R}_{\bm{k}} \mathcal{R}_{\bm{k'}} \right>
+  = \left(H \over \dot{\phi}\right)^{2} \left< \delta \phi_{\bm{k}} \delta \phi_{\bm{k'}}\right>
+  \label{eq:R_and_phi}
+\end{equation}
+¤È¤Ê¤ê¡¢¥¹¥í¡¼¥í¡¼¥ë¡¦¥¤¥ó¥Õ¥ì¡¼¥·¥ç¥ó¤Ë¤ª¤±¤ë¡¢¥¹¥«¥é¡¼¾ì¡Ê$m_{\phi}\ll H$¡Ë¤ÎÎÌ»Ò¤æ¤é¤®¤Ï¡¢¥Ï¥Ã¥Ö¥ë¡¦¥Ñ¥é¥á¡¼¥¿¡¼¤ò»È¤Ã¤Æ¡¢
+\begin{equation}
+ \left< \delta\phi_{\bm{k}} \delta\phi_{\bm{k'}} \right>
+  = (2\pi)^{3}\delta(\bm{k} + \bm{k'})\frac{H^{2}}{2k^{3}}
+  \label{eq:fluc_phi}
+\end{equation}
+¤È¤Ê¤ë¡£¤·¤¿¤¬¤Ã¤Æ¡¢¼°(\ref{eq:ps})¡¢(\ref{eq:R_and_phi})¡¢(\ref{eq:fluc_phi})¤è¤ê¡¢¥¹¥«¥é¡¼¾ì¤¬¤Ä¤¯¤ë¤æ¤é¤®¤Î¥Ñ¥ï¡¼¥¹¥Ú¥¯¥È¥ë¤Ï¼¡¤Î¤è¤¦¤Ë¤Ê¤ë¡£
+\begin{equation}
+ \Delta_{\mathrm s}^{2}(k) = \left.\left(\frac{H}{2\pi}\right)^{2}{H^{2}\over 2k^{3}}\right|_{k=aH}
+\end{equation}
+
+\subsubsection{¥Æ¥ó¥½¥ëÀÝÆ°}
+
+¥Æ¥ó¥½¥ëÀÝÆ°¤Ë¤Ï2¤Ä¤Î¥â¡¼¥É$h_{ij}$¡Ê$h := h^{+},\ h^{\times}$¡Ë¤¬Â¸ºß¤¹¤ë¡£¤³¤Î¥Æ¥ó¥½¥ë¤æ¤é¤®¤Î¥Ñ¥ï¡¼¥¹¥Ú¥¯¥È¥ë¤Ï¡¢
+\begin{equation}
+ \left< h_{\bm{k}} h_{\bm{k'}} \right> = (2\pi)^{3}\delta(\bm{k} + \bm{k'})P_{h}(k)
+  , \quad
+  \Delta_{h}^{2} = \frac{k^{3}}{2\pi^{2}}P_{h}(k)
+\end{equation}
+¤È¤Ê¤ë¡£2¤Ä¤Î¥â¡¼¥É¤ò¹ç¤ï¤»¤¿¥Ñ¥ï¡¼¥¹¥Ú¥¯¥È¥ë¤Ï¡¢
+\begin{equation}
+ \Delta_{\mathrm t}^{2} := 2\Delta_{h}^{2} = \left.\frac{2}{\pi^{2}}\left(H\over M_{\mathrm{pl}}\right)^{2}\right|_{k=aH}
+  \label{eq:ps_tensor}
+\end{equation}
+¤ÇÍ¿¤¨¤é¤ì¤ë¡£¥¹¥±¡¼¥ë°ÍÂ¸À­¤Î»ØÉ¸¤Ï¡¢¥¹¥«¥é¡¼ÀÝÆ°¤Î¤È¤­¤ÈÆ±ÍÍ¤Ë¤·¤Æ¡¢¼¡¤Î¤è¤¦¤ËÄêµÁ¤µ¤ì¤ë¡£
+\begin{equation}
+ n_{\mathrm t} := \frac{\mathrm{d}\ln \Delta_{\mathrm t}^{2}}{\mathrm{d}\ln k}
+\end{equation}
+
 \subsection{¥¤¥ó¥Õ¥ì¡¼¥·¥ç¥ó¤Î¥¨¥Í¥ë¥®¡¼¡¦¥¹¥±¡¼¥ë}
 
-¥Æ¥ó¥½¥ë¤æ¤é¤®¤Î¿¶Éý$\Delta_{\mathrm t}^{2}$¤ò¥¹¥«¥é¡¼¤æ¤é¤®¤Î¿¶Éý$\Delta_{\mathrm s}^{2}\sim 10^{-9}$¤Çµ¬³Ê¤·¤¿¥Ñ¥é¥á¡¼¥¿¡¼$r$¤ò¼¡¤Î¤è¤¦¤ËÄêµÁ¤¹¤ë¡ÊÉÕÏ¿\ref{app:perturbations}»²¾È¡Ë¡£
+¥Æ¥ó¥½¥ë¤æ¤é¤®¤Î¿¶Éý$\Delta_{\mathrm t}^{2}$¤ò¥¹¥«¥é¡¼¤æ¤é¤®¤Î¿¶Éý$\Delta_{\mathrm s}^{2}\sim 10^{-9}$¤Çµ¬³Ê¤·¤¿¥Ñ¥é¥á¡¼¥¿¡¼$r$¤ò¼¡¤Î¤è¤¦¤ËÄêµÁ¤¹¤ë
+%¡ÊÉÕÏ¿\ref{app:perturbations}»²¾È¡Ë
+¡£
 \begin{equation}
  r := {\Delta_{\mathrm t}^{2}(k) \over \Delta_{\mathrm s}^{2}(k)}
 \end{equation}
@@ -231,11 +340,11 @@ GroundBIRD¼Â¸³¤Ï¡¢¸¶»Ï½ÅÎÏÇÈµ¯¸»¤Ë¤è¤ë$B$¥â¡¼¥É¤ÎÉý¹­¤¤³ÑÅÙ¥¹¥±¡¼¥ë¡Ê¿ôÅÙ¤«¤é¿ô½
 ÆÃ¤Ë¡¢$l\leq 10$¤ÎºÆÅÅÎ¥¤¬¤Ä¤¯¤ë»³¤È$l\sim 100$¤ÎºÆ·ë¹ç¤¬¤Ä¤¯¤ë»³¤òÂ¬Äê¤¹¤ë¤³¤È¤Ï¡¢¥¤¥ó¥Õ¥ì¡¼¥·¥ç¥ó¤ÎÌÏ·¿¤òÀººº¤¹¤ë¾å¤Ç½ÅÍ×¤Ç¤¢¤ë¡£
 ¤µ¤é¤Ë¡¢Âç³ÑÅÙ¥¹¥±¡¼¥ë¤Ë¾ÇÅÀ¤ò¤¢¤Æ¤¿´ÑÂ¬¤Ï¡¢¼å¤¤½ÅÎÏ¥ì¥ó¥º¸ú²Ì¤¬¤Ä¤¯¤ë$B$¥â¡¼¥É¤Î±Æ¶Á¤¬¾¯¤Ê¤¤¤È¤¤¤¦ÆÃÄ§¤ò¤â¤Ä¡Ê¿Þ\ref{fig:cl_gb}¡Ë¡£É½\ref{tbl:gb}¤ËGroundBIRD¤ÎÆÃÄ§¤ò¤Þ¤È¤á¤ë¡£
 
-\clearpage
+% \clearpage
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=15cm]{figures/gb.pdf}
+ \includegraphics[width=14cm]{figures/gb.pdf}
  \caption[GroundBIRD¤ÎË¾±ó¶À¤È²óÅ¾Âæ]{GroundBIRD¤ÎË¾±ó¶À¤È²óÅ¾Âæ¡£GroundBIRD¤ÏË¾±ó¶À¼«¿È¤¬¹âÂ®¤Ë²óÅ¾¡ÊËèÊ¬20²óÅ¾¡Ë¤·¤Æ¡¢CMBÊÐ¸÷¤ËÊÑÄ´¤ò¤«¤±¤ë¡£¤³¤ì¤Ë¤è¤ê¡¢$1/f$¥Î¥¤¥º¤Î±Æ¶Á¤ò¼õ¤±¤Ê¤¤Â¬Äê¤¬²ÄÇ½¤È¤Ê¤ë¡£}
  \label{fig:gb}
 \end{figure}
@@ -266,7 +375,7 @@ GroundBIRD¼Â¸³¤Ï¡¢¸¶»Ï½ÅÎÏÇÈµ¯¸»¤Ë¤è¤ë$B$¥â¡¼¥É¤ÎÉý¹­¤¤³ÑÅÙ¥¹¥±¡¼¥ë¡Ê¿ôÅÙ¤«¤é¿ô½
  \end{tabular}
 \end{table}
 
-\clearpage
+% \clearpage
 
 \subsection{¥¹¥­¥ã¥ó¡¦¥¹¥È¥é¥Æ¥¸¡¼}
 
@@ -310,6 +419,8 @@ GroundBIRD°ìÂæ¤¬¤â¤Ä´ÑÂ¬ÎÎ°è¤Ï¡¢Á´Å·¤Î¤ª¤è¤½30\%¤Ç¤¢¤ë¡Ê¿Þ\ref{fig:scan}¡Ë¡£°ìÈÌ
 
 % ¥Ø¥ê¥¦¥àµÛÃå¼°ÎäÅàµ¡¤Ï¡¢¥Ø¥ê¥¦¥à¡Ê$^{3}$He¡¦$^{4}He$¡Ë¤ÎÆþ¤Ã¤¿ÍÆ´ïÆâ¤Î°µÎÏ¤ò²¼¤²¡¢µ¤²½¤µ¤»¤ë¤³¤È¤ÇÇ®¤òÃ¥¤¦ÎäÅàµ¡¤Ç¤¢¤ë¡£¤½¤Î¤¿¤á¡¢ÍÆ´ïÆâ¤Î¥Ø¥ê¥¦¥à¤¬¤¹¤Ù¤Æµ¤²½¤·¤Æ¤·¤Þ¤¦Á°¤Ë¡¢µ¤²½¤·¤¿¥Ø¥ê¥¦¥à¤ò±Õ²½¤·¤Ê¤±¤ì¤Ð¤Ê¤é¤Ê¤¤¡Ê¥ê¥Á¥ã¡¼¥¸¡Ë¡£¤Ä¤Þ¤ê¡¢ÎäµÑ¥µ¥¤¥¯¥ë¤¬Â¸ºß¤¹¤ë¡£¤³¤Î¥Ø¥ê¥¦¥àµÛÃå¼°ÎäÅàµ¡¤ÎÎäµÑ¥µ¥¤¥¯¥ë¤Ï¡¢¼Â¼Á´ÑÂ¬¤Î¥µ¥¤¥¯¥ë¤È¤Ê¤ë¡£
 
+\clearpage
+
 \begin{figure}[!h]
  \centering
 %  \includegraphics[width=15cm]{figures/cooling_sys.pdf}
@@ -319,7 +430,7 @@ GroundBIRD°ìÂæ¤¬¤â¤Ä´ÑÂ¬ÎÎ°è¤Ï¡¢Á´Å·¤Î¤ª¤è¤½30\%¤Ç¤¢¤ë¡Ê¿Þ\ref{fig:scan}¡Ë¡£°ìÈÌ
  \label{fig:rco}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 \subsection{MKID}
 

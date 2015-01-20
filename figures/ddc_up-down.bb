@@ -1,5 +1,5 @@
-%%Title: ./figures/ddc_up-down.png
+%%Title: ./figures/ddc_up-down.pdf
 %%Creator: extractbb 20110311
-%%BoundingBox: 0 0 958 626
-%%CreationDate: Sun Jan 11 13:03:50 2015
+%%BoundingBox: 0 0 601 353
+%%CreationDate: Tue Jan 20 10:57:13 2015
 
