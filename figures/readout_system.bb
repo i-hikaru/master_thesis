@@ -1,5 +1,5 @@
-%%Title: ./figures/readout_system.png
+%%Title: ./figures/readout_system.pdf
 %%Creator: extractbb 20110311
-%%BoundingBox: 0 0 705 481
-%%CreationDate: Wed Dec 31 13:12:57 2014
+%%BoundingBox: 0 0 1066 701
+%%CreationDate: Wed Jan 21 14:54:31 2015
 

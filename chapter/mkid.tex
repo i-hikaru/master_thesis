@@ -52,7 +52,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 \section{読み出し系}
 
 読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{ddc}とFFT（Fast Fourier Transform）方式\cite{fft}の二種類が存在し、本論文では共振周波数をより高い精度で設定できる（つまり、検出感度を最大限に発揮できる）%、かつ、各MKIDの共振周波数をオンラインで調整できる（つまり、観測時間を最大化できる）
-という観点から、DDC方式による読み出しに注力した開発を行う。
+という観点から、DDC方式による読み出しに注力した開発を行う\cite{kibe_ltd}。
 
 \clearpage
 
@@ -99,7 +99,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 \begin{figure}[htbp]
  \centering
  \vspace{-10mm}
- \includegraphics[width=23cm, angle=90]{figures/readout_sys.pdf}
+ \includegraphics[width=23cm, angle=90]{figures/readout_system.pdf}
  \caption[MKIDの読み出し系の概念図と既存の読み出し系の構成]{(a) MKIDの読み出し系の概念図。(b) 既存の読み出し系の各構成要素の写真。}
  \label{fig:readout_sys}
 \end{figure}
@@ -108,7 +108,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{DDC方式による読み出し原理}
 
-アップ・コンバートとダウン・コンバートを含むフィード信号の合成・分離と、MKIDの共振による信号の状態変化を図\ref{fig:iq_md}に模式する。図\ref{fig:readout_sys}のI/Qミキサー（I/Q Mix）は、構成要素に分解すると、2つの混合器とハイブリッド・カプラー、ローパス・フィルターからなる。
+図\ref{fig:readout_sys}のUP/DOWN Mix\footnote{実際には、Miteq社のIQ Modulator IRM0208LC2AとIQ Demodulator IRM0208LC2Qを用いる。}は、構成要素に分解すると、2つの混合器とハイブリッド・カプラー、ローパス・フィルターからなる。これを使ったアップ・コンバートとダウン・コンバートを含むフィード信号の合成・分離と、MKIDによる共振の状態変化を図\ref{fig:iq_md}に模式する。
 
 分配器（Div）と混合器（Mix）、ハイブリッド・カプラー（Hyb）、MKID、ローパス・フィルター（LPF）は、理想的な素子であるとして次のように定義する。
 
@@ -280,12 +280,14 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
 %   S_{Q}(t):=\sum_{j=1}^{N} \sin \omega_{j}t, \quad (j = 1, 2, \cdots, N) 
 %  \end{aligned}
 % \end{equation}
-とMixで混合する。
+と掛け算器で乗算する。
 % \begin{equation}
 %  \begin{aligned}
 \begin{align} 
-  I_{I}(t) &:= \mathrm{Mix}(I(t), S_{I}(t)) 
-% \notag \\ &\
+  I_{I}(t) &:=
+ %\mathrm{Mix}(I(t), S_{I}(t))
+ I(t) \times S_{I}(t)
+ % \notag \\ &\
  = \sum_{i=1}^{N}
  %\sum_{j=1}^{N}
  \frac{A_{i}{''}}{4}
@@ -295,8 +297,10 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
   \biggr\}
  \label{eq:II}
   \\
-  I_{Q}(t) &:= \mathrm{Mix}(I(t), S_{Q}(t))
-%  \notag \\ &\
+  I_{Q}(t) &:=
+ %\mathrm{Mix}(I(t), S_{Q}(t))
+ I(t) \times S_{Q}(t)
+ %  \notag \\ &\
  = \sum_{i=1}^{N}
  %\sum_{j=1}^{N}
  \frac{A_{i}{''}}{4}
@@ -306,8 +310,10 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
   \biggl\}
  \label{eq:IQ}
   \\
-  Q_{I}(t) &:= \mathrm{Mix}(Q(t), S_{I}(t))
-%  \notag \\ &\ 
+  Q_{I}(t) &:=
+ %\mathrm{Mix}(Q(t), S_{I}(t))
+ Q(t) \times S_{I}(t)
+ %  \notag \\ &\ 
  = \sum_{i=1}^{N}
  %\sum_{j=1}^{N}
  \frac{A_{i}{''}}{4}
@@ -317,8 +323,10 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
   \biggr\}
  \label{eq:QI}
   \\
-  Q_{Q}(t) &:= \mathrm{Mix}(Q(t), S_{Q}(t))
-%  \notag \\ &\
+  Q_{Q}(t) &:=
+ %\mathrm{Mix}(Q(t), S_{Q}(t))
+ Q(t) \times S_{Q}(t)
+ %  \notag \\ &\
  = \sum_{i=1}^{N}
  %\sum_{j=1}^{N}
  \frac{A_{i}{''}}{4}
@@ -328,7 +336,7 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
   \biggr\}
  \label{eq:QQ}
 \end{align}
-式(\ref{eq:II})と(\ref{eq:QQ})、式(\ref{eq:IQ})と(\ref{eq:QI})の信号をそれぞれ合成すると、
+式(\ref{eq:II})と(\ref{eq:QQ})、式(\ref{eq:IQ})と(\ref{eq:QI})の信号をそれぞれ加算、減算すると、
 \begin{equation}
  \begin{aligned}
   I'(t) &:= 
@@ -350,7 +358,8 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
   \label{eq:I'Q'}
  \end{aligned}
 \end{equation}
-となる。ここで、$Q'(t)$信号は、$I_{Q}(t)$信号の位相を$\pi$回転して（つまり、(-1)倍して）から$Q_{I}(t)$と合成している。
+となる。
+%ここで、$Q'(t)$信号は、$I_{Q}(t)$信号の位相を$\pi$回転して（つまり、(-1)倍して）から$Q_{I}(t)$と合成している。
 これより、$I'(t)$、$Q'(t)$信号の第二項以下の高調波をLPFで落とせば、$j$番目のMKIDにより変調された振幅$A_{j}''$と位相$\phi_{j}$の情報が同時に読み出せる。
 \begin{equation}
 \begin{aligned}
@@ -361,7 +370,7 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
  \label{eq:mkid_sig}
 \end{aligned}
 \end{equation}
-ここで、$\mathcal{A}_{j}:=A{''}_{j}/2$とし、$\omega_{\mathrm c}{'}t \gg \phi_{i}$となるカットオフ周波数$\omega_{\mathrm c}'$を選んだ。
+ここで、$\mathcal{A}_{j}:=A{''}_{j}/2$とし、$\omega_{\mathrm c}{'}t \gg \phi_{i}$となるカットオフ周波数$\omega_{\mathrm c}'$を選んだ。%このLPFは実際的には、二つの要素がある。ひとつは、FPGAに実装するCIC（Cascaded Integration-Comb）フィルター、もうひとつは、時間積分（観測時間を増やす・平均化する）によるものである。
 
 %  \end{aligned}
 % \end{equation}

@@ -1,4 +1,4 @@
-\chapter{世界で開発されているフロントエンド回路とその特性}
+\chapter{世界で開発されているフロントエンド回路とその特徴}
 
 MKIDはCMB実験では稼働実績はないが、ミリ波帯ではすでに試験観測が行われている\cite{iram}。そこで、本章では世界で開発されているフロントエンド回路をいくつか紹介し、各々の特性についてまとめる。
 
@@ -6,7 +6,7 @@ MKIDはCMB実験では稼働実績はないが、ミリ波帯ではすでに試験観測が行われている\cite
 
 NIKEL（New Iram KID ELectronics）は、NIKA（New Iram KID Array）実験のフロントエンド回路である。NIKAは30 mの電波望遠鏡で、150 GHz帯（120--170 GHz）と240 GHz帯（200--280 GHz）に感度をもつMKIDを合計400ピクセル搭載する。したがって、帯域は500 MHzに設計されている。500 MHzの帯域は
 %DAC（Analog Devices, AD912\footnote{{\tt http://www.analog.com/static/imported-files/data\_sheets/AD9125.pdf}}）のサンプル・レートで制限されており、
-DACを並列につないで実現している。
+DACとFPGAをそれぞれ5つずつ並列につないで実現している。
 
 \begin{figure}[!h]
  \centering
@@ -28,3 +28,5 @@ DACを並列につないで実現している。
  \caption[NIKELの基板写真]{NIKELの基板写真。基板は14層からなり、大きさは184 mm$\times$153 mm。}
  \label{fig:nikel_board}
 \end{figure}
+
+\section{MUSIC Readout}

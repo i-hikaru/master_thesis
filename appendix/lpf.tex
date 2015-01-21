@@ -1,10 +1,10 @@
 \chapter{外部LPFの評価}\label{app:lpf}
 
-\ref{subsec:req_band}で述べたように、RHEAはアナログ基板上にLPF（ローパス・フィルター）を実装していない。そのため、高周波ノイズの漏れ込みが懸念される。これには、アナログ出力後にユーザー定義のLPF（外部LPF）を取り付けることが考えられる。そこで、このLPFの性能評価を行う。
+\ref{subsec:req_band}で述べたように、RHEAはLPF（ローパス・フィルター）を実装していない。そのため、高周波ノイズの漏れ込みが懸念される。これに関しては、アナログ出力後にユーザー定義のLPF（外部LPF）を取り付けることで容易に対処できる。その候補となるLPFの性能評価を行った。
 
 \section{評価方法}
 
-外部LPFの評価は、ベクトル・ネットワーク・アナライザー（Vector Network Analyzer; VNA, Keysight N5224A）を用いて行う（S$_{21}$パラメーターを測定する）。図\ref{fig:ex-lpf}に測定するLPF（Mini-Circuits SLP-100+\footnote{\tt http://www.minicircuits.com/pdfs/SLP-100+.pdf}）とその測定の様子を示す\footnote{VNAを使った実際の測定は、KEKの長崎氏に行っていただいた。この場をかりて、感謝の意を表したい。}。
+LPFの特性評価は、ベクトル・ネットワーク・アナライザー（Vector Network Analyzer; VNA, Keysight N5224A）を用いて容易にSパラメーターを測定できる。図\ref{fig:ex-lpf}に測定するLPF（Mini-Circuits SLP-100+\footnote{\tt http://www.minicircuits.com/pdfs/SLP-100+.pdf}）とその測定の様子を示す\footnote{VNAを使った実際の測定は、KEKの長崎氏に行っていただいた。この場をかりて、感謝の意を表したい。}。
 
 \begin{figure}[!h]
  \centering
