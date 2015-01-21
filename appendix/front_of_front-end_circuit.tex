@@ -30,3 +30,23 @@ DACとFPGAをそれぞれ5つずつ並列につないで実現している。
 \end{figure}
 
 \section{MUSIC Readout}
+
+\section{A-KID Readout}
+
+\section{本研究との比較}
+
+\begin{table}[!h]
+ \centering
+ \caption{RHEA（本研究）による新フロントエンド回路と世界で開発されているフロントエンド回路の特徴}
+ \label{tbl:comp_front-end}
+ \begin{tabular}{ccccc}
+  \toprule
+  & RHEA & NIKEL & MUSIC Readout & A-KID Readout \\\hline
+  フィード線一対あたりの & Kintex-7 & Vertex-6 & \multirow{2}{*}{} & \multirow{2}{*}{} \\
+  FPGA（種類、数） & 1個 & 6個 & & \\\hline
+  ADCひとつあたりの & 14 bit & 12 bit & \multirow{2}{*}{} & \multirow{2}{*}{} \\
+  実装性能（分解能、帯域） & 200 MHz & 500 MHz & 550 MHz & \\\hline
+  消費電力 & 23 W& 100 W & & \\
+  \bottomrule
+ \end{tabular}
+\end{table}

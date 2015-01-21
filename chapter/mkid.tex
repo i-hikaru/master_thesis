@@ -10,7 +10,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \centering
  \hspace{-15mm}
  \includegraphics[width=12.5cm]{figures/mkid_1.png}
- \caption[一素子のMKIDとその等価回路]{MKID一素子の写真(a)とその等価回路(b)。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。受信した電波のエネルギー$h\nu$が2$\Delta$より大きとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。共振器内の準粒子数変化にともなって、インダクタンスが変化する。これにより、共振状態が変化する。つまり、MKIDは共振周波数の変化によって、受信信号の強度を測定する。}
+ \caption[一素子のMKIDとその等価回路]{MKID一素子の写真(a)とその等価回路(b)。MKIDはアンテナと超伝導共振器、フィードラインからなり、超伝導共振器とフィードラインはAC結合している。受信した電波のエネルギー$h\nu$が2$\Delta$より大きとき、超伝導状態の共振器内のクーパー対が解離し、$N_{\mathrm{qp}}=\eta h\nu/\Delta$個の準粒子が生成する。共振器内の準粒子数変化にともなって、インダクタンスが変化する。これにより、共振状態が変化し、受信信号の強度が測定できる。}
  \label{fig:mkid_1}
 \end{figure}
 
@@ -86,11 +86,15 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 読み出しの大まかな流れは次のようになる:
 \begin{enumerate}
- \item デジタル基板でデジタル変調信号を生成し、アナログ基板のDAC（Digital to Analog Converter）でアナログ変調して出力する。変調信号とは、複数の周波数（本研究の場合は、100 MHz以下のMHz帯）を重ね合わせた信号である。
- \item 局所発振器（LO）で出力した基準信号（通常、数GHz程度）とDACから出力したアナログ変調信号（MHz帯）をI/Q（In-phase/Quadrature-phase）ミキサーでGHz帯にアップ・コンバートしてフィード信号とする。
+ \item デジタル基板上でDDS（Direct Digital Synthesizer）を用いてデジタル変調信号を生成し、アナログ基板のDAC（Digital to Analog Converter）でアナログ変調して出力する。変調信号とは、複数の周波数（本研究の場合は、100 MHz以下のMHz帯）を重ね合わせた信号である。
+ \item 局所発振器（LO）で出力した基準信号（通常、数GHz程度）とDACから出力したアナログ変調信号（MHz帯）を
+       %I/Q（In-phase/Quadrature-phase）ミキサーで
+       GHz帯にアップ・コンバートしてフィード信号とする。
  \item フィード信号をMKIDに入力する。MKIDの共振器の共振によってフィード信号が変化する。アンテナ入力信号を共振状態（振幅と位相）の変化として計測する。
  \item MKIDの共振情報を含むフィード信号をLNAで増幅する。
- \item 増幅した信号と2.の基準信号をI/Qミキサーでダウン・コンバードする。
+ \item 増幅した信号と2.の基準信号を
+       %I/Qミキサーで
+       ダウン・コンバードする。
  \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
 \end{enumerate}
 
@@ -127,7 +131,8 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 	    混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
 	    \begin{equation}
-	     \mathrm{Mix}(S_{1}, S_{2}) := S_{1}S_{2}
+	     %\mathrm{Mix}(S_{1}, S_{2}) := S_{1}S_{2}
+	      \mathrm{Mix}(S_{1}, S_{2}) := 2S_{1}S_{2}
 	    \end{equation}
  \item[Hyb, Hyb$^{-1}$:]
 
@@ -143,14 +148,15 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 		  S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
 		 \end{cases}
 	    \end{align}
- \item[MKID:]
+%  \item[MKID:]
 
 % 	    \ 
 
-	    MKIDは、ある信号の振幅$A$と位相$\theta$に対して次のような変換をする。
-	    \begin{equation}
-	     A \rightarrow A', \quad \theta \rightarrow \theta + \phi
-	    \end{equation}
+% 	    MKIDは、ある信号の振幅$A$と位相$\theta$に対して次のような変換をする。
+% 	    \begin{equation}
+% 	     %A \rightarrow A', \quad \theta \rightarrow \theta + \phi
+% 	      1 \rightarrow A', \quad \theta \rightarrow \theta + \phi
+% 	    \end{equation}
 %  \item[LNA:] ある信号の振幅$A$を$\alpha$倍する。
 % 	    \begin{equation}
 % 	     \mathrm{LNA}(S(A, t), \alpha) \equiv S(\alpha A, t)
@@ -165,73 +171,117 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 	    \end{equation}
 \end{description}
 
-これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{\mathrm{LO}}$（$=\omega_{\mathrm{LO}}/2\pi$）とする。
+これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{\mathrm{LO}}$
+（$=\omega_{\mathrm{LO}}/2\pi$）とする。
+% （$=\omega_{\footnotesize {\rm LO}}/2\pi$）とする。
+
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/ddc_up-down.pdf}
- \caption[I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調]{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
+%  \caption[I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調]{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
+ \caption{アナログ基板出力後のアップ・ダウンコンバートを含むフィード信号の合成・分離とMKIDの共振による信号の状態変化の模式図。}
  \label{fig:iq_md}
 \end{figure}
 
 \subsubsection{アップ・コンバート}
 
-DACの出力信号$S_{1}(t)$、$S_{2}(t)$は、次のように書ける。
+DACの出力信号
+%$S_{1}(t)$、$S_{2}(t)$
+$C_{\mathrm{DAC}}(t)$、$S_{\mathrm{DAC}}(t)$
+は、次のように書ける。
 \begin{equation}
  \begin{aligned}
-  S_{1}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t,
+%  S_{1}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t,
+  C_{\mathrm{DAC}}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t,
   \quad (i = 1,\ 2,\ \cdots,\ N) \\
-  S_{2}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t,
+%   S_{2}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t,
+  S_{\mathrm{DAC}}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t,
   \quad (i = 1,\ 2,\ \cdots,\ N)
  \end{aligned}
 \end{equation}
 
-Divで分配した、LO信号$S_{3}(t)=A\cos \omega_{\mathrm{LO}}t$とDACの出力信号$S_{1}(t)$、$S_{2}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{13}(t)$、$S_{23}(t)$とすると、
+Divで分配した、LO信号$\cos \omega_{\mathrm{LO}}t$とDACの出力信号$C_{\mathrm{DAC}}(t)$、$S_{\mathrm{DAC}}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$とすると、
 \begin{equation}
  \begin{aligned}
-  S_{13}(t) &:= \mathrm{Mix}(S_{1}(t), S_{3}(t))
-%  = \sum_{i=1}^{N}A\cos \omega_{i}t \cos \omega_{\mathrm{LO}}t
-  = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\cos(\omega_{i} + \omega_{\mathrm{LO}})t - \cos(\omega_{i} - \omega_{\mathrm{LO}})t\biggl\} \\
-  S_{23}(t) &:= \mathrm{Mix}(S_{2}(t), S_{3}(t))
-%  = \sum_{i=1}^{N}A\sin \omega_{i}t \cos \omega_{\mathrm{LO}}t
-  = \sum_{i=1}^{N} \frac{A}{2}\biggl\{\sin(\omega_{i} + \omega_{\mathrm{LO}})t + \sin(\omega_{i} - \omega_{\mathrm{LO}})t\biggr\} 
+%   S_{13}(t) &:= \mathrm{Mix}(S_{1}(t), S_{3}(t))
+  C_{\mathrm{UP}}(t)
+  &:= \mathrm{Mix}(C_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
+  = \sum_{i=1}^{N}
+  %\frac{A}{2}
+  %\frac{1}{2}
+  \biggl\{
+    \cos(\omega_{i} + \omega_{\mathrm{LO}})t
+  - \cos(\omega_{i} - \omega_{\mathrm{LO}})t
+  \biggl\} \\
+  S_{\mathrm{UP}}(t)
+  &:= \mathrm{Mix}(S_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
+  = \sum_{i=1}^{N}
+%   \frac{A}{2}
+%   \frac{1}{2}
+  \biggl\{
+    \sin(\omega_{i} + \omega_{\mathrm{LO}})t
+  + \sin(\omega_{i} - \omega_{\mathrm{LO}})t
+  \biggr\} 
  \end{aligned}
 \end{equation}
-となる。混合後の信号$S_{13}(t)$、$S_{23}(t)$をHybで合成し、フィード信号$S_{\mathrm{feed}}(t)$にする。
+となる。混合後の信号$C_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$をHybで合成し、フィード信号
+% $S_{\mathrm{feed}}(t)$
+$F(t)$
+にする。
 \begin{equation}
- S_{\mathrm{feed}}(t) := \mathrm{Hyb}\left(S_{13}(t), S_{23}(t)\right) = \sum_{i=1}^{N}A\cos(\omega_{i} + \omega_{\mathrm{LO}})t
+%  S_{\mathrm{feed}}(t) :=
+ F(t) :=
+  \mathrm{Hyb}\left(C_{\mathrm{UP}}(t), S_{\mathrm{UP}}(t)\right)
+  = \sum_{i=1}^{N} 2\cos(\omega_{i} + \omega_{\mathrm{LO}})t
 \end{equation}
 
-\subsubsection{MKIDによる変調}
+\subsubsection{MKIDによる共振状態の変化}
 
-フィード信号$S_{\mathrm{feed}}(t)$は、MKIDにより以下の変換を受ける。%、$S_{\mathrm{feed}}'(t)$になる。
+MKIDにより、フィード信号は振幅を$A$倍、位相が$\phi$シフトする。
+%フィード信号$F(t)$は、MKIDにより以下の変換を受ける。
+%、$S_{\mathrm{feed}}'(t)$になる。
 \begin{equation}
- S_{\mathrm{feed}(t)} \rightarrow S_{\mathrm{feed}}'(t)
-  = \sum_{i=1}^{N}A_{i}'\left[\cos(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right]
+ %S_{\mathrm{feed}(t)} \rightarrow S_{\mathrm{feed}}'(t)
+ F(t) \rightarrow F{'}(t)
+  = \sum_{i=1}^{N}2A_{i}\cos \left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right]
 \end{equation}
 
 \subsubsection{ダウン・コンバート}
 
-MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$によって分解される。
+MKIDにより変換されたフィード信号
+% $S_{\mathrm{feed}}'(t)$
+$F'(t)$
+は、$\mathrm{Hyb}^{-1}$によって分解される。
 \begin{equation}
- \mathrm{Hyb}^{-1}\left(S_{\mathrm{feed}}'(t)\right)
+ %  \mathrm{Hyb}^{-1}\left(S_{\mathrm{feed}}'(t)\right)
+ \mathrm{Hyb}^{-1}(F'(t))
   = \begin{cases}     
-     \displaystyle \sum_{i=1}^{N} A_{i}'\cos\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{1}'(t) \\
-     \displaystyle \sum_{i=1}^{N} A_{i}'\sin\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{2}'(t)
+     \displaystyle \sum_{i=1}^{N} 2A_{i}\cos\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: C_{\mathrm{UP}}'(t) \\
+     \displaystyle \sum_{i=1}^{N} 2A_{i}\sin\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{\mathrm{UP}}'(t)
     \end{cases}
 \end{equation}
-分解した信号$S_{1}'(t)$、$S_{2}'(t)$は、再度MixでLO信号$S_{3}(t)$と混合する。
+分解した信号$C_{\mathrm{UP}}'(t)$、$S_{\mathrm{UP}}'(t)$は、再度MixでLO信号$\cos \omega_{\mathrm{LO}}t$と混合する。
 \begin{equation}
  \begin{aligned}
-  S_{13}'(t) &:= \mathrm{Mix}(S_{1}'(t), S_{3}(t))
-  = \sum_{i=1}^{N}\frac{A_{i}''}{2}
-  \biggl\{\cos(\omega_{i}t + \phi_{i})
+  C_{\mathrm{DOWN}}'(t)
+  &:= \mathrm{Mix}(C_{\mathrm{UP}}'(t), \cos \omega_{\mathrm{LO}}t)
+  = \sum_{i=1}^{N}
+  % \frac{A_{i}'}{2}
+  A_{i}
+  \biggl\{
+    \cos(\omega_{i}t + \phi_{i})t
   + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
   \biggr\} \\
 %   I_{i}(t) &:= \mathrm{LPF}(S_{13}'(t), \omega_{\mathrm c})
 %   = \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) \\
-  S_{23}'(t) &:= \mathrm{Mix}(S_{2}'(t), S_{3}(t))
-  = \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i})
+  S_{\mathrm{DOWN}}'(t)
+  &:= \mathrm{Mix}(S_{\mathrm{UP}}'(t), \cos\omega_{\mathrm{LO}}t)
+  = \sum_{i=1}^{N}
+  % \frac{A_{i}'}{2}
+  A_{i}
+  \biggl\{
+    \sin(\omega_{i}t + \phi_{i})t
   + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
   \biggr\}
 %   Q_{i}(t) &:= \mathrm{LPF}(S_{23}'(t), \omega_{\mathrm c})
@@ -247,130 +297,172 @@ MKIDにより変換されたフィード信号$S_{\mathrm{feed}}'(t)$は、$\mathrm{Hyb}^{-1}$に
 %   \biggl\{\cos(\omega_{i}t + \phi_{i})
 %   + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
 %   \biggr\} \\
-  I(t) &:= \mathrm{LPF}(S_{13}'(t), \omega_{\mathrm c})
-  = \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) \\
+  C_{\mathrm{ADC}}(t)
+  &:= \mathrm{LPF}(C_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
+  = \sum_{i=1}^{N}
+%   \frac{A_{i}'}{2}
+  A_{i}
+  \cos(\omega_{i}t + \phi_{i}) \\
 %   S_{23}'(t) &:= \mathrm{Mix}(S_{2}'(t), S_{3}(t))
 %   = \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i})
 %   + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
 %   \biggr\} \\
-  Q(t) &:= \mathrm{LPF}(S_{23}'(t), \omega_{\mathrm c})
-  = \sum_{i=1}^{N}\frac{A_{i}''}{2} \sin(\omega_{i}t + \phi_{i})
+  S_{\mathrm{ADC}}(t)
+  &:= \mathrm{LPF}(S_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
+  = \sum_{i=1}^{N}
+  % \frac{A_{i}'}{2}
+  A_{i}
+  \sin(\omega_{i}t + \phi_{i})
   \label{eq:adc_input}
  \end{aligned}
 \end{equation}
-ここで、$A_{i}'':=A_{i}'A$とし、$\omega_{\mathrm c}$（$\sim 2\pi \times 500$ MHz）は、$\omega_{\mathrm{LO}}$（$\sim 2\pi \times 4$ GHz）成分を含む高調波を落とすカットオフ周波数である。
+ここで、$\omega_{\mathrm c}$（$\sim 2\pi \times 500$ MHz）は、$\omega_{\mathrm{LO}}$（$\sim 2\pi \times 4$ GHz）成分を含む高調波を落とすカットオフ周波数である。
 
-\subsubsection{復調}
+\subsubsection{復調---デジタル基板上における各周波数での共振状態の抽出}
 
-\begin{figure}[!h]
- \centering
- \includegraphics[width=15cm]{figures/demodulation.pdf}
-%  \caption{ADCへ入力した信号は、LO信号による高調波成分を含んでいる。MKIDの信号を取り出すために、デジタル基板上のFPGAにLPF（ローパス・フィルター）を実装する。}
- \caption{デジタル基板上（FPGA）でのMKID信号の復調}
- \label{fig:lpf_fpga}
-\end{figure}
+% \clearpage
 
-\clearpage
-
-図\ref{fig:lpf_fpga}に示すように、ADCに入力した信号は、FPGAに実装したDDS（Direct Digital Synthesizers）で生成される信号
-$S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\ N$）
+図\ref{fig:lpf_fpga}に示すように、ADCに入力した信号は、FPGAに実装したDDS（Direct Digital Synthesizers）で生成される信号$\cos \omega_{j}t,\ \sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\ N$）
 % \begin{equation}
 %  \begin{aligned}
 %   S_{I}(t):=\sum_{j=1}^{N} \cos \omega_{j}t, \quad (j = 1, 2, \cdots, N) \\
 %   S_{Q}(t):=\sum_{j=1}^{N} \sin \omega_{j}t, \quad (j = 1, 2, \cdots, N) 
 %  \end{aligned}
 % \end{equation}
-と掛け算器で乗算する。
+%と掛け算器で乗算する。
+を使った演算により、各周波数$\omega_{j}$毎に同位相（In-Phase）成分$I_{j}(t)$、直交位相（Quadrature-Phase）成分$Q_{j}(t)$を抽出する。
 % \begin{equation}
 %  \begin{aligned}
-\begin{align} 
-  I_{I}(t) &:=
- %\mathrm{Mix}(I(t), S_{I}(t))
- I(t) \times S_{I}(t)
- % \notag \\ &\
- = \sum_{i=1}^{N}
- %\sum_{j=1}^{N}
- \frac{A_{i}{''}}{4}
-  \biggl\{
-    \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
-  + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]
-  \biggr\}
- \label{eq:II}
-  \\
-  I_{Q}(t) &:=
- %\mathrm{Mix}(I(t), S_{Q}(t))
- I(t) \times S_{Q}(t)
- %  \notag \\ &\
- = \sum_{i=1}^{N}
- %\sum_{j=1}^{N}
- \frac{A_{i}{''}}{4}
-  \biggl\{
-    \sin[(\omega_{i} + \omega_{j})t + \phi_{i}]
-  - \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
-  \biggl\}
- \label{eq:IQ}
-  \\
-  Q_{I}(t) &:=
- %\mathrm{Mix}(Q(t), S_{I}(t))
- Q(t) \times S_{I}(t)
- %  \notag \\ &\ 
- = \sum_{i=1}^{N}
- %\sum_{j=1}^{N}
- \frac{A_{i}{''}}{4}
-  \biggl\{
-    \sin[(\omega_{i} + \omega_{j})t + \phi_{i}]
-  + \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
-  \biggr\}
- \label{eq:QI}
-  \\
-  Q_{Q}(t) &:=
- %\mathrm{Mix}(Q(t), S_{Q}(t))
- Q(t) \times S_{Q}(t)
- %  \notag \\ &\
- = \sum_{i=1}^{N}
- %\sum_{j=1}^{N}
- \frac{A_{i}{''}}{4}
-  \biggl\{
-  - \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
-  + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]
-  \biggr\}
- \label{eq:QQ}
-\end{align}
-式(\ref{eq:II})と(\ref{eq:QQ})、式(\ref{eq:IQ})と(\ref{eq:QI})の信号をそれぞれ加算、減算すると、
+% \begin{align} 
+%   I_{I}(t) &:=
+%  %\mathrm{Mix}(I(t), S_{I}(t))
+%  I(t) \times S_{I}(t)
+%  % \notag \\ &\
+%  = \sum_{i=1}^{N}
+%  %\sum_{j=1}^{N}
+%  \frac{A_{i}{''}}{4}
+%   \biggl\{
+%     \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
+%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]
+%   \biggr\}
+%  \label{eq:II}
+%   \\
+%   I_{Q}(t) &:=
+%  %\mathrm{Mix}(I(t), S_{Q}(t))
+%  I(t) \times S_{Q}(t)
+%  %  \notag \\ &\
+%  = \sum_{i=1}^{N}
+%  %\sum_{j=1}^{N}
+%  \frac{A_{i}{''}}{4}
+%   \biggl\{
+%     \sin[(\omega_{i} + \omega_{j})t + \phi_{i}]
+%   - \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
+%   \biggl\}
+%  \label{eq:IQ}
+%   \\
+%   Q_{I}(t) &:=
+%  %\mathrm{Mix}(Q(t), S_{I}(t))
+%  Q(t) \times S_{I}(t)
+%  %  \notag \\ &\ 
+%  = \sum_{i=1}^{N}
+%  %\sum_{j=1}^{N}
+%  \frac{A_{i}{''}}{4}
+%   \biggl\{
+%     \sin[(\omega_{i} + \omega_{j})t + \phi_{i}]
+%   + \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
+%   \biggr\}
+%  \label{eq:QI}
+%   \\
+%   Q_{Q}(t) &:=
+%  %\mathrm{Mix}(Q(t), S_{Q}(t))
+%  Q(t) \times S_{Q}(t)
+%  %  \notag \\ &\
+%  = \sum_{i=1}^{N}
+%  %\sum_{j=1}^{N}
+%  \frac{A_{i}{''}}{4}
+%   \biggl\{
+%   - \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
+%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]
+%   \biggr\}
+%  \label{eq:QQ}
+% \end{align}
 \begin{equation}
  \begin{aligned}
-  I'(t) &:= 
-  \sum_{i=1}^{N}
-  %\sum_{j=1}^{N}
-  \frac{A_{i}{''}}{2}
-  \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] 
-  = \frac{A_{j}{''}}{2} \cos \phi_{j} 
-  + \sum_{i\neq j} \frac{A_{i}{''}}{2}
+  I_{j}(t) 
+  &:= C_{\mathrm{ADC}}(t)\cos\omega_{j}t
+  + S_{\mathrm{ADC}}(t)\sin\omega_{j}t \\
+  &= \sum_{i=1}^{N}
+%   \frac{A_{i}{''}}{2}
+  A_{i}
+  \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]  \\
+%   &= \frac{A_{j}{''}}{2} \cos \phi_{j} 
+  &= A_{j} \cos \phi_{j} 
+  + \sum_{i\neq j} A_{i}
   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-  Q'(t) &:= 
-  \sum_{i=1}^{N}
-  %\sum_{j=1}^{N}
-  \frac{A_{i}{''}}{2}
-  \sin[(\omega_{i} - \omega_{j})t + \phi_{i}] 
-  = \frac{A_{j}{''}}{2} \sin \phi_{j} 
-  + \sum_{i\neq j} \frac{A_{i}{''}}{2}
+  Q_{j}(t)
+  &:=
+  - C_{\mathrm{ADC}}(t)\sin\omega_{j}t
+  + S_{\mathrm{ADC}}(t)\cos\omega_{j}t \\
+  &= \sum_{i=1}^{N}
+%   \frac{A_{i}{''}}{2}
+  A_{i}
+  \sin[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
+%   &= \frac{A_{j}{''}}{2} \sin \phi_{j} 
+  &= A_{j} \sin \phi_{j} 
+  + \sum_{i\neq j} A_{i}
   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
-  \label{eq:I'Q'}
+  \label{eq:IQ_def}
  \end{aligned}
 \end{equation}
+% 式(\ref{eq:II})と(\ref{eq:QQ})、式(\ref{eq:IQ})と(\ref{eq:QI})の信号をそれぞれ加算、減算すると、
+% \begin{equation}
+%  \begin{aligned}
+%   I'(t) &:= 
+%   \sum_{i=1}^{N}
+%   %\sum_{j=1}^{N}
+%   \frac{A_{i}{''}}{2}
+%   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] 
+%   = \frac{A_{j}{''}}{2} \cos \phi_{j} 
+%   + \sum_{i\neq j} \frac{A_{i}{''}}{2}
+%   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
+%   Q'(t) &:= 
+%   \sum_{i=1}^{N}
+%   %\sum_{j=1}^{N}
+%   \frac{A_{i}{''}}{2}
+%   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}] 
+%   = \frac{A_{j}{''}}{2} \sin \phi_{j} 
+%   + \sum_{i\neq j} \frac{A_{i}{''}}{2}
+%   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
+%   \label{eq:I'Q'}
+%  \end{aligned}
+% \end{equation}
 となる。
 %ここで、$Q'(t)$信号は、$I_{Q}(t)$信号の位相を$\pi$回転して（つまり、(-1)倍して）から$Q_{I}(t)$と合成している。
-これより、$I'(t)$、$Q'(t)$信号の第二項以下の高調波をLPFで落とせば、$j$番目のMKIDにより変調された振幅$A_{j}''$と位相$\phi_{j}$の情報が同時に読み出せる。
+$I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等\footnote{実際のFPGAロジックとしては、CIC（Cascaded Integrator-Comb）フィルターで実装される。}のLPFで落とせば、
+%$j$番目のMKIDにより変調された振幅$A_{j}$と位相$\phi_{j}$の情報が同時に読み出せる。
+周波数$\omega_{j}$における共振の状態変化（振幅$A_{j}$と位相$\phi_{j}$）の情報が読み出せる。
+% \begin{equation}
+% \begin{aligned}
+%  \mathcal{I}_{j}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c}')
+%   = \mathcal{A}_{j} \cos \phi_{j} \\
+%  \mathcal{Q}_{j}(t) &:= \mathrm{LPF}(Q_{j}(t), \omega_{\mathrm c}')
+%   = \mathcal{A}_{j} \sin \phi_{j} 
+%  \label{eq:mkid_sig}
+% \end{aligned}
+% \end{equation}
 \begin{equation}
 \begin{aligned}
- \mathcal{I}_{j}(t) &:= \mathrm{LPF}(I'(t), \omega_{\mathrm c}')
-  = \mathcal{A}_{j} \cos \phi_{j} \\
- \mathcal{Q}_{j}(t) &:= \mathrm{LPF}(Q'(t), \omega_{\mathrm c}')
-  = \mathcal{A}_{j} \sin \phi_{j} 
+%  I_{j}^{\mathrm{LPF}}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c'})
+ \mathcal{I}_{j}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c'})
+%   = \mathcal{A}_{j} \cos \phi_{j} \\
+  = A_{j} \cos \phi_{j} \\
+ \mathcal{Q}_{j}(t) &:= \mathrm{LPF}(Q_{j}(t), \omega_{\mathrm c'})
+%   = \mathcal{A}_{j} \sin \phi_{j} 
+  = A_{j} \sin \phi_{j} 
  \label{eq:mkid_sig}
 \end{aligned}
 \end{equation}
-ここで、$\mathcal{A}_{j}:=A{''}_{j}/2$とし、$\omega_{\mathrm c}{'}t \gg \phi_{i}$となるカットオフ周波数$\omega_{\mathrm c}'$を選んだ。%このLPFは実際的には、二つの要素がある。ひとつは、FPGAに実装するCIC（Cascaded Integration-Comb）フィルター、もうひとつは、時間積分（観測時間を増やす・平均化する）によるものである。
+ここで、$\omega_{\mathrm c}{'}t$は$\omega_{\mathrm c}{'}t \gg \phi_{i}$を満たすカットオフ周波数$\omega_{\mathrm c'}$である。%このLPFは実際的には、二つの要素がある。ひとつは、FPGAに実装するCIC（Cascaded Integration-Comb）フィルター、もうひとつは、時間積分（観測時間を増やす・平均化する）によるものである。
 
 %  \end{aligned}
 % \end{equation}
@@ -421,17 +513,49 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
 %  \end{aligned}
 % \end{equation}
 
-\clearpage
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=14cm]{figures/demodulation.pdf}
+%  \caption{ADCへ入力した信号は、LO信号による高調波成分を含んでいる。MKIDの信号を取り出すために、デジタル基板上のFPGAにLPF（ローパス・フィルター）を実装する。}
+ \caption{デジタル基板上のFPGAに実装した周波数$\omega_{j}$における共振状態を抽出するロジックの模式図。DDS（Direct Digital Synthesizer）によって生成したデジタル変調信号を用いて復調する（同位相成分$\mathcal{I}_{j}(t)$と直交位相成分$\mathcal{Q}_{j}(t)$を抽出）。}
+ \label{fig:lpf_fpga}
+\end{figure}
+
+
+\subsubsection{多重化する周波数の設定に関する注意点}\label{subsubsec:multiplex}
+
+たとえば、平均化を行う時間幅を$\Delta t:=2\pi/\omega_{\mathrm{c'}}$とおいたとき、式(\ref{eq:IQ_def})の高調波項をゼロとするためには、
+$(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
+（$n$は整数）という条件を満たす必要がある。この条件が破れると高調波がスパイク・ノイズとして残る。
+
+% CMB観測のように、ノイズの定常性が必須となるアプリケーションにおいては、設定周波数間隔$\Delta f_{ij}$が以下の条件を満たさねばならない。
+% \begin{equation}
+%  \Delta f_{ij} = {n \over \Delta t} \quad (n\mathrm{は整数})
+% \end{equation}
+% したがって、この条件を直感的に定義できる周波数のクロックを実装することが重要である（\ref{subsec:userbirity}を参照）。
+
+微弱な信号の検出においては、ノイズの定常性は必須であり、このスパイク・ノイズの影響は避けなければならない。つまり、CMB観測へのアプリケーションにおいては、設定周波数間隔$\Delta f$は、以下の条件を満たす必要がある。
+\begin{equation}
+ \Delta f = {n \over \Delta t} \quad (n\mathrm{は整数})
+\end{equation}
+これは上述のスパイク・ノイズを避ける条件と同じである。長期にわたる観測の中で、設定周波数の微調整は頻繁に繰り返される。つまり、この条件を直感的に定義できる周波数クロックを選定し、実装することが、使いやすいフロントエンド回路を開発する上で重要な点となる（\ref{subsec:userbirity}を参照）。
+
+% \clearpage
+
+\subsubsection{MKIDの共振状態の測定例}
 
 既存の読み出し系を用いて、以上に述べた方法で読み出したMKIDの信号を図\ref{fig:mkid_real}に示す。
 式(\ref{eq:mkid_sig})より、あるMKIDの信号$\mathcal{I}_{j}(t)$、$\mathcal{Q}_{j}(t)$を
 %を得る。ここで、$1 \leq k \leq N$である。
-複素平面上の実軸と虚軸にとると、図\ref{fig:mkid_real}(a)のような円が描ける。したがって、振幅$\mathcal{A}_{j}$と位相$\phi_{j}$は、次のように表せる。
+複素平面上の実軸と虚軸にとると、図\ref{fig:mkid_real}(a)のような円が描ける。したがって、振幅$A_{j}$と位相$\phi_{j}$は、次のように表せる。
 \begin{equation}
 \begin{aligned}
- \mathcal{A}_{j}
+%  \mathcal{A}_{j}
+ A_{j}
+%  &= \sqrt{\mathcal{I}_{j}^{2}(t) + \mathcal{Q}_{j}^{2}(t)} \\
  &= \sqrt{\mathcal{I}_{j}^{2}(t) + \mathcal{Q}_{j}^{2}(t)} \\
  \phi_{j}
+%  &= \arctan \left(\mathcal{Q}_{j}(t) \over \mathcal{I}_{j}(t)\right)
  &= \arctan \left(\mathcal{Q}_{j}(t) \over \mathcal{I}_{j}(t)\right)
 \end{aligned}
 \end{equation}
@@ -441,13 +565,19 @@ $S_{I}(t):=\cos \omega_{j}t,\ S_{Q}(t):=\sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/mkid_real.pdf}
- \caption[既存の読み出し系によるMKIDの読み出し例]{(a) 実際に読み出したMKIDの信号を複素平面上に描写した図。振幅読み出し(b)と位相読み出し(c)。これらは後述(2.4)のフロントエンド回路を使って測定した。}
+ \caption[既存の読み出し系によるMKIDの読み出し例]{(a) DDC（Direct Digital Conversion）方式によって実際に読み出したMKIDの
+%共振状態
+応答を複素平面上に描写した図。
+%振幅読み出し(b)と位相読み出し(c)。
+変調復調信号の周波数を変えながら測定を行った。(b)、(c)は変調周波数に対する振幅と位相の変化を表す。ここで、Re(S21)とIm(S21)は、$\mathcal{I}_{j}(t)$と$\mathcal{Q}_{j}(t)$に比例する量として定義される。
+これらは(\ref{sec:fmc150_front-end})に後述するフロントエンド回路を使って測定した。}
  \label{fig:mkid_real}
 \end{figure}
 
 \clearpage
 
 \section{市販品で構築したフロントエンド回路とその課題}
+\label{sec:fmc150_front-end}
 
 既存の市販品のみで構成したフロントエンド回路を図\ref{fig:kintex-7}に示す。デジタル基板とアナログ基板の概要についてまとめた後、その解決すべき課題について議論する。
 
