@@ -438,7 +438,9 @@ $F'(t)$
 % \end{equation}
 となる。
 %ここで、$Q'(t)$信号は、$I_{Q}(t)$信号の位相を$\pi$回転して（つまり、(-1)倍して）から$Q_{I}(t)$と合成している。
-$I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等\footnote{実際のFPGAロジックとしては、CIC（Cascaded Integrator-Comb）フィルターで実装される。}のLPFで落とせば、
+$I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等のLPF\footnote{本研究のFPGAロジックとしては、
+%CIC（Cascaded Integrator-Comb）フィルターで
+一定時間の区間積分として実装している。}bで落とせば、
 %$j$番目のMKIDにより変調された振幅$A_{j}$と位相$\phi_{j}$の情報が同時に読み出せる。
 周波数$\omega_{j}$における共振の状態変化（振幅$A_{j}$と位相$\phi_{j}$）の情報が読み出せる。
 % \begin{equation}
@@ -534,9 +536,9 @@ $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
 % \end{equation}
 % したがって、この条件を直感的に定義できる周波数のクロックを実装することが重要である（\ref{subsec:userbirity}を参照）。
 
-微弱な信号の検出においては、ノイズの定常性は必須であり、このスパイク・ノイズの影響は避けなければならない。つまり、CMB観測へのアプリケーションにおいては、設定周波数間隔$\Delta f$は、以下の条件を満たす必要がある。
+微弱な信号の検出においては、ノイズの定常性は必須であり、このスパイク・ノイズの影響は避けなければならない。つまり、CMB観測へのアプリケーションにおいては、設定周波数間隔$\Delta f_{ij}$は、以下の条件を満たす必要がある。
 \begin{equation}
- \Delta f = {n \over \Delta t} \quad (n\mathrm{は整数})
+ \Delta f_{ij} = {n \over \Delta t} \quad (n\mathrm{は整数})
 \end{equation}
 これは上述のスパイク・ノイズを避ける条件と同じである。長期にわたる観測の中で、設定周波数の微調整は頻繁に繰り返される。つまり、この条件を直感的に定義できる周波数クロックを選定し、実装することが、使いやすいフロントエンド回路を開発する上で重要な点となる（\ref{subsec:userbirity}を参照）。
 
@@ -560,16 +562,16 @@ $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
 \end{aligned}
 \end{equation}
 
-共振周波数のまわり（図\ref{fig:mkid_real}(a)の原点付近）で振幅と位相を読みだした例が図\ref{fig:mkid_real}(b)、(c)である。
+共振周波数のまわり（図\ref{fig:mkid_real}(a)の原点付近）で振幅と位相を読み出した例が図\ref{fig:mkid_real}の(b)、(c)である。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/mkid_real.pdf}
- \caption[既存の読み出し系によるMKIDの読み出し例]{(a) DDC（Direct Digital Conversion）方式によって実際に読み出したMKIDの
+ \caption[既存の読み出し系によるMKIDの読み出し例]{(a) DDC（Direct Down-Conversion）方式によって、実際に読み出したMKIDの
 %共振状態
 応答を複素平面上に描写した図。
 %振幅読み出し(b)と位相読み出し(c)。
-変調復調信号の周波数を変えながら測定を行った。(b)、(c)は変調周波数に対する振幅と位相の変化を表す。ここで、Re(S21)とIm(S21)は、$\mathcal{I}_{j}(t)$と$\mathcal{Q}_{j}(t)$に比例する量として定義される。
+変調・復調信号の周波数を変えながら測定を行った。(b)、(c)は変調周波数に対する振幅と位相の変化を表す。ここで、Re(S21)とIm(S21)は、$\mathcal{I}_{j}(t)$と$\mathcal{Q}_{j}(t)$に比例する量として定義される。
 これらは(\ref{sec:fmc150_front-end})に後述するフロントエンド回路を使って測定した。}
  \label{fig:mkid_real}
 \end{figure}
