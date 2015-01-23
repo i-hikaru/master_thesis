@@ -75,20 +75,50 @@ MUSIC Readout\cite{music_readout}はMUSIC（the Multiwavelength Submillimeter kine
 
 \begin{table}[!h]
  \centering
- \caption{
-%RHEA（本研究）による
-本研究によるフロントエンド回路と世界で開発されているそれらの特徴}
- \label{tbl:comp_front-end}
- \begin{tabular}{cccc}
-  \toprule
-  & RHEA & NIKEL & MUSIC Readout \\\hline
-  フィード線一対あたりの & Kintex-7 & Vertex-6 & Vertex-5 \\
-  FPGA（種類、数） & 1個 & 6個 & 1個 \\\hline
-  ADCひとつあたりの & 14 bit & 12 bit & 12 bit \\
-  実装性能（分解能、帯域） & 200 MHz & 500 MHz & 275 MHz \\\hline
-  消費電力 & 23 W& 100 W & N/A \\
-  \bottomrule
- \end{tabular}
+ \begin{threeparttable}
+  \caption{本研究のフロントエンド回路と世界で開発されているそれらの特徴}
+  \label{tbl:comp_front-end}
+  \begin{tabular}{llccc}
+   \toprule
+   & & 本研究 & NIKEL & MUSIC \\\hline
+   \multicolumn{2}{l}{読み出し方式} & DDC & DDC & FFT \\\hline
+   \multicolumn{2}{l}{実効総帯域 [MHz]} & 200 & 500 & 550 \\\hline
+%    \multicolumn{2}{l}{周波数ビン幅 [Hz]} & 0.047 & 953 & 50 \\
+%    \multicolumn{2}{l}{設定周波数ステップ [Hz]} & 0.047 & 953 & 50 \\\hline
+   \multirow{2}{*}{FPGA} & Family     & Kintex-7$^{*}$ & Vertex-6 & Vertex-5 \\
+                         & 搭載総数     & 1        & 6        & 1 \\\hline
+   \multirow{4}{*}{ADC}  & チャンネル数 & 2 & 1 & 1 \\
+                         & 分解能 [bit] & 14 & 12 & 12 \\
+                         & Sample Rate [MSPS] & 200 & 1,000 & 550 \\
+	                 & 搭載総数     & 1 & 1 & 2 \\\hline
+   \multirow{4}{*}{DAC}  & チャンネル数 & 2 & 2 & 1 \\
+                         & 分解能 [bit] & 16 & 16 & 16 \\
+                         & Sample Rate [MSPS] & 100 & 125 & 275 \\
+                         & 搭載総数     & 1 & 5 & 2 \\\hline
+   %\multicolumn{2}{l}{不感応時間率 [\%]} &   &    &  \\
+   \multicolumn{2}{l}{通信規格} & GbE & USB 2.0 & GbE$^{**}$ \\\hline
+%          &                             &&& {\footnotesize オンボード搭載の}\\
+%    &&&& {\footnotesize PPC-Linux経由}\\\hline
+   \multicolumn{2}{l}{Readout Rate [Hz]} & 10,000 & 953 & 100 \\\hline
+   \multicolumn{2}{l}{消費電力 [W]} & 23 & 100 & 38 \\
+   \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+   \small
+%    \item FPGAの数はフィード線一対あたりの値。
+   \item * Xilinx社から新しいFamilyが発売された場合、すぐに適用可能。
+   \item ** オンボード搭載のPPC-Linux経由。
+%    \item ADC/DACの分解能とSample Rateは、1 ch.あたりの値。
+%   \item 消費電力は、本研究は「読み出し多重度32」の値、NIKELは「読み出し多重度400」の値である。%MUSIC Readoutはフロントエンド回路以外に電力供給を行っているため省略。
+%    \item M
+  \end{tablenotes}
+ \end{threeparttable}
 \end{table}
 
-本研究のフロントエンド回路は、アナログ基板とデジタル基板が独立していることにより、同じベンダー（Xilinx）のFPGAであっても、常に最新のもの（2015年1月時点で、Xilinxが販売する最新版は{\it 7 Series}）が搭載できる。帯域については、並列化をしていないことやADCの最大サンプル・レートまで使用していないことにより、他のフロントエンド回路よりも狭いが、これは\ref{sec:kai}節で述べた改良を施すことにより改善できる。特筆すべきは、他のフロントエンド回路と比べて読み出し系の構成がシンプルであることである。それは基板の写真や消費電力の小ささからも見て取れる。
+本研究のフロントエンド回路は、アナログ基板とデジタル基板が独立していることにより、同じベンダー（Xilinx）のFPGAであっても、常に最新版（2015年1月時点で、Xilinxが販売する最新版は{\it 7 Series}\footnote{\tt http://www.xilinx.com/products/silicon-devices/fpga.html}）が搭載できる。
+また、問題が発生した場合や機能を拡張する際に、役割が分割している方が対処しやすい。
+%帯域について
+本研究のフロントエンド回路は、他のフロントエンド回路と比べると実効帯域が狭い。これは、ADC/DACを
+並列化をしていないことやそれらの性能を最大化していない（ADC/DACの最大サンプル・レートまで使用していない）ことによる。
+これについては\ref{sec:kai}で述べた改良を施すことにより改善することができる。
+特筆すべきは、他のフロントエンド回路と比べて読み出し系の構成がシンプルであることである。それは基板の写真や消費電力の小ささからも見て取れる。

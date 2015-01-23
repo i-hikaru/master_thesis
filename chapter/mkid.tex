@@ -19,11 +19,9 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/mkid_2.pdf}
- \caption{MKIDへの信号入射にともなう共振状態の変化は、共振周波数とその振幅、位相の変化として検出できる。読み出し系の役割は、これらの変化を計測することである。}
+ \caption[MKIDの共振状態の変化]{MKIDへの信号入射にともなう共振状態の変化は、共振周波数とその振幅、位相の変化として検出できる。読み出し系の役割は、これらの変化を計測することである。}
  \label{fig:mkid_2}
 \end{figure}
-
-% \clearpage
 
 \section{周波数多重読み出し}
 
@@ -40,7 +38,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{帯域と多重度の関係}
 
-前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1モジュールあたり102個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
+前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1ウエハーあたり104個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
 
 \begin{figure}[!h]
  \centering
@@ -179,8 +177,7 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/ddc_up-down.pdf}
-%  \caption[I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調]{I/Qミキサーを用いたアップ・コンバートとダウン・コンバート、MKIDによる変調}
- \caption{アナログ基板出力後のアップ・ダウンコンバートを含むフィード信号の合成・分離とMKIDの共振による信号の状態変化の模式図。}
+ \caption{アナログ基板出力後のアップ・ダウンコンバートを含むフィード信号の合成・分離とMKIDの共振による信号の状態変化の模式図}
  \label{fig:iq_md}
 \end{figure}
 
@@ -518,13 +515,12 @@ $I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等のLPF\footnote{本研究のF
 \begin{figure}[!h]
  \centering
  \includegraphics[width=14cm]{figures/demodulation.pdf}
-%  \caption{ADCへ入力した信号は、LO信号による高調波成分を含んでいる。MKIDの信号を取り出すために、デジタル基板上のFPGAにLPF（ローパス・フィルター）を実装する。}
- \caption{デジタル基板上のFPGAに実装した周波数$\omega_{j}$における共振状態を抽出するロジックの模式図。DDS（Direct Digital Synthesizer）によって生成したデジタル変調信号を用いて復調する（同位相成分$\mathcal{I}_{j}(t)$と直交位相成分$\mathcal{Q}_{j}(t)$を抽出）。}
+ \caption[デジタル基板上のFPGAに実装した周波数$\omega_{j}$における共振状態を抽出するロジックの模式図]{デジタル基板上のFPGAに実装した周波数$\omega_{j}$における共振状態を抽出するロジックの模式図。DDS（Direct Digital Synthesizer）によって生成したデジタル変調信号を用いて復調する（同位相成分$\mathcal{I}_{j}(t)$と直交位相成分$\mathcal{Q}_{j}(t)$を抽出）。}
  \label{fig:lpf_fpga}
 \end{figure}
 
-
-\subsubsection{多重化する周波数の設定に関する注意点}\label{subsubsec:multiplex}
+\subsubsection{多重化する周波数の設定に関する注意点}
+\label{subsubsec:multiplex}
 
 たとえば、平均化を行う時間幅を$\Delta t:=2\pi/\omega_{\mathrm{c'}}$とおいたとき、式(\ref{eq:IQ_def})の高調波項をゼロとするためには、
 $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$

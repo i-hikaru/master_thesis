@@ -7,3 +7,6 @@
 *.bbl
 *.blg
 main.pdf
+rhea_circuit_*.pdf
+correction/
+proceures/
