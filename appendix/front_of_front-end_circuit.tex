@@ -1,28 +1,24 @@
 \chapter{世界で開発されているフロントエンド回路とその特徴}
 
-MKIDはCMB実験では稼働実績はないが、他のミリ波帯ではすでに観測が行われている\cite{iram}。そこで、本章では世界で開発されているフロントエンド回路をいくつか紹介し、各々の特性についてまとめる。また、本研究で製作したRHEAを用いた新フロントエンド回路との比較を行う。
+MKIDを用いたCMB実験の稼働実績はまだないが、ミリ波帯での天文観測はすで実績がある\cite{iram}。そこで、本章では世界で開発されているフロントエンド回路をいくつか紹介し、各々の特徴についてまとめる。
+これらと本研究の比較から、本研究の世界的な位置づけを整理する。
 
 \section{NIKEL}
 
-NIKEL（New Iram KID ELectronics）は、NIKA（New Iram KID Array）のフロントエンド回路である。NIKAは
-%30 mの電波望遠鏡であり、
-400ピクセルのMKIDを搭載し、
-150 GHz帯と240 GHz帯の2帯を観測できる。
-読み出し系の帯域は、500 MHzに設計されており、
-%DAC（Analog Devices, AD912\footnote{{\tt http://www.analog.com/static/imported-files/data\_sheets/AD9125.pdf}}）のサンプル・レートで制限されており、
-DACとFPGAをそれぞれ5つ並列化することでこれを実現している。
+NIKEL（New Iram KID ELectronics）は、NIKA（New Iram KID Array）のフロントエンド回路である。NIKAは400ピクセルのMKIDを搭載し、150 GHz帯と240 GHz帯の2帯を観測できる。
+5組のDACとFPGAをそれぞれ並列化し、さらに個々の信号をアップ・コンバートするLOの周波数を100 MHzずつシフトすることにより、読み出し帯域500 MHzを実現している。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=12cm]{figures/readout_nikel.png}
- \caption[NIKAの読み出し系の模式図]{NIKAの読み出し系の模式図\cite{nikel}。図の「Electronics」の部分がNIKELである。DACとFPGAを並列化し（図では2個、最新版は5個並列接続）、アップ・コンバート（ダウン・コンバート）する際に用いる各LOの周波数の差をDACの最大出力周波数（125 GHz）にとることで、DACの数だけ帯域を増やす設計になっている。}
+ \caption[一世代前のNIKAの読み出し系の模式図]{一世代前のNIKAの読み出し系の模式図\cite{nikel}。図の「Electronics」の部分が一世代前のNIKELに相当する。5組のDACとFPGAを並列化し（図では2個、最新版は5個並列接続）、アップ・コンバート（ダウン・コンバート）する際に用いる各LOの周波数の差をDACの最大出力周波数125 MHz（最新版は100 MHz）として、DACの数に比例して帯域を増す設計である。}
  \label{fig:nikel_readout}
 \end{figure}
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=11cm]{figures/nikel_fpga.png}
- \caption[NIKELの基板構成]{NIKELの基板構成。5つのDACを並列接続して、帯域500 MHzのフィード信号を生成する。MKIDにより変調されたフィード信号は、1 GSPSの高速ADCひとつでデジタイズされる。PCへのデータ転送はUSBで行う。}
+ \caption[NIKELの基板構成]{NIKELの基板構成。5つのDACを並列接続して、帯域500 MHzのフィード信号を生成する。フィード信号は、高速ADC（1チャンネル、1 GSPS）ひとつでデジタル変換する。データ転送はUSB経由で行う。}
  \label{fig:nikel_fpga}
 \end{figure}
 
@@ -33,34 +29,36 @@ DACとFPGAをそれぞれ5つ並列化することでこれを実現している。
  \label{fig:nikel_board}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 \section{MUSIC Readout}
 
 MUSIC Readout\cite{music_readout}はMUSIC（the Multiwavelength Submillimeter kinetic Inductance Camera）\cite{music}のフロントエンド回路である。MUSICは2,304個（576 spatial pixels）のMKIDを搭載し、
 %波長0.87 mmと1.04 mm、1.33 mm、1.98 mm（
-345 と288、226、152 GHz帯の合計4帯を観測できる。読み出し系の帯域は550 MHzに設計されており、2つのADCとDACをそれぞれ並列化することで実現している。アナログ基板とデジタル基板ROACH（Reconfigurable Open Architecture Computing Hardware）は分離でき、後者はCASPER（Collaboration for Astronomy Signal Processing and Electronics Research）により開発されている。
+345 と288、226、152 GHz帯の合計4帯を観測できる。
+%読み出し系の帯域は550 MHzに設計されており、
+2つの1チャンネルADCと1チャンネルDACをそれぞれ同期・並列化して、帯域550 MHzを実現している。アナログ基板とデジタル基板ROACH（Reconfigurable Open Architecture Computing Hardware）は分離でき、後者はCASPER（Collaboration for Astronomy Signal Processing and Electronics Research）により開発されたMKID専用基板である。
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=15cm]{figures/music_readout.png}
- \caption[MUSICの読み出し系]{MUSICの読み出し系の模式図\cite{music}。2つのDACでI/Q信号をそれぞれ生成し、2つのADCでそれらをデジタイズする。}
+ \includegraphics[width=14cm]{figures/music_readout.png}
+ \caption[MUSICの読み出し系]{MUSICの読み出し系の模式図\cite{music}。同期した2つのDACでI/Q信号をそれぞれ生成し、同期した2つのADCでそれらをデジタル変換する。}
  \label{fig:nikel_readout}
 \end{figure}
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=16cm]{figures/music_readout_diag.pdf}
- \caption[MUSICのアナログ基板とデジタル基板の基板図とブロック図]{MUSICのアナログ基板の基板図とデジタル基板のブロック図\cite{music_readout}。デジタル基板（ROACH board）は読み出し系の各構成要素（低雑音アンプ、アナログ基板等）への電力供給も行う。}
+ \caption[MUSICのアナログ基板とデジタル基板の基板図とブロック図]{MUSICのアナログ基板の基板図（左）とデジタル基板のブロック図（右）\cite{music_readout}。デジタル基板（ROACH）は読み出し系の各構成要素（低雑音アンプ、アナログ基板等）への電力供給も行う。また、ROACHは基板上にPower-PCを搭載しており、外部へのデータ転送はPPC-Linux経由で行う。}
  \label{fig:nikel_readout}
 \end{figure}
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=15cm]{figures/music_adc_dac_board.png}
- \caption[MUSIC Readoutの基板写真]{MUSIC Readoutのデジタル基板（ROACH board）とアナログ基板の写真。ROACH（Reconfigurable Open Architecture Computing Hardware）はCASPER（Collaboration for Astronomy Signal Processing and Electronics Research）により開発されている。}
+ \includegraphics[width=15cm]{figures/music_adc_dac_board.pdf}
+ \caption[MUSIC Readoutの基板写真]{MUSIC Readoutのデジタル基板（ROACH）とアナログ基板の写真%。ROACH（Reconfigurable Open Architecture Computing Hardware）はCASPER（Collaboration for Astronomy Signal Processing and Electronics Research）により開発されている。
+}
  \label{fig:music_adc_dac_board}
-
 \end{figure}
 
 % \section{A-KID Readout}
@@ -76,7 +74,7 @@ MUSIC Readout\cite{music_readout}はMUSIC（the Multiwavelength Submillimeter kine
 \begin{table}[!h]
  \centering
  \begin{threeparttable}
-  \caption{本研究のフロントエンド回路と世界で開発されているそれらの特徴}
+  \caption{世界で開発されているフロントエンド回路と本研究の比較。本研究は、必要最低限の帯域を実現した上で、高いビット分解能と省電力性、高い読み出しレートを達成しているユーザビリティの高いフロントエンド回路。また、デジタル基板には高い拡張性も有する。}
   \label{tbl:comp_front-end}
   \begin{tabular}{llccc}
    \toprule
@@ -88,7 +86,7 @@ MUSIC Readout\cite{music_readout}はMUSIC（the Multiwavelength Submillimeter kine
    \multirow{2}{*}{FPGA} & Family     & Kintex-7$^{*}$ & Vertex-6 & Vertex-5 \\
                          & 搭載総数     & 1        & 6        & 1 \\\hline
    \multirow{4}{*}{ADC}  & チャンネル数 & 2 & 1 & 1 \\
-                         & 分解能 [bit] & 14 & 12 & 12 \\
+                         & 分解能 [bit] & {\bf 14} & 12 & 12 \\
                          & Sample Rate [MSPS] & 200 & 1,000 & 550 \\
 	                 & 搭載総数     & 1 & 1 & 2 \\\hline
    \multirow{4}{*}{DAC}  & チャンネル数 & 2 & 2 & 1 \\
@@ -99,8 +97,8 @@ MUSIC Readout\cite{music_readout}はMUSIC（the Multiwavelength Submillimeter kine
    \multicolumn{2}{l}{通信規格} & GbE & USB 2.0 & GbE$^{**}$ \\\hline
 %          &                             &&& {\footnotesize オンボード搭載の}\\
 %    &&&& {\footnotesize PPC-Linux経由}\\\hline
-   \multicolumn{2}{l}{Readout Rate [Hz]} & 10,000 & 953 & 100 \\\hline
-   \multicolumn{2}{l}{消費電力 [W]} & 23 & 100 & 38 \\
+   \multicolumn{2}{l}{復調信号の読み出しレート [Hz]} & {\bf 10,000} & 953 & 100 \\\hline
+   \multicolumn{2}{l}{消費電力 [W]} & {\bf 23} & 100 & 38 \\
    \bottomrule
   \end{tabular}
   \begin{tablenotes}
@@ -115,10 +113,14 @@ MUSIC Readout\cite{music_readout}はMUSIC（the Multiwavelength Submillimeter kine
  \end{threeparttable}
 \end{table}
 
-本研究のフロントエンド回路は、アナログ基板とデジタル基板が独立していることにより、同じベンダー（Xilinx）のFPGAであっても、常に最新版（2015年1月時点で、Xilinxが販売する最新版は{\it 7 Series}\footnote{\tt http://www.xilinx.com/products/silicon-devices/fpga.html}）が搭載できる。
+本研究のフロントエンド回路では、アナログ基板とデジタル基板のハードウェアが独立している。
+%同じベンダー（Xilinx）のFPGAであっても、
+つまり、常に最新版のFPGA（2015年1月時点で、Xilinxが販売する最新版は{\it 7 Series}\footnote{\tt http://www.xilinx.com/products/silicon-devices/fpga.html}）を適用できるという大きな拡張性を有する。
 また、問題が発生した場合や機能を拡張する際に、役割が分割している方が対処しやすい。
 %帯域について
-本研究のフロントエンド回路は、他のフロントエンド回路と比べると実効帯域が狭い。これは、ADC/DACを
-並列化をしていないことやそれらの性能を最大化していない（ADC/DACの最大サンプル・レートまで使用していない）ことによる。
-これについては\ref{sec:kai}で述べた改良を施すことにより改善することができる。
-特筆すべきは、他のフロントエンド回路と比べて読み出し系の構成がシンプルであることである。それは基板の写真や消費電力の小ささからも見て取れる。
+%本研究のフロントエンド回路は、他のフロントエンド回路と比べると実効帯域が狭い。これは、
+ADC/DACを並列化をしていないため、帯域は比較的狭いが、ADCのビット分解能が高い分だけより広いダイナミック・レンジを有する。
+%ことやそれらの性能を最大化していない（ADC/DACの最大サンプル・レートまで使用していない）ことによる。これについては\ref{sec:kai}で述べた改良を施すことにより改善することができる。特筆すべきは、
+さらに、他のフロントエンド回路と比べて読み出し系の構成がシンプルである。
+それは基板の写真や消費電力の小ささからも見て取れる。
+また、最新のデジタル機器の使用によって、復調信号の高い読み出しレートを実現している。GroundBIRD実験の高速スキャンに最適な回路である。
