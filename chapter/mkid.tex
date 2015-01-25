@@ -1,10 +1,21 @@
 \chapter{超伝導検出器MKIDとその読み出し}
 
-本章では、MKIDの動作原理の概要とその読み出し方法について述べる。MKIDの利点のひとつである周波数多重読み出しについて述べたあとに、市販のアナログ基板を用いた読み出し系の概要とその不満点を挙げる。本論文の目的は、これらの不満を解消する新たなアナログ基板の開発である。
+本章では、MKIDの動作原理の概要とその読み出し方法について述べる。
+MKIDの利点のひとつである周波数多重読み出しについて述べたあとに、
+市販のアナログ基板を用いた読み出し系の概要とその不満点を挙げる。
+本論文の目的は、これらの不満を解消する新たなアナログ基板の開発である。
 
 \section{動作原理}
 
-Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器である\cite{mkid, mazin, gao}。図\ref{fig:mkid_1}(a)に示すように、MKIDは電波を受信するアンテナと超伝導共振器、フィードライン（読み出し線）から構成される。図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、$L$は共振器のインダクタンス、$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
+Microwave Kinetic Inductance Detectors (MKID) は、
+2003年に発明された超伝導検出器である\cite{mkid, mazin, gao}。
+図\ref{fig:mkid_1}(a)に示すように、
+MKIDは電波を受信するアンテナと超伝導共振器、
+フィードライン（読み出し線）から構成される。
+図\ref{fig:mkid_1}(b)に示すように、MKIDはLC回路のひとつとみなせる。
+共振器はそれぞれ固有の共振周波数$\omega = 1/\sqrt{LC}$をもつ。ここで、
+$L$は共振器のインダクタンス、
+$C$は共振器とフィードラインのAC結合するときのキャパシタンスを表す。
 
 \begin{figure}[htbp]
  \centering
@@ -14,7 +25,11 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
  \label{fig:mkid_1}
 \end{figure}
 
-アンテナで受信した電波のエネルギーが共振器内のクーパー対のギャップエネルギーより大きいと、それを解離する。このとき、共振器のインダクタンスが変化する。MKIDはその変化を共振状態の変化（振幅・位相の変化）として検出する（図\ref{fig:mkid_2}）。共振周波数は4--6 GHzに設定されることが多い。
+アンテナで受信した電波のエネルギーが共振器内クーパー対の
+ギャップエネルギーより大きいと、それを解離する。このとき、
+共振器のインダクタンスが変化する。
+MKIDはその変化を共振状態の変化（振幅・位相の変化）として
+検出する（図\ref{fig:mkid_2}）。共振周波数は4--6 GHzに設定されることが多い。
 
 \begin{figure}[htbp]
  \centering
@@ -25,9 +40,17 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \section{周波数多重読み出し}
 
-次世代のCMB偏光観測にとって、検出器の多素子化は重要な課題である。前章で述べたように、GroundBIRDは848個のMKIDを搭載する。室温系と冷却系をつなぐフィードラインからの熱流入の抑制が肝要となる。この鍵を握るのが信号の多重化である。
+次世代のCMB偏光観測にとって、検出器の多素子化は重要な課題である。
+前章で述べたように、GroundBIRDは848個のMKIDを搭載する。
+室温系と冷却系をつなぐフィードラインからの熱流入の抑制が肝要となる。
+この鍵を握るのが信号の多重化である。
 
-信号の多重化には、周波数分割多重と時間分割多重、空間分割多重、符号分割多重など、様々な技術が存在する。MKIDは共振器の長さによって、個々の共振周波数を調整することができる。図\ref{fig:mkids}に示すように、共振周波数の異なるMKIDをフィードライン上に並べれば、周波数空間に信号を多重化できる。つまり、MKIDは周波数分割多重読み出しに最適な検出器である。
+信号の多重化には、周波数分割多重と時間分割多重、空間分割多重、
+符号分割多重など、様々な技術が存在する。MKIDは共振器の長さによって、
+個々の共振周波数を調整することができる。図\ref{fig:mkids}に示すように、
+共振周波数の異なるMKIDをフィードライン上に並べれば、
+周波数空間に信号を多重化できる。つまり、
+MKIDは周波数分割多重読み出しに最適な検出器である。
 
 \begin{figure}[!h]
  \centering
@@ -38,7 +61,16 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{帯域と多重度の関係}
 
-前述のように、読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。GroundBIRDの145 GHz帯検出器においては、1ウエハーあたり104個のMKIDが配置される。つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
+上述のように、
+読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。
+例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、
+$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。
+つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。
+MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。
+図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。
+GroundBIRDの145 GHz帯検出器においては、
+1ウエハーあたり104個のMKIDが配置される。
+つまり、$\pm$100 MHzの帯域を確保することが読み出し系への要求となる。
 
 \begin{figure}[!h]
  \centering
@@ -49,51 +81,71 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \section{読み出し系}
 
-読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{ddc}とFFT（Fast Fourier Transform）方式\cite{fft}の二種類が存在し、本論文では共振周波数をより高い精度で設定できる（つまり、検出感度を最大限に発揮できる）%、かつ、各MKIDの共振周波数をオンラインで調整できる（つまり、観測時間を最大化できる）
-という観点から、DDC方式による読み出しに注力した開発を行う\cite{kibe_ltd}。
+読み出し系はMKIDの共振ピークの振幅と位相の変化を測定する。
+MKIDの読み出し方法には、DDC（Direct Down-Conversion）方式\cite{ddc}と
+FFT（Fast Fourier Transform）方式\cite{fft}の二種類が存在し、
+本研究では共振周波数をより高い精度で設定できる
+（つまり、検出感度を最大限に発揮できる）という観点から、
+DDC方式による読み出しに注力した開発を行う\cite{kibe_ltd}。
 
 \clearpage
 
 \subsection{読み出し系の構成と大まかな流れ}
 
-読み出し系の構成を図\ref{fig:readout_sys}(a)に示す。読み出し系は大きく 4 つの要素に分けられる。
+読み出し系の構成を図\ref{fig:readout_sys}(a)に示す。
+読み出し系は大きく 4 つの要素に分けられる。
 
 \begin{description}
  \item [冷却回路]
 
 	     \ 
 
-	     MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内にある読み出し部分。
+	     MKIDとLNA（Low Noise Amplifier）を含めたクライオスタット内に
+	     ある読み出し部分。
  \item [MHz/GHzコンバーター]
 
 	     \ 
 
-	     MKIDに入力するフィード信号（読み出し用変調信号）をMHz帯からGHz帯に変換（アップ・コンバード）、また、MKIDを通った後に出力されるフィード信号をGHz帯からMHz帯に変換（ダウン・コンバート）する部分。
+	     MKIDに入力するフィード信号（読み出し用変調信号）をMHz帯から
+	     GHz帯に変換（アップ・コンバード）、また、MKIDを通った後に
+	     出力されるフィード信号をGHz帯からMHz帯に変換
+	     （ダウン・コンバート）する部分。
  \item [アナログ基板]
 
 	     \ 
 
-	     デジタル変調信号をアナログ信号に変換して送信し、入力したアナログ信号を受信してデジタル信号に変換する部分。
+	     デジタル変調信号をアナログ信号に変換して送信し、
+	     入力したアナログ信号を受信してデジタル信号に変換する部分。
  \item [デジタル基板]
 
 	     \ 
 
-	     アナログ基板に渡すデジタル信号を生成し、またデジタル信号を受け取り情報を処理する（信号復調等を行う）部分。
+	     アナログ基板に渡すデジタル信号を生成し、
+	     またデジタル信号を受け取り情報を処理する
+	     （信号復調等を行う）部分。
 \end{description}
-本論文では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。なお、冷却回路、MHz/GHzコンバーターの構成要素の型番や特性一覧は付録\ref{sec:parts_spec}に記述する。
+本研究では、アナログ基板とデジタル基板をまとめてフロントエンド回路と呼ぶ。
+なお、冷却回路とMHz/GHzコンバーターの構成要素の部品一覧は、
+付録\ref{app:parts_spec}にまとめる。
 
 読み出しの大まかな流れは次のようになる:
 \begin{enumerate}
- \item デジタル基板上でDDS（Direct Digital Synthesizer）を用いてデジタル変調信号を生成し、アナログ基板のDAC（Digital to Analog Converter）でアナログ変調して出力する。変調信号とは、複数の周波数（本研究の場合は、100 MHz以下のMHz帯）を重ね合わせた信号である。
- \item 局所発振器（LO）で出力した基準信号（通常、数GHz程度）とDACから出力したアナログ変調信号（MHz帯）を
-       %I/Q（In-phase/Quadrature-phase）ミキサーで
+ \item デジタル基板上でDDS（Direct Digital Synthesizer）を用いて
+       デジタル変調信号を生成し、アナログ基板のDAC
+       （Digital to Analog Converter）でアナログ変調して出力する。
+       変調信号とは、複数の周波数（本研究の場合は、100 MHz以下のMHz帯）
+       を重ね合わせた信号である。
+ \item 局所発振器（LO）で出力した基準信号（通常、数GHz程度）
+       とDACから出力したアナログ変調信号（MHz帯）を
        GHz帯にアップ・コンバートしてフィード信号とする。
- \item フィード信号をMKIDに入力する。MKIDの共振器の共振によってフィード信号が変化する。アンテナ入力信号を共振状態（振幅と位相）の変化として計測する。
+ \item フィード信号をMKIDに入力する。MKIDの共振器の共振によって
+       フィード信号が変化する。アンテナ入力信号を共振状態（振幅と位相）
+       の変化として計測する。
  \item MKIDの共振情報を含むフィード信号をLNAで増幅する。
- \item 増幅した信号と2.の基準信号を
-       %I/Qミキサーで
-       ダウン・コンバードする。
- \item アナログ基板のADC（Analog to Digital Converter）でMKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
+ \item 増幅した信号と2.の基準信号をダウン・コンバードする。
+ \item アナログ基板のADC（Analog to Digital Converter）で
+       MKIDにより変調された信号をデジタル変換し、デジタル基板で復調し、
+       それぞれのMKIDの共振ピークの振幅と位相の変化を測定する。
 \end{enumerate}
 
 \clearpage
@@ -110,69 +162,54 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsection{DDC方式による読み出し原理}
 
-図\ref{fig:readout_sys}のUP/DOWN Mix\footnote{実際には、Miteq社のIQ Modulator IRM0208LC2AとIQ Demodulator IRM0208LC2Qを用いる。}は、構成要素に分解すると、2つの混合器とハイブリッド・カプラー、ローパス・フィルターからなる。これを使ったアップ・コンバートとダウン・コンバートを含むフィード信号の合成・分離と、MKIDによる共振の状態変化を図\ref{fig:iq_md}に模式する。
+図\ref{fig:readout_sys}の
+UP/DOWN Mix\footnote{実際には、Miteq社のIQ Modulator IRM0208LC2AとIQ Demodulator IRM0208LC2Qを用いる。}は、
+構成要素に分解すると、2つの混合器とハイブリッド・カプラー、
+ローパス・フィルターからなる。
+これを使ったアップ・コンバートとダウン・コンバートを含むフィード信号の
+合成・分離と、MKIDによる共振の状態変化を図\ref{fig:iq_md}に模式する。
 
 分配器（Div）と混合器（Mix）、ハイブリッド・カプラー（Hyb）、MKID、ローパス・フィルター（LPF）は、理想的な素子であるとして次のように定義する。
-
 \begin{description}
- \item[Div:]
-
-% 	    \ 
-
-	    分配器は、信号のエネルギー$E$を$1/n$に等分配する。
+ \item[Div:] 分配器は、信号のエネルギー$E$を$1/n$に等分配する。
 	    \begin{equation}
 	     \mathrm{Div}(E, n) :=\frac{E}{n}
 	    \end{equation}
- \item[Mix:]
-
-% 	    \ 
-
-	    混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
+ \item[Mix:] 混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
 	    \begin{equation}
-	     %\mathrm{Mix}(S_{1}, S_{2}) := S_{1}S_{2}
-	      \mathrm{Mix}(S_{1}, S_{2}) := 2S_{1}S_{2}
+	     \mathrm{Mix}(S_{1}, S_{2}) := 2S_{1}S_{2}
 	    \end{equation}
- \item[Hyb, Hyb$^{-1}$:]
-
-% 	    \ 
-
-	    ハイブリッド・カプラーは、2つの入力信号$S_{1}(\theta_{1})$、$S_{2}(\theta_{2})$に対し、位相を保存したもの（0回転）と位相を$\pi/2$回転したものを合成（和算）する（Hyb）。逆に、1つの入力信号$S_{12}(\theta_{1}, \theta_{2})$に対し、位相を保存したものと位相を$-\pi/2$回転したものに分解する（Hyb$^{-1}$）。
+ \item[Hyb, Hyb$^{-1}$:] ハイブリッド・カプラーは、
+	    2つの入力信号$S_{1}(\theta_{1})$、$S_{2}(\theta_{2})$に対し、
+	    位相を保存したもの（0回転）と位相を$\pi/2$回転したものを
+	    合成（和算）する（Hyb）。
+	    逆に、1つの入力信号$S_{12}(\theta_{1}, \theta_{2})$に対しては、
+	    位相を保存したものと位相を$-\pi/2$回転したものに分解する
+	    （Hyb$^{-1}$）。
 	    \begin{align}
 	     \mathrm{Hyb}\left(S_{1}(\theta_{1}), S_{1}(\theta_{2})\right)
-	     &:= S_{1}(\theta_{1}) + S_{2}\left(\theta_{2} + \frac{\pi}{2}\right) \\
+	     &:= S_{1}(\theta_{1}) + S_{2}\left(\theta_{2}
+	     + \frac{\pi}{2}\right) \\
 	     \mathrm{Hyb^{-1}}\left(S_{12}(\theta_{1}, \theta_{2})\right)
 	     &:= \begin{cases}
 		  S_{1}(\theta_{1}) \\
 		  S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
 		 \end{cases}
 	    \end{align}
-%  \item[MKID:]
-
-% 	    \ 
-
-% 	    MKIDは、ある信号の振幅$A$と位相$\theta$に対して次のような変換をする。
-% 	    \begin{equation}
-% 	     %A \rightarrow A', \quad \theta \rightarrow \theta + \phi
-% 	      1 \rightarrow A', \quad \theta \rightarrow \theta + \phi
-% 	    \end{equation}
-%  \item[LNA:] ある信号の振幅$A$を$\alpha$倍する。
-% 	    \begin{equation}
-% 	     \mathrm{LNA}(S(A, t), \alpha) \equiv S(\alpha A, t)
-% 	    \end{equation}
- \item[LPF:]
-
-% 	    \ 
-
-	    LPFは、ある信号$S(t)=\sum_{i}\mathrm{e}^{\mathrm{j}\omega_{i}t}$に対し、周波数$\omega_{\mathrm{c}}$より大きい項をゼロにする。
+ \item[LPF:] LPFは、ある信号
+	    $S(t)=\sum_{i}\mathrm{e}^{\mathrm{j}\omega_{i}t}$に対し、
+	    周波数$\omega_{\mathrm{c}}$より大きい項をゼロにする。
 	    \begin{equation}
-	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}}) := \sum_{\omega_{i} < \omega_{\mathrm{c}}} \mathrm{e}^{\mathrm{j}\omega_{i}t}
+	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}})
+	      := \sum_{\omega_{i} < \omega_{\mathrm{c}}}
+	      \mathrm{e}^{\mathrm{j}\omega_{i}t}
 	    \end{equation}
 \end{description}
 
-これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。簡単のために、DACから出力する信号は1に規格化し、個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、LOの周波数を$f_{\mathrm{LO}}$
-（$=\omega_{\mathrm{LO}}/2\pi$）とする。
-% （$=\omega_{\footnotesize {\rm LO}}/2\pi$）とする。
-
+これらの素子を使って、DDC方式による、$N$個のMKIDの多重読み出しを考える。
+簡単のために、DACから出力する信号は1に規格化し、
+個々のMKIDの共振周波数を$f_{i}$（$=\omega_{i}/2\pi$）、
+LOの周波数を$f_{\mathrm{LO}}$（$=\omega_{\mathrm{LO}}/2\pi$）とする。
 
 \begin{figure}[htbp]
  \centering
@@ -183,30 +220,26 @@ Microwave Kinetic Inductance Detectors (MKID) は、2003年に発明された超伝導検出器
 
 \subsubsection{アップ・コンバート}
 
-DACの出力信号
-%$S_{1}(t)$、$S_{2}(t)$
-$C_{\mathrm{DAC}}(t)$、$S_{\mathrm{DAC}}(t)$
-は、次のように書ける。
+DACの出力信号$C_{\mathrm{DAC}}(t)$、$S_{\mathrm{DAC}}(t)$は、
+次のように書ける。
 \begin{equation}
  \begin{aligned}
-%  S_{1}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t,
   C_{\mathrm{DAC}}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t,
   \quad (i = 1,\ 2,\ \cdots,\ N) \\
-%   S_{2}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t,
   S_{\mathrm{DAC}}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t,
   \quad (i = 1,\ 2,\ \cdots,\ N)
  \end{aligned}
 \end{equation}
 
-Divで分配した、LO信号$\cos \omega_{\mathrm{LO}}t$とDACの出力信号$C_{\mathrm{DAC}}(t)$、$S_{\mathrm{DAC}}(t)$をMixで混合し、それらの信号をそれぞれ、$S_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$とすると、
+Divで分配した、
+LO信号$\cos \omega_{\mathrm{LO}}t$とDACの出力信号$C_{\mathrm{DAC}}(t)$、
+$S_{\mathrm{DAC}}(t)$をMixで混合し、それらの信号をそれぞれ、
+$S_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$とすると、
 \begin{equation}
  \begin{aligned}
-%   S_{13}(t) &:= \mathrm{Mix}(S_{1}(t), S_{3}(t))
   C_{\mathrm{UP}}(t)
   &:= \mathrm{Mix}(C_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
   = \sum_{i=1}^{N}
-  %\frac{A}{2}
-  %\frac{1}{2}
   \biggl\{
     \cos(\omega_{i} + \omega_{\mathrm{LO}})t
   - \cos(\omega_{i} - \omega_{\mathrm{LO}})t
@@ -214,20 +247,16 @@ Divで分配した、LO信号$\cos \omega_{\mathrm{LO}}t$とDACの出力信号$C_{\mathrm{DAC}
   S_{\mathrm{UP}}(t)
   &:= \mathrm{Mix}(S_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
   = \sum_{i=1}^{N}
-%   \frac{A}{2}
-%   \frac{1}{2}
   \biggl\{
     \sin(\omega_{i} + \omega_{\mathrm{LO}})t
   + \sin(\omega_{i} - \omega_{\mathrm{LO}})t
   \biggr\} 
  \end{aligned}
 \end{equation}
-となる。混合後の信号$C_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$をHybで合成し、フィード信号
-% $S_{\mathrm{feed}}(t)$
-$F(t)$
-にする。
+となる。
+混合後の信号$C_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$をHybで合成し、
+フィード信号$F(t)$にする。
 \begin{equation}
-%  S_{\mathrm{feed}}(t) :=
  F(t) :=
   \mathrm{Hyb}\left(C_{\mathrm{UP}}(t), S_{\mathrm{UP}}(t)\right)
   = \sum_{i=1}^{N} 2\cos(\omega_{i} + \omega_{\mathrm{LO}})t
@@ -236,281 +265,108 @@ $F(t)$
 \subsubsection{MKIDによる共振状態の変化}
 
 MKIDにより、フィード信号は振幅を$A$倍、位相が$\phi$シフトする。
-%フィード信号$F(t)$は、MKIDにより以下の変換を受ける。
-%、$S_{\mathrm{feed}}'(t)$になる。
 \begin{equation}
- %S_{\mathrm{feed}(t)} \rightarrow S_{\mathrm{feed}}'(t)
  F(t) \rightarrow F{'}(t)
-  = \sum_{i=1}^{N}2A_{i}\cos \left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right]
+  = \sum_{i=1}^{N}2A_{i}\cos \left[(\omega_{i}
+			      + \omega_{\mathrm{LO}})t + \phi_{i}\right]
 \end{equation}
 
 \subsubsection{ダウン・コンバート}
 
-MKIDにより変換されたフィード信号
-% $S_{\mathrm{feed}}'(t)$
-$F'(t)$
-は、$\mathrm{Hyb}^{-1}$によって分解される。
+MKIDにより変換されたフィード信号$F'(t)$は、
+$\mathrm{Hyb}^{-1}$によって分解される。
 \begin{equation}
- %  \mathrm{Hyb}^{-1}\left(S_{\mathrm{feed}}'(t)\right)
  \mathrm{Hyb}^{-1}(F'(t))
   = \begin{cases}     
-     \displaystyle \sum_{i=1}^{N} 2A_{i}\cos\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: C_{\mathrm{UP}}'(t) \\
-     \displaystyle \sum_{i=1}^{N} 2A_{i}\sin\left[(\omega_{i} + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{\mathrm{UP}}'(t)
+     \displaystyle \sum_{i=1}^{N} 2A_{i}\cos\left[(\omega_{i}
+     + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: C_{\mathrm{UP}}'(t) \\
+     \displaystyle \sum_{i=1}^{N} 2A_{i}\sin\left[(\omega_{i}
+     + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{\mathrm{UP}}'(t)
     \end{cases}
 \end{equation}
-分解した信号$C_{\mathrm{UP}}'(t)$、$S_{\mathrm{UP}}'(t)$は、再度MixでLO信号$\cos \omega_{\mathrm{LO}}t$と混合する。
+分解した信号$C_{\mathrm{UP}}'(t)$、$S_{\mathrm{UP}}'(t)$は、
+再度MixでLO信号$\cos \omega_{\mathrm{LO}}t$と混合する。
 \begin{equation}
  \begin{aligned}
   C_{\mathrm{DOWN}}'(t)
   &:= \mathrm{Mix}(C_{\mathrm{UP}}'(t), \cos \omega_{\mathrm{LO}}t)
-  = \sum_{i=1}^{N}
-  % \frac{A_{i}'}{2}
-  A_{i}
+  = \sum_{i=1}^{N}A_{i}
   \biggl\{
     \cos(\omega_{i}t + \phi_{i})t
   + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
   \biggr\} \\
-%   I_{i}(t) &:= \mathrm{LPF}(S_{13}'(t), \omega_{\mathrm c})
-%   = \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) \\
   S_{\mathrm{DOWN}}'(t)
   &:= \mathrm{Mix}(S_{\mathrm{UP}}'(t), \cos\omega_{\mathrm{LO}}t)
-  = \sum_{i=1}^{N}
-  % \frac{A_{i}'}{2}
-  A_{i}
+  = \sum_{i=1}^{N}A_{i}
   \biggl\{
     \sin(\omega_{i}t + \phi_{i})t
   + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
   \biggr\}
-%   Q_{i}(t) &:= \mathrm{LPF}(S_{23}'(t), \omega_{\mathrm c})
-%   = \sum_{i=1}^{N}\frac{A_{i}''}{2} \sin(\omega_{i}t + \phi_{i})
   \label{eq:down_conversion}
  \end{aligned}
 \end{equation}
 そして、LPFを介してADCに入力する。
 \begin{equation}
  \begin{aligned}
-%   S_{13}'(t) &:= \mathrm{Mix}(S_{1}'(t), S_{3}(t))
-%   = \sum_{i=1}^{N}\frac{A_{i}''}{2}
-%   \biggl\{\cos(\omega_{i}t + \phi_{i})
-%   + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
-%   \biggr\} \\
   C_{\mathrm{ADC}}(t)
   &:= \mathrm{LPF}(C_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
-  = \sum_{i=1}^{N}
-%   \frac{A_{i}'}{2}
-  A_{i}
+  = \sum_{i=1}^{N}A_{i}
   \cos(\omega_{i}t + \phi_{i}) \\
-%   S_{23}'(t) &:= \mathrm{Mix}(S_{2}'(t), S_{3}(t))
-%   = \sum_{i=1}^{N}\frac{A_{i}''}{2} \biggl\{\sin(\omega_{i}t + \phi_{i})
-%   + \sin\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
-%   \biggr\} \\
   S_{\mathrm{ADC}}(t)
   &:= \mathrm{LPF}(S_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
-  = \sum_{i=1}^{N}
-  % \frac{A_{i}'}{2}
-  A_{i}
+  = \sum_{i=1}^{N}A_{i}
   \sin(\omega_{i}t + \phi_{i})
   \label{eq:adc_input}
  \end{aligned}
 \end{equation}
-ここで、$\omega_{\mathrm c}$（$\sim 2\pi \times 500$ MHz）は、$\omega_{\mathrm{LO}}$（$\sim 2\pi \times 4$ GHz）成分を含む高調波を落とすカットオフ周波数である。
+ここで、$\omega_{\mathrm c}$（$\sim 2\pi \times 500$ MHz）は、
+$\omega_{\mathrm{LO}}$（$\sim 2\pi \times 4$ GHz）成分を含む
+高調波を落とすカットオフ周波数である。
 
 \subsubsection{復調---デジタル基板上における各周波数での共振状態の抽出}
 
-% \clearpage
-
-図\ref{fig:lpf_fpga}に示すように、ADCに入力した信号は、FPGAに実装したDDS（Direct Digital Synthesizers）で生成される信号$\cos \omega_{j}t,\ \sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\ N$）
-% \begin{equation}
-%  \begin{aligned}
-%   S_{I}(t):=\sum_{j=1}^{N} \cos \omega_{j}t, \quad (j = 1, 2, \cdots, N) \\
-%   S_{Q}(t):=\sum_{j=1}^{N} \sin \omega_{j}t, \quad (j = 1, 2, \cdots, N) 
-%  \end{aligned}
-% \end{equation}
-%と掛け算器で乗算する。
-を使った演算により、各周波数$\omega_{j}$毎に同位相（In-Phase）成分$I_{j}(t)$、直交位相（Quadrature-Phase）成分$Q_{j}(t)$を抽出する。
-% \begin{equation}
-%  \begin{aligned}
-% \begin{align} 
-%   I_{I}(t) &:=
-%  %\mathrm{Mix}(I(t), S_{I}(t))
-%  I(t) \times S_{I}(t)
-%  % \notag \\ &\
-%  = \sum_{i=1}^{N}
-%  %\sum_{j=1}^{N}
-%  \frac{A_{i}{''}}{4}
-%   \biggl\{
-%     \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
-%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]
-%   \biggr\}
-%  \label{eq:II}
-%   \\
-%   I_{Q}(t) &:=
-%  %\mathrm{Mix}(I(t), S_{Q}(t))
-%  I(t) \times S_{Q}(t)
-%  %  \notag \\ &\
-%  = \sum_{i=1}^{N}
-%  %\sum_{j=1}^{N}
-%  \frac{A_{i}{''}}{4}
-%   \biggl\{
-%     \sin[(\omega_{i} + \omega_{j})t + \phi_{i}]
-%   - \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
-%   \biggl\}
-%  \label{eq:IQ}
-%   \\
-%   Q_{I}(t) &:=
-%  %\mathrm{Mix}(Q(t), S_{I}(t))
-%  Q(t) \times S_{I}(t)
-%  %  \notag \\ &\ 
-%  = \sum_{i=1}^{N}
-%  %\sum_{j=1}^{N}
-%  \frac{A_{i}{''}}{4}
-%   \biggl\{
-%     \sin[(\omega_{i} + \omega_{j})t + \phi_{i}]
-%   + \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
-%   \biggr\}
-%  \label{eq:QI}
-%   \\
-%   Q_{Q}(t) &:=
-%  %\mathrm{Mix}(Q(t), S_{Q}(t))
-%  Q(t) \times S_{Q}(t)
-%  %  \notag \\ &\
-%  = \sum_{i=1}^{N}
-%  %\sum_{j=1}^{N}
-%  \frac{A_{i}{''}}{4}
-%   \biggl\{
-%   - \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
-%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]
-%   \biggr\}
-%  \label{eq:QQ}
-% \end{align}
+図\ref{fig:lpf_fpga}に示すように、ADCに入力した信号は、
+FPGA（Field-Programmable Gate Array）に実装したDDS
+（Direct Digital Synthesizers）で生成される信号
+$\cos \omega_{j}t,\ \sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\ N$）を
+使った演算により、各周波数$\omega_{j}$毎に同位相（In-Phase）成分$I_{j}(t)$、
+直交位相（Quadrature-Phase）成分$Q_{j}(t)$を抽出する。
 \begin{equation}
  \begin{aligned}
   I_{j}(t) 
   &:= C_{\mathrm{ADC}}(t)\cos\omega_{j}t
   + S_{\mathrm{ADC}}(t)\sin\omega_{j}t \\
-  &= \sum_{i=1}^{N}
-%   \frac{A_{i}{''}}{2}
-  A_{i}
+  &= \sum_{i=1}^{N}A_{i}
   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]  \\
-%   &= \frac{A_{j}{''}}{2} \cos \phi_{j} 
-  &= A_{j} \cos \phi_{j} 
-  + \sum_{i\neq j} A_{i}
+  &= A_{j} \cos \phi_{j} + \sum_{i\neq j} A_{i}
   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-  Q_{j}(t)
-  &:=
+  Q_{j}(t)&:=
   - C_{\mathrm{ADC}}(t)\sin\omega_{j}t
   + S_{\mathrm{ADC}}(t)\cos\omega_{j}t \\
-  &= \sum_{i=1}^{N}
-%   \frac{A_{i}{''}}{2}
-  A_{i}
+  &= \sum_{i=1}^{N}A_{i}
   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-%   &= \frac{A_{j}{''}}{2} \sin \phi_{j} 
   &= A_{j} \sin \phi_{j} 
   + \sum_{i\neq j} A_{i}
   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
   \label{eq:IQ_def}
  \end{aligned}
 \end{equation}
-% 式(\ref{eq:II})と(\ref{eq:QQ})、式(\ref{eq:IQ})と(\ref{eq:QI})の信号をそれぞれ加算、減算すると、
-% \begin{equation}
-%  \begin{aligned}
-%   I'(t) &:= 
-%   \sum_{i=1}^{N}
-%   %\sum_{j=1}^{N}
-%   \frac{A_{i}{''}}{2}
-%   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] 
-%   = \frac{A_{j}{''}}{2} \cos \phi_{j} 
-%   + \sum_{i\neq j} \frac{A_{i}{''}}{2}
-%   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-%   Q'(t) &:= 
-%   \sum_{i=1}^{N}
-%   %\sum_{j=1}^{N}
-%   \frac{A_{i}{''}}{2}
-%   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}] 
-%   = \frac{A_{j}{''}}{2} \sin \phi_{j} 
-%   + \sum_{i\neq j} \frac{A_{i}{''}}{2}
-%   \sin[(\omega_{i} - \omega_{j})t + \phi_{i}]
-%   \label{eq:I'Q'}
-%  \end{aligned}
-% \end{equation}
 となる。
-%ここで、$Q'(t)$信号は、$I_{Q}(t)$信号の位相を$\pi$回転して（つまり、(-1)倍して）から$Q_{I}(t)$と合成している。
-$I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等のLPF\footnote{本研究のFPGAロジックとしては、
-%CIC（Cascaded Integrator-Comb）フィルターで
-一定時間の区間積分として実装している。}で落とせば、
-%$j$番目のMKIDにより変調された振幅$A_{j}$と位相$\phi_{j}$の情報が同時に読み出せる。
-周波数$\omega_{j}$における共振の状態変化（振幅$A_{j}$と位相$\phi_{j}$）の情報が読み出せる。
-% \begin{equation}
-% \begin{aligned}
-%  \mathcal{I}_{j}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c}')
-%   = \mathcal{A}_{j} \cos \phi_{j} \\
-%  \mathcal{Q}_{j}(t) &:= \mathrm{LPF}(Q_{j}(t), \omega_{\mathrm c}')
-%   = \mathcal{A}_{j} \sin \phi_{j} 
-%  \label{eq:mkid_sig}
-% \end{aligned}
-% \end{equation}
+$I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等の
+LPF\footnote{本研究のFPGAロジックとしては、一定時間の区間積分として実装している。}
+で落とせば、
+周波数$\omega_{j}$における共振の状態変化
+（振幅$A_{j}$と位相$\phi_{j}$）の情報が読み出せる。
 \begin{equation}
 \begin{aligned}
-%  I_{j}^{\mathrm{LPF}}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c'})
  \mathcal{I}_{j}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c'})
-%   = \mathcal{A}_{j} \cos \phi_{j} \\
-  = A_{j} \cos \phi_{j} \\
+ = A_{j} \cos \phi_{j} \\
  \mathcal{Q}_{j}(t) &:= \mathrm{LPF}(Q_{j}(t), \omega_{\mathrm c'})
-%   = \mathcal{A}_{j} \sin \phi_{j} 
-  = A_{j} \sin \phi_{j} 
+ = A_{j} \sin \phi_{j} 
  \label{eq:mkid_sig}
 \end{aligned}
 \end{equation}
-ここで、$\omega_{\mathrm c}{'}t$は$\omega_{\mathrm c}{'}t \gg \phi_{i}$を満たすカットオフ周波数$\omega_{\mathrm c'}$である。%このLPFは実際的には、二つの要素がある。ひとつは、FPGAに実装するCIC（Cascaded Integration-Comb）フィルター、もうひとつは、時間積分（観測時間を増やす・平均化する）によるものである。
-
-%  \end{aligned}
-% \end{equation}
-% \begin{equation}
-%  \begin{aligned}
-%   S_{13}{''}(t) := \mathrm{Mix}(S_{13}{'}(t), S_{I})
-%   &= \sum_{i, j=1}^{N} \frac{A_{i}{''}}{4}
-%   \biggl\{
-%     \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
-%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-%   &\qquad
-%   + \cos[(\omega_{i} + \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
-%   + \cos[(\omega_{i} - \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
-%   \biggr\} \\
-%   S_{23}{''}(t) := \mathrm{Mix}(S_{13}'(t), S_{Q})
-%   &= \sum_{i, j=1}^{N} \frac{A_{i}{''}}{4}
-%   \biggl\{
-%     \cos[(\omega_{i} + \omega_{j})t + \phi_{i}]
-%   + \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-%   &\qquad 
-%   + \cos[(\omega_{i} + \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
-%   + \cos[(\omega_{i} - \omega_{j} + 2\omega_{\mathrm{LO}})t + \phi_{i}]
-%   \biggr\}
-%  \end{aligned}
-% \end{equation}
-% Mixからの信号$S_{13}''(t)$、$S_{23}''(t)$をAddで合成する。
-% \begin{equation}
-%  \begin{aligned}
-%   I(t) := \mathrm{Add}(S_{13}''(t), S_{23}''(t))
-%   = \sum_{i, j=1}^{N}\frac{A_{i}''}{2}
-%   \biggl\{
-%    [\cos(\omega_{i} - \omega_{j})t + \phi_{i}]
-%   + \cos(\omega_{i} - \omega_{j} + 2\omega_{\mathrm{LO}})t
-%   \biggr\}
-%  \end{aligned}
-% \end{equation}
-
-
-
-% 次に、ADCに入力した信号をFPGAに実装したLPFを使ってMKIDの変調成分だけを取り出す。これをダウン・サンプリングと呼ぶ。
-% \begin{equation}
-%  \begin{aligned}
-%   \mathrm{LPF}(S_{1}'''(t), \omega_{\mathrm{LO}})
-%   &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \cos(\omega_{i}t + \phi_{i}) = I(t) \\
-%   \mathrm{LPF}(S_{2}'''(t), \omega_{\mathrm{LO}})
-%   &= \sum_{i=1}^{N}\frac{A_{i}''}{2} \sin(\omega_{i}t + \phi_{i}) = Q(t)
-%   \label{eq:down_sampling}
-%  \end{aligned}
-% \end{equation}
+ここで、$\omega_{\mathrm c}{'}t$は$\omega_{\mathrm c}{'}t \gg \phi_{i}$を満たすカットオフ周波数$\omega_{\mathrm c'}$である。
 
 \begin{figure}[!h]
  \centering
@@ -522,53 +378,50 @@ $I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等のLPF\footnote{本研究のF
 \subsubsection{多重化する周波数の設定に関する注意点}
 \label{subsubsec:multiplex}
 
-たとえば、平均化を行う時間幅を$\Delta t:=2\pi/\omega_{\mathrm{c'}}$とおいたとき、式(\ref{eq:IQ_def})の高調波項をゼロとするためには、
+たとえば、
+平均化を行う時間幅を$\Delta t:=2\pi/\omega_{\mathrm{c'}}$とおいたとき、
+式(\ref{eq:IQ_def})の高調波項をゼロとするためには、
 $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
-（$n$は整数）という条件を満たす必要がある。この条件が破れると高調波がスパイク・ノイズとして残る。
+（$n$は整数）という条件を満たす必要がある。
+この条件が破れるとスパイク・ノイズが発生する。
 
-% CMB観測のように、ノイズの定常性が必須となるアプリケーションにおいては、設定周波数間隔$\Delta f_{ij}$が以下の条件を満たさねばならない。
-% \begin{equation}
-%  \Delta f_{ij} = {n \over \Delta t} \quad (n\mathrm{は整数})
-% \end{equation}
-% したがって、この条件を直感的に定義できる周波数のクロックを実装することが重要である（\ref{subsec:userbirity}を参照）。
-
-微弱な信号の検出においては、ノイズの定常性は必須であり、このスパイク・ノイズの影響は避けなければならない。つまり、CMB観測へのアプリケーションにおいては、設定周波数間隔$\Delta f_{ij}$は、以下の条件を満たす必要がある。
+微弱な信号の検出においては、ノイズの定常性は必須であり、
+このスパイク・ノイズの影響は避けなければならない。つまり、
+CMB観測へのアプリケーションにおいては、設定周波数間隔$\Delta f_{ij}$は、
+以下の条件を満たす必要がある。
 \begin{equation}
  \Delta f_{ij} = {n \over \Delta t} \quad (n\mathrm{は整数})
 \end{equation}
-これは上述のスパイク・ノイズを避ける条件と同じである。長期にわたる観測の中で、設定周波数の微調整は頻繁に繰り返される。つまり、この条件を直感的に定義できる周波数クロックを選定し、実装することが、使いやすいフロントエンド回路を開発する上で重要な点となる（\ref{subsec:userbirity}を参照）。
-
-% \clearpage
+これは上述のスパイク・ノイズを避ける条件と同じである。
+長期にわたる観測の中で、設定周波数の微調整は頻繁に繰り返される。
+つまり、この条件を直感的に定義できる周波数クロックを選定し、
+実装することが、使いやすいフロントエンド回路を開発する上で重要な点となる
+（\ref{subsec:userbirity}を参照）。
 
 \subsubsection{MKIDの共振状態の測定例}
 
-既存の読み出し系を用いて、以上に述べた方法で読み出したMKIDの信号を図\ref{fig:mkid_real}に示す。
-式(\ref{eq:mkid_sig})より、あるMKIDの信号$\mathcal{I}_{j}(t)$、$\mathcal{Q}_{j}(t)$を
-%を得る。ここで、$1 \leq k \leq N$である。
-複素平面上の実軸と虚軸にとると、図\ref{fig:mkid_real}(a)のような円が描ける。したがって、振幅$A_{j}$と位相$\phi_{j}$は、次のように表せる。
+既存の読み出し系を用いて、
+以上に述べた方法で読み出したMKIDの信号を図\ref{fig:mkid_real}に示す。
+式(\ref{eq:mkid_sig})より、あるMKIDの信号$\mathcal{I}_{j}(t)$、
+$\mathcal{Q}_{j}(t)$を複素平面上の実軸と虚軸にとると、
+図\ref{fig:mkid_real}(a)のような円が描ける。したがって、
+振幅$A_{j}$と位相$\phi_{j}$は、次のように表せる。
 \begin{equation}
-\begin{aligned}
-%  \mathcal{A}_{j}
- A_{j}
-%  &= \sqrt{\mathcal{I}_{j}^{2}(t) + \mathcal{Q}_{j}^{2}(t)} \\
- &= \sqrt{\mathcal{I}_{j}^{2}(t) + \mathcal{Q}_{j}^{2}(t)} \\
- \phi_{j}
-%  &= \arctan \left(\mathcal{Q}_{j}(t) \over \mathcal{I}_{j}(t)\right)
- &= \arctan \left(\mathcal{Q}_{j}(t) \over \mathcal{I}_{j}(t)\right)
-\end{aligned}
+ \begin{aligned}
+  A_{j}
+  &= \sqrt{\mathcal{I}_{j}^{2}(t) + \mathcal{Q}_{j}^{2}(t)} \\
+  \phi_{j}
+  &= \arctan \left(\mathcal{Q}_{j}(t) \over \mathcal{I}_{j}(t)\right)
+ \end{aligned}
 \end{equation}
 
-共振周波数のまわり（図\ref{fig:mkid_real}(a)の原点付近）で振幅と位相を読み出した例が図\ref{fig:mkid_real}の(b)、(c)である。
+共振周波数の近傍（図\ref{fig:mkid_real}(a)の原点付近）で
+振幅と位相を読み出した例が図\ref{fig:mkid_real}の(b)、(c)である。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/mkid_real.pdf}
- \caption[既存の読み出し系によるMKIDの読み出し例]{(a) DDC（Direct Down-Conversion）方式によって、実際に読み出したMKIDの
-%共振状態
-応答を複素平面上に描写した図。
-%振幅読み出し(b)と位相読み出し(c)。
-変調・復調信号の周波数を変えながら測定を行った。(b)、(c)は変調周波数に対する振幅と位相の変化を表す。ここで、Re(S21)とIm(S21)は、$\mathcal{I}_{j}(t)$と$\mathcal{Q}_{j}(t)$に比例する量として定義される。
-これらは(\ref{sec:fmc150_front-end})に後述するフロントエンド回路を使って測定した。}
+ \caption[既存の読み出し系によるMKIDの読み出し例]{既存の読み出し系によるMKIDの読み出し例。(a) DDC（Direct Down-Conversion）方式によって、実際に読み出したMKIDの応答を複素平面上に描写した図。変調・復調信号の周波数を変えながら測定を行った。(b)、(c)は変調周波数に対する振幅と位相の変化を表す。ここで、Re(S21)とIm(S21)は、$\mathcal{I}_{j}(t)$と$\mathcal{Q}_{j}(t)$に比例する量として定義される。これらは(\ref{sec:fmc150_front-end})に後述するフロントエンド回路を使って測定した。}
  \label{fig:mkid_real}
 \end{figure}
 
@@ -577,12 +430,14 @@ $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
 \section{市販品で構築したフロントエンド回路とその課題}
 \label{sec:fmc150_front-end}
 
-既存の市販品のみで構成したフロントエンド回路を図\ref{fig:kintex-7}に示す。デジタル基板とアナログ基板の概要についてまとめた後、その解決すべき課題について議論する。
+既存の市販品のみで構成したフロントエンド回路を図\ref{fig:kintex-7}に示す。
+デジタル基板とアナログ基板の概要についてまとめた後、
+その解決すべき課題について議論する。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=18.5cm, angle=90]{figures/kintex-7_fmc150.pdf}
- \caption{Kintex-7 FPGA評価キッド（KC705）とFMC150で構成したフロントエンド回路。KC705は、micro-USBやLAN、HDMIなどのインターフェースが実装されている。また、FMC（Fpga Mezzanine Card）と呼ばれる拡張スロットがある。アナログ基板とはこのFMCで接続する。}
+ \caption[Kintex-7 FPGA評価キット（KC705）とFMC150で構成したフロントエンド回路]{Kintex-7 FPGA評価キット（KC705）とFMC150で構成したフロントエンド回路。KC705は、micro-USBやLAN、HDMIなどのインターフェースが実装されている。また、FMC（Fpga Mezzanine Card）と呼ばれる拡張スロットがある。アナログ基板とはこのFMCで接続する。}
  \vspace{-5mm}
  \label{fig:kintex-7}
 \end{figure}
@@ -591,33 +446,44 @@ $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
 
 \subsection{デジタル基板}
 
-\subsubsection{Kintex-7 FPGA評価キッド}
+\subsubsection{Kintex-7 FPGA評価キット}
 
-デジタル基板は、Xilinx（{\tt http://xilinx.com/}）により開発されているKintex-7 FPGA評価キッド（KC705）\cite{kc705}を用いる（図\ref{fig:kintex-7}の緑色の基板）。FPGAとはField Programmable Gate Arrayの略で、文字通りフィールド（ユーザー側）でプログラム可能な論理ゲートをアレイ化したデバイスである。FPGAは、ユーザーが設計から実装まで行うことができ、仕様や設計を開発途中で変更しやすいという特徴がある。これにより、ASIC（Application Specific Integrated Circuit）等と比べて、開発費・開発期間などの開発コストを大幅に削減することができる。
+デジタル基板は、Xilinx（{\tt http://xilinx.com/}）により開発・販売されている
+Kintex-7 FPGA評価キット（KC705）\cite{kc705}を用いる
+（図\ref{fig:kintex-7}の緑色の基板）。
+FPGAとはField-Programmable Gate Arrayの略で、
+文字通りフィールド（ユーザー側）でプログラム可能な論理ゲートを
+アレイ化したデバイスである。FPGAはユーザーが設計から実装まで行うことができ、
+仕様や設計を開発途中で変更しやすいという特徴がある。これにより、
+ASIC（Application Specific Integrated Circuit）等と比べて、
+開発費・開発期間などの開発コストを大幅に削減することができる。
 
-KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するために用いるFMC（Fpga Mezzanine Card）インターフェースが実装されている。また、このデジタル基板で処理したデータは、イーサネットを用いて、PC等のオフラインに転送する。
-
-ハードウェアのコーディングや論理合成、実装、FPGAへのダウンロードは、統合開発環境「Vivado Design Suite\cite{vivado}」を用いて行った。
+KC705はKintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、
+アナログ基板と接続するために用いるFMC（Fpga Mezzanine Card）
+インターフェースが実装されている。また、このデジタル基板で処理したデータは、
+イーサネットを用いて、PC等のオフラインに転送する。
+ハードウェアのコーディングや論理合成、実装、FPGAへのダウンロードは、
+統合開発環境「Vivado Design Suite\cite{vivado}」を用いて行う。
 
 \begin{table}[htbp]
  \centering
  \caption{Kintex-7 FPGA（XC7K325T）の主な特性}
  \label{tbl:kintex-7}
- \begin{tabular}{cc|r}
+ \begin{tabular}{ll|r}
   \toprule
-  Logic Cells           & & 326,080 \\
-  \multirow{2}{*}{CLBs} & Slices                  & 50,950 \\
-                        & Max Distributed RAM [Kb]& 4,000 \\
-  DSP Slices            & & 840 \\
-                        & 18 Kb &  890 \\
-  Block RAM Blocks      & 36 Kb &  445 \\
-                        & Max [Kb] & 160,020 \\
-  CMTs                  & & 10 \\
-  PCle                  & & 1 \\
-  GTXs                  & & 16 \\
-  XADC Blocks           & & 1 \\
-  Total I/O Banks       & & 10 \\
-  Max User I/O          & & 500 \\
+  \multicolumn{2}{l|}{Logic Cells} & 326,080 \\
+  \multirow{2}{*}{CLBs} & Slices & 50,950 \\
+                        & Max Distributed RAM [Kb] & 4,000 \\
+  \multirow{2}{*}{DSP} & Slices & 840 \\
+                       & 18 Kb  & 890 \\
+  \multirow{2}{*}{Block RAM Blocks} & 36 Kb    &  445 \\
+                                    & Max [Kb] & 160,020 \\
+  \multicolumn{2}{l|}{CMTs}            & 10 \\
+  \multicolumn{2}{l|}{PCle}            & 1 \\
+  \multicolumn{2}{l|}{GTXs}            & 16 \\
+  \multicolumn{2}{l|}{XADC Blocks}     & 1 \\
+  \multicolumn{2}{l|}{Total I/O Banks} & 10 \\
+  \multicolumn{2}{l|}{Max User I/O}    & 500 \\
   \bottomrule
  \end{tabular}
 \end{table}
@@ -628,12 +494,17 @@ KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するた
 
 \subsubsection{FMC150}
 
-既存の読み出し系で用いているアナログ基板は、4DSP（{\tt http://www.4dsp.com/}）のFMC150\cite{fmc150}という基板である（図\ref{fig:kintex-7}の赤い基板）。図\ref{fig:fmc150_block}、\ref{fig:fmc150_dim}にそれぞれFMC150のブロック図と基板図を示す。このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
+既存の読み出し系で用いているアナログ基板は、
+4DSP（{\tt http://www.4dsp.com/}）のFMC150\cite{fmc150}である
+（図\ref{fig:kintex-7}の赤い基板）。
+図\ref{fig:fmc150_block}、\ref{fig:fmc150_dim}にそれぞれ
+FMC150のブロック図と基板図を示す。
+このアナログ基板の仕様は、次章の「アナログ基板の仕様策定」の最後にまとめる。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=105mm]{figures/fmc150_block.png}
- \caption[FMC150のブロック図]{FMC150のブロック図。FMC150は汎用通信機を対象として開発されているため、基板上でつくるクロックの他に、外部クロックを入力するポートやトリガーポートが実装されている。また、基板上にあるICが大きく発熱するため、基板温度をモニターするICが搭載されている。しかしながら、冷却装置は実装されていない（後述2.4.3を参照）。}
+ \caption[FMC150のブロック図]{FMC150のブロック図。FMC150は汎用通信機を対象として開発されているため、基板上でつくるクロックの他に、外部クロックを入力するポートやトリガーポートが実装されている。また、基板上にあるICが大きく発熱するため、基板温度をモニターするICが搭載されている。しかしながら、冷却装置は実装されていない（後述\ref{subsubsec:power}を参照）。}
  \label{fig:fmc150_block}
 \end{figure}
 
@@ -642,50 +513,76 @@ KC705は、Kintex-7 FPGA（表\ref{tbl:kintex-7}）を搭載し、アナログ基板と接続するた
  \vspace{-2mm}
  \includegraphics[width=105mm]{figures/fmc150_dim.png}
  \vspace{-2mm}
- \caption[FMC150の基板]{FMC150の基板図の\ruby{表面}{おもてめん}（L1）。主要ICであるADCとDAC、PLLが実装されている。電源を供給する電源回路は、裏面に実装されている。}
+ \caption[FMC150の基板図の\ruby{表面}{おもてめん}（L1）]{FMC150の基板図の\ruby{表面}{おもてめん}（L1）。主要ICであるADCとDAC、PLLが実装されている。電源を供給する電源回路は、裏面に実装されている。}
  \vspace{-30mm}
  \label{fig:fmc150_dim}
 \end{figure}
 
-% \clearpage
-
 \subsection{解決すべき課題}
 
-FMC150はADCやDACの性能はMKIDの読み出し系として利用可能である。しかし、読み出し系には不必要な機能が実装されているために、その性能を十分に活かせていない。また、性能以外にもユーザーの利便性を阻害する仕様が解決すべき課題として存在する。
+FMC150はADCやDACの性能はMKIDの読み出し系として利用可能である。
+しかし、読み出し系には不必要な機能が実装されているために、
+その性能を十分に活かせていない。また、
+性能以外にもユーザーの利便性を阻害する仕様が解決すべき課題として存在する。
 
 \subsubsection{LPFによる帯域の制限}
 
-読み出しの多重度は帯域の広さに比例する。MKIDの利点を最大化するためには、もっとも重要な要素である。
+読み出しの多重度は帯域の広さに比例する。MKIDの利点を最大化するためには、
+最も重要な要素である。
 
-多重読み出しするためには、なるべく広い帯域を確保する必要がある。FMC150は図\ref{fig:low-pass}(a)のようなローパス・フィルター（LPF）が実装されているため、70 MHz 以上で出力強度が急激に下がる（図\ref{fig:low-pass}(b)）。
+多重読み出しするためには、なるべく広い帯域を確保する必要がある。
+FMC150は図\ref{fig:low-pass}(a)のようなローパス・フィルター（LPF）
+が実装されているため、70 MHz 以上で出力強度が急激に下がる
+（図\ref{fig:low-pass}(b)）。
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=14cm]{figures/low-pass.pdf}
- \caption{第5次チェビシェフフィルター。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する。}
+ \includegraphics[width=14.5cm]{figures/low-pass.pdf}
+ \caption[FMC150に実装されているLPF（ローパス・フィルター）]{FMC150に実装されているLPF（ローパス・フィルター）。第5次チェビシェフ・フィルターの回路図（左）。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する（右）。}
  \label{fig:low-pass}
 \end{figure}
 
 \subsubsection{消費電力・発熱の過大}
+\label{subsubsec:power}
 
-消費電力の問題は、主にICの発熱の問題として表れる。ICは動作温度以上になると、意図せぬ誤動作をする。また、電源を供給しているデジタル基板が電力供給過多で、頻繁に強制シャットダウンすることが確認されている。つまり、安定動作が保証されていないという決定的な欠点がある。
+消費電力の問題は、主にICの発熱の問題として表れる。
+ICは動作温度以上になると、意図せぬ誤動作をする蓋然性が高まる。
+また、電源を供給しているデジタル基板が電力供給過多で、
+頻繁に強制シャットダウンすることが確認されている。
+つまり、安定動作が保証されていないという致命的な問題が存在する。
 
-また、図\ref{fig:fan}のような、冷却ファンによる排熱処理を怠ると基板上のICが熱破損する。CMB偏光観測は空気の薄い高地で行うため、排熱に対する安全マージン大きくとらなければならない。これも解決すべき重要な過大である。
+また、図\ref{fig:fan}に示すような、外付け冷却ファンによる排熱処理を怠ると、
+基板上のICが熱破損する。CMB偏光観測は空気の薄い高地で行うため、
+排熱に対する安全マージンを大きくとらなければならない。
+これも解決すべき重要な課題である。
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14cm]{figures/fan.pdf}
- \caption{FMC150のエアフローを向上させるために取り付けた冷却ファン（ここでは、USB扇風機を使用）。ICの排熱処理が必須である。}
+ \caption{FMC150のエアフローを向上させるために取り付けた冷却ファン（ここでは、USB扇風機を使用）。FMC150はICの排熱処理が必須である。}
  \label{fig:fan}
 \end{figure}
 
-% \clearpage
-
 \subsubsection{ユーザビリティの毀損}
 
-FMC150は元来、汎用通信機を対象として開発されているため、クロックを分周して使うことを前提に設計されている。そのため、水晶発振器の周波数は245.76 MHzのもが搭載されている。しかし、MKIDの読み出しに関しては、クロックを様々な周波数に分周して使うことはない。
+FMC150は元来、汎用通信機を対象として開発されているため、
+クロックを分周して使うことを前提に設計されている。そのため、
+周波数245.76 MHzの水晶発振器が搭載されている。しかし、
+MKIDの読み出しでは、クロックを分周することはない。
 
-クロックの周波数はADCとDACのサンプリング・レートを決めるため、できるだけ高い周波数のものが好ましいが、周波数分解能の値も重要である。実際にMKIDの測定を行う際は、まず帯域全体をスイープして、どの周波数にそれぞれのMKIDの共振ピークがあるか測定する。次に、それぞれの共振についてを共振状態を定常測定する。このとき、ユーザーはあるMKIDの共振周ピーク付近に周波数を設定する必要がある。その際、指定する周波数は分解能の倍数に設定しなければならない。たとえば、FMC150で読み出し系を構築した場合、12.288 kHzの倍数にする必要がある。これは、ユーザーにとって非常に使いづらく誤った測定を誘発する。
+クロックの周波数は、ADCとDACのサンプリング・レートを決定するため、
+できるだけ高い周波数が好ましいが、周波数分解能の値も重要である。
+実際にMKIDの測定を行う際は、まず帯域全体をスイープして、
+どの周波数に個々のMKIDの共振ピークがあるか計測する。
+次に、それぞれの共振ピークについて共振状態を定常測定する。
+このとき、ユーザーはあるMKIDの共振ピーク付近に周波数を設定する必要がある。
+その際、指定する周波数は、分解能の倍数に設定しなければならない。
+たとえば、FMC150で読み出し系を構成した場合、
+12.288 kHzの倍数にする必要がある。これは、ユーザーに余計な計算を強いるため、誤った測定を誘発する。
 
-また、読み出し系は冷却回路やMHz/GHzコンバーターで数GHzの信号を扱うため、同軸ケーブルのコネクターはSMA（Sub-Miniature version A）コネクターを用いている。一方で、FMC150はMMCX（Micro-Miniature CoaXial）を採用している。%測定を行う上で、ユーザーはコネクターの繋ぎ変えを頻繁に行う。そのときに、
-コネクターの規格が不揃いであると、ユーザーの生産性を下げる。また、ユーザー側に規格変換のための余計なコネクター等の接続部品が増えることは、潜在的なバグを発生させる。
+また、読み出し系は冷却回路やMHz/GHzコンバーターで数GHzの信号を扱うため、
+同軸ケーブルのコネクターはSMA（Sub-Miniature version A）コネクターを
+用いている。一方で、FMC150はMMCX（Micro-Miniature CoaXial）を採用している。
+コネクターの規格が不揃いであると、ユーザーの生産性を下げる。
+また、ユーザー側に規格変換のための余計なコネクター等
+の接続部品が増えることは、潜在的なバグを内包する。

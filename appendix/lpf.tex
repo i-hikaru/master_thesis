@@ -1,25 +1,36 @@
 \chapter{外部LPFの評価}\label{app:lpf}
 
-\ref{subsec:req_band}款で述べたように、RHEAはLPF（ローパス・フィルター）を実装していない。そのため、高周波ノイズの漏れ込みが懸念される。これに関しては、アナログ出力後にユーザー定義のLPF（外部LPF）を取り付けることで容易に対処できる。その候補となるLPFの性能評価を行った。
+\ref{subsec:req_band}「帯域に対する要求」で述べたように、
+RHEAはLPF（ローパス・フィルター）を実装していない。そのため、
+高周波ノイズの漏れ込みが懸念される。これに関しては、
+アナログ出力後にユーザー定義のLPF（外部LPF）を取り付けることで
+容易に対処できる。その候補となるLPFの性能評価を行った。
 
 \section{評価方法}
 
-LPFの特性評価は、ベクトル・ネットワーク・アナライザー（Vector Network Analyzer; VNA, Keysight N5224A）を用いて、Sパラメーターを測定をした。図\ref{fig:ex-lpf}に測定するLPF（Mini-Circuits SLP-100+\footnote{\tt http://www.minicircuits.com/pdfs/SLP-100+.pdf}）とその測定の様子を示す\footnote{VNAを使った実際の測定は、KEKの長崎氏に行っていただいた。この場をかりて、感謝の意を表したい。}。
+LPFの特性評価は、ベクトル・ネットワーク・アナライザー
+（Vector Network Analyzer; VNA, Keysight N5224A）を用いて、
+Sパラメーターを測定をした。図\ref{fig:ex-lpf}に測定するLPF
+（Mini-Circuits SLP-100+\footnote{\tt http://www.minicircuits.com/pdfs/SLP-100+.pdf}）とその測定の様子を示す\footnote{VNAを使った実際の測定は、KEKの長崎氏に行っていただいた。この場をかりて、感謝の意を表したい。}。
 
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/ex-lpf.pdf}
- \caption[外部LPF（ローパス・フィルター）とその透過率測定]{外部LPF（ローパス・フィルター）とその透過率測定}
+ \caption{外部LPF（ローパス・フィルター）とその透過率測定}
  \label{fig:ex-lpf}
 \end{figure}
 
 \section{評価結果}
 
-評価結果を図\ref{fig:s21_slp-100}に示す。使用する帯域（$\leq$ 100 MHz）において、十分な透過が確認できる。また、高周波ノイズも十分小さいことがわかる。したがって、アナログ基板で生成した信号の高周波ノイズが気になる場合には、このLPFを取り付けることで対応可能である。
+評価結果を図\ref{fig:s21_slp-100}に示す。
+使用する帯域（$\leq$ 100 MHz）において、十分な透過が確認できる。
+また、高周波ノイズも十分小さいことがわかる。したがって、
+アナログ基板で生成した信号の高周波ノイズが気になる場合には、
+このLPFを取り付けることで対応可能である。
 
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=12cm]{figures/s21_slp-100.eps}
- \caption[外部LPF（ローパス・フィルター）の透過率]{外部LPF（ローパス・フィルター）の透過率}
+ \caption{外部LPF（ローパス・フィルター）の透過率}
  \label{fig:s21_slp-100}
 \end{figure}
