@@ -82,7 +82,7 @@ ROACH（Reconfigurable Open Architecture Computing Hardware）は分離でき、
 \begin{table}[!h]
  \centering
  \begin{threeparttable}
-  \caption[世界で開発されているフロントエンド回路と本研究の比較]{世界で開発されているフロントエンド回路と本研究の比較。本研究は、必要最低限の帯域を実現した上で、高いビット分解能と省電力性、高い読み出しレートを達成しているユーザビリティの高いフロントエンド回路。また、デジタル基板には高い拡張性も有する。}
+  \caption[世界で開発されているフロントエンド回路と本研究の比較]{世界で開発されているフロントエンド回路と本研究の比較。本研究は、必要最低限の帯域を実現した上で、高いビット分解能と省電力性、高い読み出しレートを達成している。また、ユーザビリティも高くデジタル基板には高い拡張性も有する。}
   \label{tbl:comp_front-end}
   \begin{tabular}{llccc}
    \toprule
@@ -92,16 +92,16 @@ ROACH（Reconfigurable Open Architecture Computing Hardware）は分離でき、
    \multirow{2}{*}{FPGA} & Family & Kintex-7$^{*}$ & Vertex-6 & Vertex-5 \\
                          & 搭載総数     & 1 & 6 & 1 \\\hline
    \multirow{4}{*}{ADC}  & チャンネル数 & 2 & 1 & 1 \\
-                         & 分解能 [bit] & {\bf 14} & 12 & 12 \\
+                         & 分解能 [bit] & 14 & 12 & 12 \\
                          & Sample Rate [MSPS] & 200 & 1,000 & 550 \\
 	                 & 搭載総数     & 1 & 1 & 2 \\\hline
    \multirow{4}{*}{DAC}  & チャンネル数 & 2 & 2 & 1 \\
                          & 分解能 [bit] & 16 & 16 & 16 \\
-                         & Sample Rate [MSPS] & 100 & 125 & 275 \\
+                         & Sample Rate [MSPS] & 200 & 250 & 550 \\
                          & 搭載総数     & 1 & 5 & 2 \\\hline
    \multicolumn{2}{l}{通信規格} & GbE & USB 2.0 & GbE$^{**}$ \\\hline
-   \multicolumn{2}{l}{復調信号の読み出しレート [Hz]} & {\bf 10,000} & 953 & 100 \\\hline
-   \multicolumn{2}{l}{消費電力 [W]} & {\bf 23} & 100 & 38 \\
+   \multicolumn{2}{l}{復調信号の読み出しレート [Hz]} & 10,000 & 953 & 100 \\\hline
+   \multicolumn{2}{l}{消費電力 [W]} & 23 & 100 & 38 \\
    \bottomrule
   \end{tabular}
   \begin{tablenotes}

@@ -20,10 +20,10 @@ RHEAは従来のアナログ基板に対して3つの改善を行った。
 カウンターの上位ビットをLEDに出力して、
 クロック信号の有無と大雑把な周波数を調べた（図\ref{fig:debug_led}）。
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
- \includegraphics[width=14cm]{figures/debug_led.pdf}
- \caption[クロック信号の確認に使ったデジタル基板に実装されているLED]{クロック信号の確認に使ったデジタル基板に実装されているLED。28ビットのカウンターを用意し、その最上位ビットを出力することで、200 MHzのクロックであれば、おおよそ1秒（0.75 sec）の周期でLEDが明滅する。}
+ \includegraphics[width=14cm, trim=0 0 0 120, clip]{figures/debug_led.pdf}
+ \caption[クロック信号の確認に使ったデジタル基板に実装されているLED]{クロック信号の確認に使ったデジタル基板に実装されているLED。28ビットのカウンターを用意し、その最上位ビットを出力することで、200 MHzのクロックであれば、おおよそ1秒（0.75 s）の周期でLEDが明滅する。}
  \label{fig:debug_led}
 \end{figure}
 
@@ -42,9 +42,9 @@ ADCのサンプリング・クロックとシステム・クロックも同期していなかった。
 グラウンドのノイズを増幅したような信号が見えるだけで、
 クロック信号とは異なることが判明した。
 
-\begin{figure}[htbp]
+\begin{figure}[!h]
  \centering
- \includegraphics[width=14cm]{figures/lvds_lvpecl.pdf}
+ \includegraphics[width=14cm, trim=0 70 0 50, clip]{figures/lvds_lvpecl.pdf}
  \caption[納品時の水晶発振器]{納品時の水晶発振器（左）と回路図の該当箇所（右）。指定した回路図と異なる規格の発振器が実装されていた。}
  \label{fig:lvds_lvpecl}
 \end{figure}
@@ -66,13 +66,21 @@ LVDSという信号規格であったため、正規の信号が出力されていなかった。
 
 このトラブルは、水晶発振器を回路図どおりのものに替えることで解決した
 \footnote{水晶発振器の取り外しと再実装は、KEKの池野正弘氏に行っていただいた。この場をかりて、感謝の意を表したい。}。
-水晶発振器のICの足は全部で6本あり、半田面は1.6 mm $\times$ 1.5 mm、
+水晶発振器のICピンは、全部で6本あり、半田面は1.6 mm $\times$ 1.5 mm、
 ピン同士の間隔は最小で2.54 mmとADCやDACなどの他のICと比較して
 ピン同士の間隔マージン大きいため、比較的簡単にICの交換ができる。
 これについては、本章最後の「さらなる高みを目指した改造案の検討」
-にも関係する。LEDでの確認と共に、図\ref{fig:clock}と図\ref{fig:osc_probe}に、
+にも関係する。
+
+LEDでの確認と共に、図\ref{fig:clock}と図\ref{fig:osc_probe}に、
 水晶発振器の交換後にオシロスコープで測定したクロック信号と
-その測定方法を示す。すべてのクロックが正しく出力されていることが確認できた。
+その測定方法を示す。すべてのクロックが正しく出力されていることが確認できる。
+ここで、全体的に波形が歪んでおり矩形波に見えないのは、
+差動信号の一端を開放し、もう一方をパッシブ・プローブで計測しているためである。
+通常、オシロスコープで差動信号を計測するには、パッシブ・プローブではなく、
+差動プローブを用いる必要がある。
+ここでは水晶発振器を交換したことによるクロック信号の変化を確認することが
+目的であるため、このような構成で測定を行った。
 
 \begin{figure}[!h]
  \centering
@@ -81,6 +89,8 @@ LVDSという信号規格であったため、正規の信号が出力されていなかった。
  \label{fig:clock}
 \end{figure}
 
+\clearpage
+
 \begin{figure}[!h]
  \centering
  \includegraphics[width=14cm]{figures/osc_probe.pdf}
@@ -88,6 +98,47 @@ LVDSという信号規格であったため、正規の信号が出力されていなかった。
  \caption[オシロスコープでプローブした場所]{オシロスコープでプローブした場所。クロック信号は差動信号であるため、通常は差動プローブを用いて測定する。ここでの目的は、ICを交換したことによる大雑把な信号の確認であるため、一方の差動信号は開放してパッシブ・プローブで測定している。}
  \label{fig:osc_probe}
 \end{figure}
+
+\subsection{水晶発振器の動作確認}
+
+上述のように、水晶発振器を交換したことで信号の有無と大雑把な周波数を確認した。
+しかし、先の方法では波形の歪みが、開放端による反射の影響なのか、
+クロック抜け（つまり、水晶発振器の不良）であるか区別がつかない。
+そこで、FPGAに入力するクロック（図\ref{fig:clock}(d)、(e)）を使って
+アナログ基板上の水晶発振器
+（Epson, EG-2102CA\footnote{{\tt http://www.epsondevice.com/docs/qd/ja/DownloadServlet?id=ID000768}}）
+がデータシートの仕様であるか否か確認する。
+
+\subsubsection{確認方法}
+
+\ref{subsec:trouble}で使用したデバック用LEDと28ビットカウンターを用いて、
+ADCから出力するクロック（図\ref{fig:clock}(d)）と
+クロック・ファンアウト・バッファからのクロック（図\ref{fig:clock}(e)）を
+基準クロック（Kintex-7評価キットに搭載される200 MHzのシステム・クロック）
+と比較する（図\ref{fig:check_clock}）。
+これらのクロックを一定時間カウント・アップして、
+水晶発振器が仕様書の示す周波数許容範囲（$\pm 100\times 10^{-6}$）
+内であれば、アナログ基板上の水晶発振器に問題はない。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=9cm]{figures/check_clock.pdf}
+ \vspace{-5mm}
+ \caption{アナログ基板上の水晶発振器の動作確認}
+ \label{fig:check_clock}
+\end{figure}
+
+\subsubsection{確認結果}
+
+およそ1日間カウンターを放置して、アナログ基板上のクロック
+（ADCから出力するクロックと
+クロック・ファンアウト・バッファから出力するクロック）
+を比較した結果、
+アナログ基板上のクロックは、同期しており、
+これらと基準クロックとのずれは仕様書にある許容周波数の範囲内
+$\sigma_{\mathrm{RHEA}} \sim 10^{-5} < \sigma_{\mathrm{spec}} = 10^{-4}$
+に収まっていた。
+したがって、水晶発振器は正常に動作していることを確認した。
 
 \section{消費電力の評価}
 
