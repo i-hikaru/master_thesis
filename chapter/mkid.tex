@@ -175,7 +175,9 @@ UP/DOWN Mix\footnote{実際には、Miteq社のIQ Modulator IRM0208LC2AとIQ Demodulator
 	    \begin{equation}
 	     \mathrm{Div}(E, n) :=\frac{E}{n}
 	    \end{equation}
- \item[Mix:] 混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する。
+ \item[Mix:] 混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する
+	    \footnote{係数2はこの後の計算を簡単にするためであり、
+	    本質的な意味はない。}。
 	    \begin{equation}
 	     \mathrm{Mix}(S_{1}, S_{2}) := 2S_{1}S_{2}
 	    \end{equation}
@@ -264,7 +266,7 @@ $S_{\mathrm{UP}}(t)$、$S_{\mathrm{UP}}(t)$とすると、
 
 \subsubsection{MKIDによる共振状態の変化}
 
-MKIDにより、フィード信号は振幅を$A$倍、位相が$\phi$シフトする。
+フィード信号$F(t)$は、MKIDにより、振幅を$A$倍、位相が$\phi$変化する。
 \begin{equation}
  F(t) \rightarrow F{'}(t)
   = \sum_{i=1}^{N}2A_{i}\cos \left[(\omega_{i}
@@ -273,8 +275,7 @@ MKIDにより、フィード信号は振幅を$A$倍、位相が$\phi$シフトする。
 
 \subsubsection{ダウン・コンバート}
 
-MKIDにより変換されたフィード信号$F'(t)$は、
-$\mathrm{Hyb}^{-1}$によって分解される。
+MKIDを透過したフィード信号$F'(t)$は、$\mathrm{Hyb}^{-1}$によって分解される。
 \begin{equation}
  \mathrm{Hyb}^{-1}(F'(t))
   = \begin{cases}     
@@ -513,7 +514,7 @@ FMC150のブロック図と基板図を示す。
  \vspace{-2mm}
  \includegraphics[width=105mm]{figures/fmc150_dim.png}
  \vspace{-2mm}
- \caption[FMC150の基板図の\ruby{表面}{おもてめん}（L1）]{FMC150の基板図の\ruby{表面}{おもてめん}（L1）。主要ICであるADCとDAC、PLLが実装されている。電源を供給する電源回路は、裏面に実装されている。}
+ \caption[FMC150の基板図の\ruby{表面}{おもてめん}（L1）]{FMC150の基板図の\ruby{表面}{おもてめん}（L1）。主要ICであるADCとDAC、PLL（位相同期回路）が実装されている。電源を供給する電源回路は、裏面に実装されている。}
  \vspace{-30mm}
  \label{fig:fmc150_dim}
 \end{figure}

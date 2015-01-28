@@ -126,59 +126,75 @@ FPGAの資源を節約できる。
 
 表\ref{tbl:rhea_ic}にRHEAとFMC150の主な仕様比較を示す。
 FMC150と比べて帯域の広さ・省電力性・ユーザビリティを改善した。
-特に注目すべき点は、消費電力の比較である。
-消費電力でおよそ60\%削減する。ここで、主要ICはADCとDAC、水晶発振器、
+特に注目すべき点は、消費電力の大幅な削減である。
+ここで、主要ICはADCとDAC、水晶発振器、
 クロック・ファンアウト・バッファ（RHEA）、PLL（FMC150）である。
 
 \begin{table}[!h]
  \centering
- \caption{RHEA（本研究）とFMC150（既存の市販品）の主な特性}
+ \caption{RHEA（本研究）とFMC150（既存の市販品）の主な仕様比較}
  \label{tbl:rhea_ic}
- \begin{tabular}{ccc}
+ \begin{tabular}{lcc}
   \toprule
   & RHEA & FMC150 \\
   \hline
-  \multicolumn{3}{c}{ADCアナログ入力} \\
+  クロック && \\
   \hline
-  コネクター規格     & SMA & MMCX \\
-  チャンネル数       & 2   & 2 \\
-  分解能             & 14-bit & 14-bit \\
-  入力電圧           & 2 $\mathrm{{V}_{pp}}$ & 2 $\mathrm{{V}_{pp}}$  \\
-  入力インピーダンス & 50 $\Omega$（AC結合）& 50 $\Omega$（AC結合）\\
-  バンド幅           & 100 MHz & 70 MHz \\
-  SNR                & 72.8 dBFS @ $f_{\mathrm in}=$ 20 MHz & 73.4 dBFS @ $f_{\mathrm in}=$ 20 MHz \\
-  SFDR               & 80 dBc @ $f_{\mathrm in}=$ 20 MHz & 89 dBc @ $f_{\mathrm in}=$ 20 MHz \\
+  \hspace{2mm} 信号規格     & LV-PECL     & LV-PECL \\
+  \hspace{2mm} 周波数       & 200.00 MHz  & 245.76 MHz \\
+  \hspace{2mm} 位相ジッター & 0.3 ps      & 0.19 ps \\
+  \hspace{2mm} 分配         & ファンアウト・バッファ & PLL \\
+  \hspace{2mm} 周波数許容偏差 & $\pm 100 \times 10^{-6}$ & $\pm 50 \times 10^{-6}$ \\
   \hline
-  \multicolumn{3}{c}{DACアナログ出力} \\
+%   \multicolumn{3}{c}{ADCアナログ入力} \\
+  ADC && \\
   \hline
-  コネクター規格               & SMA & MMCX\\
-  チャンネル数       & 2   & 2 \\
-  分解能             & 16-bit & 16-bit \\
-  出力電圧           & 1 $\mathrm{{V}_{pp}}$ & 1 $\mathrm{{V}_{pp}}$ \\
-  入力インピーダンス & 50 $\Omega$（AC結合）& 50 $\Omega$（AC結合）\\
-  NSD                & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz \\
-  SFDR               & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz \\
+  \hspace{2mm} コネクター規格     & SMA & MMCX \\
+  \hspace{2mm} チャンネル数       & 2   & 2 \\
+  \hspace{2mm} 分解能             & 14-bit & 14-bit \\
+  \hspace{2mm} サンプル・レート & 200 MSPS & 245.76 MSPS \\
+  \hspace{2mm} 入力電圧           & 2 $\mathrm{{V}_{pp}}$ & 2 $\mathrm{{V}_{pp}}$  \\
+  \hspace{2mm} 入力インピーダンス & 50 $\Omega$ & 50 $\Omega$ \\
+  \hspace{2mm} 入力フィルター     & AC結合 & AC結合 \\
+%   バンド幅           & 100 MHz & 70 MHz \\
+  \hspace{2mm} SNR                & 72.8 dBFS @ $f_{\mathrm in}=$ 20 MHz & 73.4 dBFS @ $f_{\mathrm in}=$ 20 MHz \\
+  \hspace{2mm} SFDR               & 80 dBc @ $f_{\mathrm in}=$ 20 MHz & 89 dBc @ $f_{\mathrm in}=$ 20 MHz \\
+  \hspace{2mm} データ幅           & LVDS 7-pairs DDR/channel & LVDS 7-pairs DDR/channel \\
+%   サンプリング周波数 & 200 MHz & 245.76 MHz\\
   \hline
-  \multicolumn{3}{c}{オンボード・クロック} \\
+%   \multicolumn{3}{c}{DACアナログ出力} \\
+  DAC && \\
   \hline
-  信号規格     & LV-PECL     & LV-PECL \\
-  周波数       & 200.00 MHz  & 245.76 MHz \\
-  位相ジッター & 0.3 ps      & 0.19 ps \\
+  \hspace{2mm} コネクター規格               & SMA & MMCX\\
+  \hspace{2mm} チャンネル数       & 2   & 2 \\
+  \hspace{2mm} 分解能             & 16-bit & 16-bit \\
+  \hspace{2mm} サンプル・レート & 200 MSPS & 491.52 MSPS\\
+  \hspace{2mm} 出力電圧           & 1 $\mathrm{{V}_{pp}}$ & 1 $\mathrm{{V}_{pp}}$ \\
+  \hspace{2mm} 出力インピーダンス & 50 $\Omega$ & 50 $\Omega$ \\
+  \hspace{2mm} 出力フィルター     & AC結合 & AC結合 $+$ LPF \\
+  \hspace{2mm} NSD                & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz & 162 dBc/Hz @ $f_{\mathrm out}=$ 10.1 MHz \\
+  \hspace{2mm} SFDR               & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz & 85 dBc @ $f_{\mathrm out}=$ 20.1 MHz \\
+  \hspace{2mm} データ幅           & LVDS 8-pairs DDR & LVDS 8-pairs DDR \\
   \hline
-  \multicolumn{3}{c}{ADCデジタル出力} \\
+%   \multicolumn{3}{c}{オンボード・クロック} \\
+%   \multicolumn{3}{c}{ADCデジタル出力} \\
+%   ADCデジタル出力 & & \\
+%   \hline
+%   データ幅           & LVDS 7-pairs DDR/channel & LVDS 7-pairs DDR/channel \\
+%   サンプリング周波数 & 200 MHz & 245.76 MHz\\
+%   \hline
+%   \multicolumn{3}{c}{DACデジタル出力} \\
+%   DACデジタル出力 & & \\
+%   \hline
+%   データ幅           & LVDS 8-pairs DDR & LVDS 8-pairs DDR \\
+%   サンプル・レート & 200 MSPS & 491.52 MSPS\\
+%   \hline
+%   \multicolumn{3}{c}{主要部の消費電力} \\
+  主要部の消費電力 & & \\
   \hline
-  データ幅           & LVDS 7-pairs DDR/channel & LVDS 7-pairs DDR/channel \\
-  サンプリング周波数 & 200 MHz & 245.76 MHz\\
-  \hline
-  \multicolumn{3}{c}{DACデジタル出力} \\
-  \hline
-  データ幅           & LVDS 8-pairs DDR & LVDS 8-pairs DDR \\
-  サンプリング周波数 & 200 MHz & 491.52 MHz\\
-  \hline
-  \multicolumn{3}{c}{主要部の消費電力} \\
-  \hline
-  ADC/DAC        & 1.56 W & 2.25 W \\
-  クロック生成部 & 0.62 W & 3.44 W \\
+  \hspace{2mm} ADC/DAC        & 1.56 W & 2.25 W \\
+  \hspace{2mm} クロック生成部 & 0.62 W & 3.44 W \\
   \bottomrule
  \end{tabular}
+\vspace*{-10cm}
 \end{table}
