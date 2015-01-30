@@ -23,10 +23,10 @@ GroundBIRD実験の概要について述べる。
 宇宙初期のある一定期間をフリードマン的ではなく、
 ド・ジッター的であったと仮定する。
 このド・ジッター的な期間（インフレーション期）は、
-ハッブル・パラメーター$H:=\dot{a}/a$が一定となるため、
+ハッブル・パラメーター$H\equiv\dot{a}/a$が一定となるため、
 $a\propto \mathrm{e}^{Ht}$となり、時空が指数関数的に引き伸ばされる。
-ここで、$a:=a(t)$は宇宙の膨張率を表し、スケール因子と呼び、
-$\dot{a}:=\mathrm{d}a(t)/\mathrm{d}t$である。
+ここで、$a\equiv a(t)$は宇宙の膨張率を表し、スケール因子と呼び、
+$\dot{a}\equiv\mathrm{d}a(t)/\mathrm{d}t$である。
 この加速度膨張をインフレーションと呼ぶ。
 
 インフレーション期が存在すると、
@@ -43,7 +43,7 @@ $\dot{a}:=\mathrm{d}a(t)/\mathrm{d}t$である。
 また、インフレーション期以前に生成された残存粒子の密度も、インフレーションによって急激に小さくなる。
 
 フリードマン的な宇宙における見かけの地平線を表す量として、
-ハッブル半径$d_{\mathrm{H}}:=c/H$を考える。
+ハッブル半径$d_{\mathrm{H}}\equiv c/H$を考える。
 宇宙のある場所に固定された任意の2点を考え、
 その物理的距離を$l_{\mathrm{phys}}$とする。
 この距離はスケール因子$a$に比例し、
@@ -79,7 +79,7 @@ $l_{\mathrm{phys}}$は指数関数的に大きくなり、ハッブル半径を超える。
 インフレーション前後のスケール因子の比をとり、
 それを対数表示した量$N$を定義する。
 \begin{equation}
- N := \ln\left[a(t_{\mathrm f}) \over a(t_{\mathrm i})\right]
+ N \equiv \ln\left[a(t_{\mathrm f}) \over a(t_{\mathrm i})\right]
     = \int_{t_{\mathrm i}}^{t_{\mathrm f}} H\mathrm{d}t
     \label{eq:expanding_index}
 \end{equation}
@@ -115,7 +115,7 @@ $l_{\mathrm{phys}}$は指数関数的に大きくなり、ハッブル半径を超える。
  \frac{a(t_{\mathrm f})}{a(t_{\mathrm i})} > \frac{{\rho_{\mathrm{r}}}^{1/4}}{0.037h\ \mathrm{[eV]}}
 \end{equation}
 と表せる\cite[p. 221]{weinberg_1}。ここで、
-$h$は無次元化したハッブル定数で$h:=H_{0}/100\ \mathrm{[km/s/Mpc]}$と
+$h$は無次元化したハッブル定数で$h\equiv H_{0}/100\ \mathrm{[km/s/Mpc]}$と
 定義される。$\rho_{\mathrm{r}}\sim 1.0\times 10^{16}$ GeV、$h=0.7$とすると、
 $N\gtrsim 60$となる。
 
@@ -263,8 +263,8 @@ $\delta \phi(t, \bm{x})$と$\delta{g_{\mu\nu}}(t, \bm{x})$はその摂動を表す。
 で表される。ここで、$B_{i}$、$E_{ij}$は、
 \begin{equation}
  \begin{aligned}
-  B_{i}  := \partial_{i}B - S_{i}, \quad (\partial^{i}S_{i} &= 0), \\
-  E_{ij} := 2\partial_{ij}E + 2\partial_{(i}F_{j)} + h_{ij},
+  B_{i}  \equiv \partial_{i}B - S_{i}, \quad (\partial^{i}S_{i} &= 0), \\
+  E_{ij} \equiv 2\partial_{ij}E + 2\partial_{(i}F_{j)} + h_{ij},
   \quad (\partial^{i} F_{i} &= 0, \ h^{i}{}_{i} = \partial^{i}h_{ij} = 0)
  \end{aligned}
 \end{equation}
@@ -298,7 +298,7 @@ $\delta \phi(t, \bm{x})$と$\delta{g_{\mu\nu}}(t, \bm{x})$はその摂動を表す。
 スカラー摂動は、
 一様な超曲面上$\xi$の曲率摂動により与えられる\cite{PhysRevD.28.679}。
 \begin{equation}
- -\xi := \Psi + \frac{H}{\dot{\bar{\rho}}}\delta \rho
+ -\xi \equiv \Psi + \frac{H}{\dot{\bar{\rho}}}\delta \rho
   \label{eq:xi}
 \end{equation}
 式(\ref{eq:xi})は、スローロール・インフレーションの場合、
@@ -311,7 +311,7 @@ $\delta \phi(t, \bm{x})$と$\delta{g_{\mu\nu}}(t, \bm{x})$はその摂動を表す。
  \left<\mathcal{R}_{\bm{k}}\mathcal{R}_{\bm{k}'}\right>
   = (2\pi)^{3}\delta(\bm{k} + \bm{k'})P_{\mathcal{R}}(k),
   \quad \Delta_{\mathrm s}^{2}
-  := \Delta_{\mathrm{\mathcal R}}^{2}
+  \equiv \Delta_{\mathrm{\mathcal R}}^{2}
   = \frac{k^{3}}{2\pi^{2}}P_{\mathcal R}(k)
   \label{eq:ps}
 \end{equation}
@@ -319,8 +319,8 @@ $\delta \phi(t, \bm{x})$と$\delta{g_{\mu\nu}}(t, \bm{x})$はその摂動を表す。
 パワースペクトルのスケール依存性を考えるとき、次のような指標が用いられる。
 \begin{equation}
  n_{\mathrm s} - 1
-  := \frac{\mathrm{d}\ln \Delta_{\mathrm{s}}^{2}}{\mathrm{d}\ln k},
-  \quad \alpha_{\mathrm s} := \frac{\mathrm{d}n_{\mathrm s}}{\mathrm{d}\ln k}
+  \equiv \frac{\mathrm{d}\ln \Delta_{\mathrm{s}}^{2}}{\mathrm{d}\ln k},
+  \quad \alpha_{\mathrm s} \equiv \frac{\mathrm{d}n_{\mathrm s}}{\mathrm{d}\ln k}
   \label{eq:n_s}
 \end{equation}
 ここで、スケール不変であるとき、$n_{\mathrm s}=1$である。
@@ -349,7 +349,7 @@ $\mathcal{R}$とインフレーションのスカラー場の関係は、
 
 \subsubsection{テンソル摂動}
 
-テンソル摂動には2つのモード$h_{ij}$（$h := h^{+},\ h^{\times}$）が存在する。
+テンソル摂動には2つのモード$h_{ij}$（$h \equiv h^{+},\ h^{\times}$）が存在する。
 このテンソルゆらぎのパワースペクトルは、
 \begin{equation}
  \left< h_{\bm{k}} h_{\bm{k'}} \right>
@@ -359,18 +359,18 @@ $\mathcal{R}$とインフレーションのスカラー場の関係は、
 \end{equation}
 となる。2つのモードを合わせたパワースペクトルは、
 \begin{equation}
- \Delta_{\mathrm t}^{2} := 2\Delta_{h}^{2}
+ \Delta_{\mathrm t}^{2} \equiv 2\Delta_{h}^{2}
   = \left.\frac{2}{\pi^{2}}
      \left(H\over M_{\mathrm{pl}}\right)^{2}\right|_{k=aH}
   \label{eq:ps_tensor}
 \end{equation}
 で与えられる。ここで、
-$M_{\mathrm{pl}}:=(8\pi G)^{-1/2}$はプランク質量である。
+$M_{\mathrm{pl}}\equiv(8\pi G)^{-1/2}$はプランク質量である。
 スケール依存性の指標は、スカラー摂動のときと同様にして、
 次のように定義される。
 \begin{equation}
  n_{\mathrm t}
-  := \frac{\mathrm{d}\ln \Delta_{\mathrm t}^{2}}{\mathrm{d}\ln k}
+  \equiv \frac{\mathrm{d}\ln \Delta_{\mathrm t}^{2}}{\mathrm{d}\ln k}
 \end{equation}
 
 \subsection{インフレーションのエネルギー・スケール}
@@ -379,7 +379,7 @@ $M_{\mathrm{pl}}:=(8\pi G)^{-1/2}$はプランク質量である。
 スカラーゆらぎの振幅$\Delta_{\mathrm s}^{2}\sim 10^{-9}$で規格した
 パラメーター$r$を次のように定義する。
 \begin{equation}
- r := {\Delta_{\mathrm t}^{2}(k) \over \Delta_{\mathrm s}^{2}(k)}
+ r \equiv {\Delta_{\mathrm t}^{2}(k) \over \Delta_{\mathrm s}^{2}(k)}
 \end{equation}
 ここで、$r$はテンサー・スカラー比と呼ばれ、原始重力波の相対的な大きさを表す。
 $\Delta_{\mathrm s}^{2}$を固定して、
@@ -420,7 +420,7 @@ CMBの偏光パターンは、次の$E$モードと$B$モードに分解することができ、
   E(\bm{l}) \\
   B(\bm{l})
  \end{pmatrix}
- :=
+ \equiv
  \begin{pmatrix}
   \cos 2\phi_{l}  & \sin 2\phi_{l} \\
   -\sin 2\phi_{l} & \cos 2\phi_{l}

@@ -20,7 +20,7 @@ $C$¤Ï¶¦¿¶´ï¤È¥Õ¥£¡¼¥É¥é¥¤¥ó¤ÎAC·ë¹ç¤¹¤ë¤È¤­¤Î¥­¥ã¥Ñ¥·¥¿¥ó¥¹¤òÉ½¤¹¡£
 \begin{figure}[htbp]
  \centering
  \hspace{-15mm}
- \includegraphics[width=12.5cm]{figures/mkid_1.png}
+ \includegraphics[width=12.5cm]{figures/mkid.pdf}
  \caption[°ìÁÇ»Ò¤ÎMKID¤È¤½¤ÎÅù²Á²óÏ©]{MKID°ìÁÇ»Ò¤Î¼Ì¿¿(a)¤È¤½¤ÎÅù²Á²óÏ©(b)¡£MKID¤Ï¥¢¥ó¥Æ¥Ê¤ÈÄ¶ÅÁÆ³¶¦¿¶´ï¡¢¥Õ¥£¡¼¥É¥é¥¤¥ó¤«¤é¤Ê¤ê¡¢Ä¶ÅÁÆ³¶¦¿¶´ï¤È¥Õ¥£¡¼¥É¥é¥¤¥ó¤ÏAC·ë¹ç¤·¤Æ¤¤¤ë¡£¼õ¿®¤·¤¿ÅÅÇÈ¤Î¥¨¥Í¥ë¥®¡¼$h\nu$¤¬2$\Delta$¤è¤êÂç¤­¤È¤­¡¢Ä¶ÅÁÆ³¾õÂÖ¤Î¶¦¿¶´ïÆâ¤Î¥¯¡¼¥Ñ¡¼ÂÐ¤¬²òÎ¥¤·¡¢$N_{\mathrm{qp}}=\eta h\nu/\Delta$¸Ä¤Î½àÎ³»Ò¤¬À¸À®¤¹¤ë¡£¶¦¿¶´ïÆâ¤Î½àÎ³»Ò¿ôÊÑ²½¤Ë¤È¤â¤Ê¤Ã¤Æ¡¢¥¤¥ó¥À¥¯¥¿¥ó¥¹¤¬ÊÑ²½¤¹¤ë¡£¤³¤ì¤Ë¤è¤ê¡¢¶¦¿¶¾õÂÖ¤¬ÊÑ²½¤·¡¢¼õ¿®¿®¹æ¤Î¶¯ÅÙ¤¬Â¬Äê¤Ç¤­¤ë¡£}
  \label{fig:mkid_1}
 \end{figure}
@@ -173,13 +173,13 @@ UP/DOWN Mix\footnote{¼ÂºÝ¤Ë¤Ï¡¢Miteq¼Ò¤ÎIQ Modulator IRM0208LC2A¤ÈIQ Demodulator
 \begin{description}
  \item[Div:] Ê¬ÇÛ´ï¤Ï¡¢¿®¹æ¤Î¥¨¥Í¥ë¥®¡¼$E$¤ò$1/n$¤ËÅùÊ¬ÇÛ¤¹¤ë¡£
 	    \begin{equation}
-	     \mathrm{Div}(E, n) :=\frac{E}{n}
+	     \mathrm{Div}(E, n) \equiv\frac{E}{n}
 	    \end{equation}
  \item[Mix:] º®¹ç´ï¤Ï¡¢2¤Ä¤Î¿®¹æ$S_{1}$¤È$S_{2}$¤òº®¹ç¡Ê¾è»»¡Ë¤¹¤ë
 	    \footnote{·¸¿ô2¤Ï¤³¤Î¸å¤Î·×»»¤ò´ÊÃ±¤Ë¤¹¤ë¤¿¤á¤Ç¤¢¤ê¡¢
 	    ËÜ¼ÁÅª¤Ê°ÕÌ£¤Ï¤Ê¤¤¡£}¡£
 	    \begin{equation}
-	     \mathrm{Mix}(S_{1}, S_{2}) := 2S_{1}S_{2}
+	     \mathrm{Mix}(S_{1}, S_{2}) \equiv 2S_{1}S_{2}
 	    \end{equation}
  \item[Hyb, Hyb$^{-1}$:] ¥Ï¥¤¥Ö¥ê¥Ã¥É¡¦¥«¥×¥é¡¼¤Ï¡¢
 	    2¤Ä¤ÎÆþÎÏ¿®¹æ$S_{1}(\theta_{1})$¡¢$S_{2}(\theta_{2})$¤ËÂÐ¤·¡¢
@@ -190,10 +190,10 @@ UP/DOWN Mix\footnote{¼ÂºÝ¤Ë¤Ï¡¢Miteq¼Ò¤ÎIQ Modulator IRM0208LC2A¤ÈIQ Demodulator
 	    ¡ÊHyb$^{-1}$¡Ë¡£
 	    \begin{align}
 	     \mathrm{Hyb}\left(S_{1}(\theta_{1}), S_{1}(\theta_{2})\right)
-	     &:= S_{1}(\theta_{1}) + S_{2}\left(\theta_{2}
+	     &\equiv S_{1}(\theta_{1}) + S_{2}\left(\theta_{2}
 	     + \frac{\pi}{2}\right) \\
 	     \mathrm{Hyb^{-1}}\left(S_{12}(\theta_{1}, \theta_{2})\right)
-	     &:= \begin{cases}
+	     &\equiv \begin{cases}
 		  S_{1}(\theta_{1}) \\
 		  S_{2}\left(\theta_{2} - \displaystyle \frac{\pi}{2}\right)
 		 \end{cases}
@@ -203,7 +203,7 @@ UP/DOWN Mix\footnote{¼ÂºÝ¤Ë¤Ï¡¢Miteq¼Ò¤ÎIQ Modulator IRM0208LC2A¤ÈIQ Demodulator
 	    ¼þÇÈ¿ô$\omega_{\mathrm{c}}$¤è¤êÂç¤­¤¤¹à¤ò¥¼¥í¤Ë¤¹¤ë¡£
 	    \begin{equation}
 	     \mathrm{LPF}(S(t), \omega_{\mathrm{c}})
-	      := \sum_{\omega_{i} < \omega_{\mathrm{c}}}
+	      \equiv \sum_{\omega_{i} < \omega_{\mathrm{c}}}
 	      \mathrm{e}^{\mathrm{j}\omega_{i}t}
 	    \end{equation}
 \end{description}
@@ -226,9 +226,9 @@ DAC¤Î½ÐÎÏ¿®¹æ$C_{\mathrm{DAC}}(t)$¡¢$S_{\mathrm{DAC}}(t)$¤Ï¡¢
 ¼¡¤Î¤è¤¦¤Ë½ñ¤±¤ë¡£
 \begin{equation}
  \begin{aligned}
-  C_{\mathrm{DAC}}(t) &:= \sum_{i=1}^{N}\cos \omega_{i}t,
+  C_{\mathrm{DAC}}(t) &\equiv \sum_{i=1}^{N}\cos \omega_{i}t,
   \quad (i = 1,\ 2,\ \cdots,\ N) \\
-  S_{\mathrm{DAC}}(t) &:= \sum_{i=1}^{N}\sin \omega_{i}t,
+  S_{\mathrm{DAC}}(t) &\equiv \sum_{i=1}^{N}\sin \omega_{i}t,
   \quad (i = 1,\ 2,\ \cdots,\ N)
  \end{aligned}
 \end{equation}
@@ -240,14 +240,14 @@ $S_{\mathrm{UP}}(t)$¡¢$S_{\mathrm{UP}}(t)$¤È¤¹¤ë¤È¡¢
 \begin{equation}
  \begin{aligned}
   C_{\mathrm{UP}}(t)
-  &:= \mathrm{Mix}(C_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
+  &\equiv \mathrm{Mix}(C_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
   = \sum_{i=1}^{N}
   \biggl\{
     \cos(\omega_{i} + \omega_{\mathrm{LO}})t
   - \cos(\omega_{i} - \omega_{\mathrm{LO}})t
   \biggl\} \\
   S_{\mathrm{UP}}(t)
-  &:= \mathrm{Mix}(S_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
+  &\equiv \mathrm{Mix}(S_{\mathrm{UP}}(t), \cos \omega_{\mathrm{LO}}t)
   = \sum_{i=1}^{N}
   \biggl\{
     \sin(\omega_{i} + \omega_{\mathrm{LO}})t
@@ -259,7 +259,7 @@ $S_{\mathrm{UP}}(t)$¡¢$S_{\mathrm{UP}}(t)$¤È¤¹¤ë¤È¡¢
 º®¹ç¸å¤Î¿®¹æ$C_{\mathrm{UP}}(t)$¡¢$S_{\mathrm{UP}}(t)$¤òHyb¤Ç¹çÀ®¤·¡¢
 ¥Õ¥£¡¼¥É¿®¹æ$F(t)$¤Ë¤¹¤ë¡£
 \begin{equation}
- F(t) :=
+ F(t) \equiv
   \mathrm{Hyb}\left(C_{\mathrm{UP}}(t), S_{\mathrm{UP}}(t)\right)
   = \sum_{i=1}^{N} 2\cos(\omega_{i} + \omega_{\mathrm{LO}})t
 \end{equation}
@@ -290,14 +290,14 @@ MKID¤òÆ©²á¤·¤¿¥Õ¥£¡¼¥É¿®¹æ$F'(t)$¤Ï¡¢$\mathrm{Hyb}^{-1}$¤Ë¤è¤Ã¤ÆÊ¬²ò¤µ¤ì¤ë¡£
 \begin{equation}
  \begin{aligned}
   C_{\mathrm{DOWN}}'(t)
-  &:= \mathrm{Mix}(C_{\mathrm{UP}}'(t), \cos \omega_{\mathrm{LO}}t)
+  &\equiv \mathrm{Mix}(C_{\mathrm{UP}}'(t), \cos \omega_{\mathrm{LO}}t)
   = \sum_{i=1}^{N}A_{i}
   \biggl\{
     \cos(\omega_{i}t + \phi_{i})t
   + \cos\left[(\omega_{i} + 2\omega_{\mathrm{LO}})t + \phi_{i}\right]
   \biggr\} \\
   S_{\mathrm{DOWN}}'(t)
-  &:= \mathrm{Mix}(S_{\mathrm{UP}}'(t), \cos\omega_{\mathrm{LO}}t)
+  &\equiv \mathrm{Mix}(S_{\mathrm{UP}}'(t), \cos\omega_{\mathrm{LO}}t)
   = \sum_{i=1}^{N}A_{i}
   \biggl\{
     \sin(\omega_{i}t + \phi_{i})t
@@ -310,11 +310,11 @@ MKID¤òÆ©²á¤·¤¿¥Õ¥£¡¼¥É¿®¹æ$F'(t)$¤Ï¡¢$\mathrm{Hyb}^{-1}$¤Ë¤è¤Ã¤ÆÊ¬²ò¤µ¤ì¤ë¡£
 \begin{equation}
  \begin{aligned}
   C_{\mathrm{ADC}}(t)
-  &:= \mathrm{LPF}(C_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
+  &\equiv \mathrm{LPF}(C_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
   = \sum_{i=1}^{N}A_{i}
   \cos(\omega_{i}t + \phi_{i}) \\
   S_{\mathrm{ADC}}(t)
-  &:= \mathrm{LPF}(S_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
+  &\equiv \mathrm{LPF}(S_{\mathrm{DOWN}}'(t), \omega_{\mathrm c})
   = \sum_{i=1}^{N}A_{i}
   \sin(\omega_{i}t + \phi_{i})
   \label{eq:adc_input}
@@ -335,13 +335,13 @@ $\cos \omega_{j}t,\ \sin \omega_{j}t$¡Ê$j=1,\ 2,\ \cdots{,}\ N$¡Ë¤ò
 \begin{equation}
  \begin{aligned}
   I_{j}(t) 
-  &:= C_{\mathrm{ADC}}(t)\cos\omega_{j}t
+  &\equiv C_{\mathrm{ADC}}(t)\cos\omega_{j}t
   + S_{\mathrm{ADC}}(t)\sin\omega_{j}t \\
   &= \sum_{i=1}^{N}A_{i}
   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}]  \\
   &= A_{j} \cos \phi_{j} + \sum_{i\neq j} A_{i}
   \cos[(\omega_{i} - \omega_{j})t + \phi_{i}] \\
-  Q_{j}(t)&:=
+  Q_{j}(t)&\equiv
   - C_{\mathrm{ADC}}(t)\sin\omega_{j}t
   + S_{\mathrm{ADC}}(t)\cos\omega_{j}t \\
   &= \sum_{i=1}^{N}A_{i}
@@ -360,9 +360,9 @@ LPF\footnote{ËÜ¸¦µæ¤ÎFPGA¥í¥¸¥Ã¥¯¤È¤·¤Æ¤Ï¡¢°ìÄê»þ´Ö¤Î¶è´ÖÀÑÊ¬¤È¤·¤Æ¼ÂÁõ¤·¤Æ¤¤¤ë¡
 ¡Ê¿¶Éý$A_{j}$¤È°ÌÁê$\phi_{j}$¡Ë¤Î¾ðÊó¤¬ÆÉ¤ß½Ð¤»¤ë¡£
 \begin{equation}
 \begin{aligned}
- \mathcal{I}_{j}(t) &:= \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c'})
+ \mathcal{I}_{j}(t) &\equiv \mathrm{LPF}(I_{j}(t), \omega_{\mathrm c'})
  = A_{j} \cos \phi_{j} \\
- \mathcal{Q}_{j}(t) &:= \mathrm{LPF}(Q_{j}(t), \omega_{\mathrm c'})
+ \mathcal{Q}_{j}(t) &\equiv \mathrm{LPF}(Q_{j}(t), \omega_{\mathrm c'})
  = A_{j} \sin \phi_{j} 
  \label{eq:mkid_sig}
 \end{aligned}
@@ -380,7 +380,7 @@ LPF\footnote{ËÜ¸¦µæ¤ÎFPGA¥í¥¸¥Ã¥¯¤È¤·¤Æ¤Ï¡¢°ìÄê»þ´Ö¤Î¶è´ÖÀÑÊ¬¤È¤·¤Æ¼ÂÁõ¤·¤Æ¤¤¤ë¡
 \label{subsubsec:multiplex}
 
 ¤¿¤È¤¨¤Ð¡¢
-Ê¿¶Ñ²½¤ò¹Ô¤¦»þ´ÖÉý¤ò$\Delta t:=2\pi/\omega_{\mathrm{c'}}$¤È¤ª¤¤¤¿¤È¤­¡¢
+Ê¿¶Ñ²½¤ò¹Ô¤¦»þ´ÖÉý¤ò$\Delta t\equiv2\pi/\omega_{\mathrm{c'}}$¤È¤ª¤¤¤¿¤È¤­¡¢
 ¼°(\ref{eq:IQ_def})¤Î¹âÄ´ÇÈ¹à¤ò¥¼¥í¤È¤¹¤ë¤¿¤á¤Ë¤Ï¡¢
 $(\omega_{i}-\omega_{j}) \times \Delta t = 2\pi n$
 ¡Ê$n$¤ÏÀ°¿ô¡Ë¤È¤¤¤¦¾ò·ï¤òËþ¤¿¤¹É¬Í×¤¬¤¢¤ë¡£
@@ -538,7 +538,7 @@ FMC150¤Ï¿Þ\ref{fig:low-pass}(a)¤Î¤è¤¦¤Ê¥í¡¼¥Ñ¥¹¡¦¥Õ¥£¥ë¥¿¡¼¡ÊLPF¡Ë
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=14.5cm]{figures/low-pass.pdf}
+ \includegraphics[width=14.5cm, clip, trim=0 0 20 0]{figures/low-pass.pdf}
  \caption[FMC150¤Ë¼ÂÁõ¤µ¤ì¤Æ¤¤¤ëLPF¡Ê¥í¡¼¥Ñ¥¹¡¦¥Õ¥£¥ë¥¿¡¼¡Ë]{FMC150¤Ë¼ÂÁõ¤µ¤ì¤Æ¤¤¤ëLPF¡Ê¥í¡¼¥Ñ¥¹¡¦¥Õ¥£¥ë¥¿¡¼¡Ë¡£Âè5¼¡¥Á¥§¥Ó¥·¥§¥Õ¡¦¥Õ¥£¥ë¥¿¡¼¤Î²óÏ©¿Þ¡Êº¸¡Ë¡£¥³¡¼¥Ê¡¼¼þÇÈ¿ô¤Ï82 MHz¤ËÀß·×¤µ¤ì¡¢¹â¼þÇÈ¤Ï$-124.9$ dB/decade¤Ç¸º¿ê¤¹¤ë¡Ê±¦¡Ë¡£}
  \label{fig:low-pass}
 \end{figure}
@@ -551,6 +551,7 @@ IC¤ÏÆ°ºî²¹ÅÙ°Ê¾å¤Ë¤Ê¤ë¤È¡¢°Õ¿Þ¤»¤Ì¸íÆ°ºî¤ò¤¹¤ë³¸Á³À­¤¬¹â¤Þ¤ë¡£
 ¤Þ¤¿¡¢ÅÅ¸»¤ò¶¡µë¤·¤Æ¤¤¤ë¥Ç¥¸¥¿¥ë´ðÈÄ¤¬ÅÅÎÏ¶¡µë²áÂ¿¤Ç¡¢
 ÉÑÈË¤Ë¶¯À©¥·¥ã¥Ã¥È¥À¥¦¥ó¤¹¤ë¤³¤È¤¬³ÎÇ§¤µ¤ì¤Æ¤¤¤ë¡£
 ¤Ä¤Þ¤ê¡¢°ÂÄêÆ°ºî¤¬ÊÝ¾Ú¤µ¤ì¤Æ¤¤¤Ê¤¤¤È¤¤¤¦Ã×Ì¿Åª¤ÊÌäÂê¤¬Â¸ºß¤¹¤ë¡£
+¤³¤ì¤Ç¤Ï¤È¤Æ¤âCMB´ÑÂ¬¤ËÍÑ¤¤¤ë¤³¤È¤Ï¤Ç¤­¤Ê¤¤¡£
 
 ¤Þ¤¿¡¢¿Þ\ref{fig:fan}¤Ë¼¨¤¹¤è¤¦¤Ê¡¢³°ÉÕ¤±ÎäµÑ¥Õ¥¡¥ó¤Ë¤è¤ëÇÓÇ®½èÍý¤òÂÕ¤ë¤È¡¢
 ´ðÈÄ¾å¤ÎIC¤¬Ç®ÇËÂ»¤¹¤ë¡£CMBÊÐ¸÷´ÑÂ¬¤Ï¶õµ¤¤ÎÇö¤¤¹âÃÏ¤Ç¹Ô¤¦¤¿¤á¡¢
@@ -564,7 +565,7 @@ IC¤ÏÆ°ºî²¹ÅÙ°Ê¾å¤Ë¤Ê¤ë¤È¡¢°Õ¿Þ¤»¤Ì¸íÆ°ºî¤ò¤¹¤ë³¸Á³À­¤¬¹â¤Þ¤ë¡£
  \label{fig:fan}
 \end{figure}
 
-\subsubsection{¥æ¡¼¥¶¥Ó¥ê¥Æ¥£¤ÎÔÌÂ»}
+\subsubsection{¥æ¡¼¥¶¥Ó¥ê¥Æ¥£¤ÎÂ»¼º}
 
 FMC150¤Ï¸µÍè¡¢ÈÆÍÑÄÌ¿®µ¡¤òÂÐ¾Ý¤È¤·¤Æ³«È¯¤µ¤ì¤Æ¤¤¤ë¤¿¤á¡¢
 ¥¯¥í¥Ã¥¯¤òÊ¬¼þ¤·¤Æ»È¤¦¤³¤È¤òÁ°Äó¤ËÀß·×¤µ¤ì¤Æ¤¤¤ë¡£¤½¤Î¤¿¤á¡¢
