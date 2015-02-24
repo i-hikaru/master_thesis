@@ -64,7 +64,7 @@ MKIDは周波数分割多重読み出しに最適な検出器である。
 上述のように、
 読み出し多重度の数は、ある帯域にいくつの共振ピークを定義するかで決まる。
 例えば、個々のMKIDの共振周波数の間隔を2 MHz程度と仮定すると、
-$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域は200 MHzとなる。}。
+$\pm$100 MHzの帯域幅の中に100個の多重度を定義できる\footnote{ここで、$\pm$の符合は位相を表し、実効的な帯域幅は200 MHzとなる。}。
 つまり、帯域の広さと多重度は比例関係にある（図\ref{fig:multiplex}）。
 MKIDの共振間隔は、その製作精度と共振の鋭さに依存する。
 図\ref{fig:mkid_real}に見るように、既に十分な共振の鋭さを有する。
@@ -280,9 +280,9 @@ MKIDを透過したフィード信号$F'(t)$は、$\mathrm{Hyb}^{-1}$によって分解される。
  \mathrm{Hyb}^{-1}(F'(t))
   = \begin{cases}     
      \displaystyle \sum_{i=1}^{N} 2A_{i}\cos\left[(\omega_{i}
-     + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: C_{\mathrm{UP}}'(t) \\
+     + \omega_{\mathrm{LO}})t + \phi_{i}\right] \equiv C_{\mathrm{UP}}'(t) \\
      \displaystyle \sum_{i=1}^{N} 2A_{i}\sin\left[(\omega_{i}
-     + \omega_{\mathrm{LO}})t + \phi_{i}\right] =: S_{\mathrm{UP}}'(t)
+     + \omega_{\mathrm{LO}})t + \phi_{i}\right] \equiv S_{\mathrm{UP}}'(t)
     \end{cases}
 \end{equation}
 分解した信号$C_{\mathrm{UP}}'(t)$、$S_{\mathrm{UP}}'(t)$は、
@@ -353,7 +353,7 @@ $\cos \omega_{j}t,\ \sin \omega_{j}t$（$j=1,\ 2,\ \cdots{,}\ N$）を
  \end{aligned}
 \end{equation}
 となる。
-$I_{j}(t)$、$Q_{j}(t)$信号の第二項以下の高調波を平均化等の
+$I_{j}(t)$、$Q_{j}(t)$信号の第二項（高調波項）を平均化等の
 LPF\footnote{本研究のFPGAロジックとしては、一定時間の区間積分として実装している。}
 で落とせば、
 周波数$\omega_{j}$における共振の状態変化
@@ -539,7 +539,7 @@ FMC150は図\ref{fig:low-pass}(a)のようなローパス・フィルター（LPF）
 \begin{figure}[htbp]
  \centering
  \includegraphics[width=14.5cm, clip, trim=0 0 20 0]{figures/low-pass.pdf}
- \caption[FMC150に実装されているLPF（ローパス・フィルター）]{FMC150に実装されているLPF（ローパス・フィルター）。第5次チェビシェフ・フィルターの回路図（左）。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する（右）。}
+ \caption[FMC150に実装されているLPF（ローパス・フィルター）]{FMC150に実装されているLPF（ローパス・フィルター）である。第5次チェビシェフ・フィルターの回路図（左）とDAC出力の周波数依存性（右）。コーナー周波数は82 MHzに設計され、高周波は$-124.9$ dB/decadeで減衰する。}
  \label{fig:low-pass}
 \end{figure}
 

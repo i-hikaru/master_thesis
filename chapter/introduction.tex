@@ -36,10 +36,8 @@ $\dot{a}\equiv\mathrm{d}a(t)/\mathrm{d}t$である。
 その共動距離が現在の見かけの地平線よりも大きければ、
 現在の宇宙が地平線よりも大きなスケールで因果関係を持っていたとしても
 問題にはならない。
-
 さらに、インフレーションは時空の曲率を急激に小さくする。
 インフレーション期が十分長ければ、曲率はゼロに漸近してゆき宇宙は平坦になる。
-
 また、インフレーション期以前に生成された残存粒子の密度も、インフレーションによって急激に小さくなる。
 
 フリードマン的な宇宙における見かけの地平線を表す量として、
@@ -47,15 +45,8 @@ $\dot{a}\equiv\mathrm{d}a(t)/\mathrm{d}t$である。
 宇宙のある場所に固定された任意の2点を考え、
 その物理的距離を$l_{\mathrm{phys}}$とする。
 この距離はスケール因子$a$に比例し、
-これらの長さの時間変化は図\ref{fig:inflation_scale}のようになる\cite{matsubara}。
-
-\begin{figure}[htbp]
- \centering
- \includegraphics[width=11cm]{figures/inflation_scale.png}
- \caption[インフレーション理論におけるスケールの変化]{インフレーション理論におけるスケールの変化。太線は各期間のハッブル半径$d_{\mathrm{H}}$の変化を表す。細線は共動スケール$l_{\mathrm{phys}}$の変化を表す。下の細線は放射優勢期にハッブル半径に入る共動スケール、上の細線は現在のハッブル半径に入る共動スケールである。}
- \label{fig:inflation_scale}
-\end{figure}
-
+これらの長さの時間変化は図\ref{fig:inflation_scale}
+のようになる\cite{matsubara}。
 インフレーションの始まる時刻と終わる時刻をそれぞれ、
 $t_{\mathrm i}$、$t_{\mathrm f}$とし、
 それに対応するスケール因子を$a_{\mathrm i}=a(t_{\mathrm i})$、
@@ -74,6 +65,13 @@ $l_{\mathrm{phys}}$は指数関数的に大きくなり、ハッブル半径を超える。
 こうして一度ハッブル半径の外へ出たスケールが再びハッブル半径内に戻る。
 つまり、現在、地平線内にあるスケールも、
 インフレーション以前に因果関係を持つことが可能となる。
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=11cm]{figures/inflation_scale.png}
+ \caption[インフレーション理論におけるスケールの変化]{インフレーション理論におけるスケールの変化。太線は各期間のハッブル半径$d_{\mathrm{H}}$の変化を表す。細線は共動スケール$l_{\mathrm{phys}}$の変化を表す。下の細線は放射優勢期にハッブル半径に入る共動スケール、上の細線は現在のハッブル半径に入る共動スケールである。}
+ \label{fig:inflation_scale}
+\end{figure}
 
 どのくらいの期間インフレーションが起きればよいか調べるために、
 インフレーション前後のスケール因子の比をとり、
@@ -116,17 +114,18 @@ $l_{\mathrm{phys}}$は指数関数的に大きくなり、ハッブル半径を超える。
 \end{equation}
 と表せる\cite[p. 221]{weinberg_1}。ここで、
 $h$は無次元化したハッブル定数で$h\equiv H_{0}/100\ \mathrm{[km/s/Mpc]}$と
-定義される。$\rho_{\mathrm{r}}\sim 1.0\times 10^{16}$ GeV、$h=0.7$とすると、
+定義される。$\rho_{\mathrm{r}}\sim 10^{16}$ GeV、$h=0.7$とすると、
 $N\gtrsim 60$となる。
 
 \subsection{スローロール・インフレーション}
 
-以上より、インフレーション理論は、
+前述のように、インフレーション理論は、
 宇宙初期にド・ジッター的な宇宙が実現すると仮定している。
 ド・ジッター的な宇宙は、
 アインシュタイン方程式に宇宙定数を導入することにより実現するが、
 宇宙定数は語義どおり定数なので、インフレーションを始めたり、
 終わらせたりすることができない。
+インフレーションを引き起こし、終わらせる仕組み（模型）が必要である。
 
 一般に、インフレーションの模型を考えるときは、
 なんらかのスカラー場などによって、
@@ -236,7 +235,8 @@ $\sqrt{-g} \propto a^{3}$である。したがって、
 \end{equation}
 となる。式(\ref{eq:slow-roll_diff})、
 (\ref{eq:expanding_index_slow-roll})より、
-$|\phi_{\mathrm f}-\phi_{\mathrm i}|\sim c^{2}G^{-1/2}$より大きい値であれば、
+インフレーション開始時と終了時の場の距離$|\phi_{\mathrm f}-\phi_{\mathrm i}|$
+が$c^{2}G^{-1/2}$程度より大きい値であれば、
 $N$は十分大きくなる。つまり、十分長いインフレーションは、
 このように比較的小さな傾きを持つポテンシャルによって起こる。
 
@@ -303,7 +303,7 @@ $\delta \phi(t, \bm{x})$と$\delta{g_{\mu\nu}}(t, \bm{x})$はその摂動を表す。
 \end{equation}
 式(\ref{eq:xi})は、スローロール・インフレーションの場合、
 \begin{equation}
- -\xi \approx \Psi + \frac{H}{\bar{\dot{\phi}}}\delta \phi =: \mathcal{R}
+ -\xi \approx \Psi + \frac{H}{\bar{\dot{\phi}}}\delta \phi \equiv \mathcal{R}
   \label{eq:xi'}
 \end{equation}
 と近似できる。スカラーゆらぎのパワースペクトルは、

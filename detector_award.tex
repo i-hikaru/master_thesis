@@ -1,0 +1,174 @@
+\documentclass[11pt, a4paper]{jsarticle}
+\usepackage[dvipdfm]{graphicx, color}
+\usepackage{amssymb}
+\usepackage{ascmac}
+\usepackage{fancybox}
+
+\setlength{\textwidth}{\fullwidth}
+\setlength{\textheight}{40\baselineskip}
+\addtolength{\textheight}{\topskip}
+\setlength{\voffset}{-0.2in}
+\setlength{\topmargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+
+\title{超伝導検出器MKIDの周波数多重読み出し用 \\
+       フロントエンド回路の開発}
+\author{総合研究大学院大学\ 
+        高エネルギー加速器科学研究科 \\
+        素粒子原子核専攻\ \ 
+        石塚 光}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+{\bf 概要}
+\end{center}
+
+宇宙マイクロ波背景放射（Cosmic Microwave Background; CMB）
+の温度異方性等の精密測定により、ビッグバン宇宙模型は宇宙の標準模型として
+今日定着している。しかし、この模型には
+「地平線問題」・「平坦性問題」・「残存粒子問題」等の未解決問題が存在する。
+インフレーション理論は、宇宙初期における時空の加速度膨張
+（インフレーション）によって、これらの問題を一挙に解決する。
+インフレーションは原始重力波を生成し、
+その痕跡はCMBの偏光地図上に大角度スケール
+($\gtrsim 1^{\circ}$)の非対称パターン「$B$モード」として観測できる。
+つまり、CMB偏光を広い領域にわたって観測することが重要である
+（図\ref{fig:cl_gb}）。
+
+\begin{figure}[h!]
+ \begin{tabular}{cc}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \hspace{-6mm}
+   \vspace{-2mm}
+   \includegraphics[width=72.5mm, clip, trim=5 0 15 5]{figures/cl_gb.pdf}
+   \caption{予想される$B$モードのパワースペクトルとGroundBIRDの感度曲線}
+   \label{fig:cl_gb}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \hspace{-2mm}
+   \includegraphics[width=65mm, clip, trim=0 0 0 5]{figures/gb.pdf}
+   \caption{GroundBIRD実験の望遠鏡と回転台}
+   \label{fig:gb}
+  \end{minipage}
+ \end{tabular}
+\end{figure}
+\vspace{-2mm}
+
+GroundBIRD実験はこの原始重力波による$B$モードの検出を目的とした地上実験
+である（図\ref{fig:gb}）。
+一般に、観測領域を制限するのは検出器の$1/f$ノイズであり、
+その影響を取り除くためには、出来る限り高速なスキャン変調
+（視野を周期的に切り替える観測）を達成することが重要である。
+GroundBIRDは望遠鏡自身を高速で回転して（毎分20回転）、
+CMB実験で最も速いスキャン変調を実現する。
+超伝導検出器MKID（Microwave Kinetic Inductance Detector）は、
+時間応答性に優れているため、
+この高速スキャン変調に適した検出器である（図\ref{fig:mkid}）。
+
+\begin{figure}[h!]
+ \centering
+ \hspace{-15mm}
+ \includegraphics[width=10cm]{figures/mkid.pdf}
+ \caption{MKIDとその等価回路}
+ \vspace{-3mm}
+ \label{fig:mkid}
+\end{figure}
+
+CMB観測用のMKIDは、極低温（$\lesssim$ 250 mK）で動作するため、
+冷却光学系への熱流入を抑えることが肝要である。
+MKIDは一本の読み出し線で多数の素子を読み出すことが容易なため、
+配線数を大幅に低減することができる。
+現在、市販のADC/DAC基板（アナログ基板）と
+FPGA（Field-Programmable Gate Array）評価基板を組み合わせて、
+読み出し系を構成している。しかしながら、
+この市販品にはローパス・フィルター（LPF）が実装されているため、
+帯域が制限されている。これは結果として、
+読み出し多重度を制限する。
+また、クロック生成器周辺が必要以上に複雑で使い勝手が悪い。
+さらに、消費電力が大きく動作が不安定という致命的な問題も抱えている。
+これら三つの問題を解決すべく、
+広帯域かつシンプル・省電力な構成のアナログ基板の開発を行った。
+
+\begin{figure}[h!]
+ \begin{tabular}{cc}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[width=72.5mm, clip]{figures/rhea_schematic.pdf}
+   \caption{RHEAのブロック図}
+   \label{fig:rhea_schem}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[width=65mm, clip]{figures/rhea_0.png}
+   \caption{RHEA Ver. 1.0}
+   \label{fig:rhea}
+  \end{minipage}
+ \end{tabular}
+\end{figure}
+
+本研究で開発したRHEAは、
+MKIDの読み出しに最適化したアナログ基板である
+（図\ref{fig:rhea_schem}、\ref{fig:rhea}）。
+帯域を制限していた原因であるLPFを排除して、
+帯域をおよそ30\%広げることに成功した。消費電力が大きく、
+現在の用途に不釣合いな位相同期回路（PLL）の代わりに、
+必要最低限の機能をもったクロック・ファンアウト・バッファを搭載し、
+回路の簡素化と省電力性を向上した。その他種々のICを選定しなおし、
+さらに電源回路を見直すことで、フロントエンド回路全体の消費電力は、
+従来の半分に抑えることができた。これらの改善は、
+回路全体の簡素化と同時に、
+ユーザーによる制御ファームウェアのコーディングの容易さをもたらす。
+
+\begin{tabular}{cc}
+ \hspace{-2mm}
+ \vspace{1em}
+ \begin{minipage}{0.45\hsize}
+  \begin{itembox}[l]{FMC150（従来）の解決すべき課題}
+   \begin{enumerate}
+    \item LPFによる帯域の制限
+    \item 消費電力・発熱の課題
+    \item ユーザビリティの損失
+   \end{enumerate}
+  \end{itembox}
+ \end{minipage}
+ \hspace{2mm}
+ \begin{minipage}{0.45\hsize}
+  \begin{itembox}[l]{RHEA（本研究）による解決案}
+   \begin{itemize}
+    \item 帯域を制限しているLPFの排除
+    \item クロック分配方式の簡素化
+    \item 水晶発振器の変更
+    \item コネクター規格の統一
+   \end{itemize}
+  \end{itembox}
+ \end{minipage}
+\end{tabular}
+
+以上、本研究はMKIDの読み出しに最適化したアナログ基板RHEAを試作し、
+策定した仕様性能を満たすことを確認した。今後、
+実際にMKIDを使って使用実績を積み重ねるという課題は残るものの、
+GroundBIRD実験に搭載するMKIDの読み出し系として満足することを確認した。
+また、クロック・アップによる帯域拡大の余地、
+デジタル基板と分離した構成がもたらす、
+FPGA商品の性能向上の恩恵を直ちに反映できる自由度など魅力的な伸びしろも有する。
+
+\centering
+\vspace{1em}
+\begin{minipage}{0.8\hsize}
+ \begin{itembox}[l]{RHEA（本研究）の特徴}
+  \begin{enumerate}
+   \item 帯域$\pm$100 MHz
+   \item 消費電力7.9 W（読み出し多重度32）
+   \item 外部冷却装置の不要に代表される、高いユーザビリティの実現
+  \end{enumerate}
+ \end{itembox}
+\end{minipage}
+
+\end{document}
