@@ -1,6 +1,8 @@
 総研大認定研究
 --------------
 
+- 本編 v.1.0.1 ([PDF](https://dl.dropboxusercontent.com/u/2491909/master_thesis_ext.pdf))
+
 認定研究に関する手続きやスケジュールの詳細:
 
 - <http://soken.kek.jp/sokendai/insei/nintei.html>

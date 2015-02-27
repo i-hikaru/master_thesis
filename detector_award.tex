@@ -3,6 +3,8 @@
 \usepackage{amssymb}
 \usepackage{ascmac}
 \usepackage{fancybox}
+\usepackage{booktabs}
+\usepackage{multirow}
 
 \setlength{\textwidth}{\fullwidth}
 \setlength{\textheight}{40\baselineskip}
@@ -24,9 +26,9 @@
 
 \maketitle
 
-\begin{center}
-{\bf 概要}
-\end{center}
+% \begin{center}
+% {\bf 概要}
+% \end{center}
 
 宇宙マイクロ波背景放射（Cosmic Microwave Background; CMB）
 の温度異方性等の精密測定により、ビッグバン宇宙模型は宇宙の標準模型として
@@ -85,9 +87,12 @@ CMB観測用のMKIDは、極低温（$\lesssim$ 250 mK）で動作するため、
 冷却光学系への熱流入を抑えることが肝要である。
 MKIDは一本の読み出し線で多数の素子を読み出すことが容易なため、
 配線数を大幅に低減することができる。
-現在、市販のADC/DAC基板（アナログ基板）と
+% 現在、市販のADC/DAC基板（アナログ基板）と
+% FPGA（Field-Programmable Gate Array）評価基板を組み合わせて、
+% 読み出し系を構成している。しかしながら、
+本研究以前は、市販のADC/DAC基板（アナログ基板）と
 FPGA（Field-Programmable Gate Array）評価基板を組み合わせて、
-読み出し系を構成している。しかしながら、
+読み出し系を構成していた。しかしながら、
 この市販品にはローパス・フィルター（LPF）が実装されているため、
 帯域が制限されている。これは結果として、
 読み出し多重度を制限する。
@@ -96,36 +101,6 @@ FPGA（Field-Programmable Gate Array）評価基板を組み合わせて、
 これら三つの問題を解決すべく、
 広帯域かつシンプル・省電力な構成のアナログ基板の開発を行った。
 
-\begin{figure}[h!]
- \begin{tabular}{cc}
-  \begin{minipage}{0.5\hsize}
-   \centering
-   \includegraphics[width=72.5mm, clip]{figures/rhea_schematic.pdf}
-   \caption{RHEAのブロック図}
-   \label{fig:rhea_schem}
-  \end{minipage}
-  \begin{minipage}{0.5\hsize}
-   \centering
-   \includegraphics[width=65mm, clip]{figures/rhea_0.png}
-   \caption{RHEA Ver. 1.0}
-   \label{fig:rhea}
-  \end{minipage}
- \end{tabular}
-\end{figure}
-
-本研究で開発したRHEAは、
-MKIDの読み出しに最適化したアナログ基板である
-（図\ref{fig:rhea_schem}、\ref{fig:rhea}）。
-帯域を制限していた原因であるLPFを排除して、
-帯域をおよそ30\%広げることに成功した。消費電力が大きく、
-現在の用途に不釣合いな位相同期回路（PLL）の代わりに、
-必要最低限の機能をもったクロック・ファンアウト・バッファを搭載し、
-回路の簡素化と省電力性を向上した。その他種々のICを選定しなおし、
-さらに電源回路を見直すことで、フロントエンド回路全体の消費電力は、
-従来の半分に抑えることができた。これらの改善は、
-回路全体の簡素化と同時に、
-ユーザーによる制御ファームウェアのコーディングの容易さをもたらす。
-
 \begin{tabular}{cc}
  \hspace{-2mm}
  \vspace{1em}
@@ -133,7 +108,7 @@ MKIDの読み出しに最適化したアナログ基板である
   \begin{itembox}[l]{FMC150（従来）の解決すべき課題}
    \begin{enumerate}
     \item LPFによる帯域の制限
-    \item 消費電力・発熱の課題
+    \item 消費電力・発熱の過大
     \item ユーザビリティの損失
    \end{enumerate}
   \end{itembox}
@@ -151,18 +126,85 @@ MKIDの読み出しに最適化したアナログ基板である
  \end{minipage}
 \end{tabular}
 
+\begin{figure}[h!]
+ \begin{tabular}{cc}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[width=72.5mm, clip]{figures/rhea_schematic.pdf}
+   \caption{RHEAのブロック図}
+   \label{fig:rhea_schem}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \centering
+   \includegraphics[width=65mm, clip]{figures/rhea_0_l.png}
+   \caption{RHEA Ver. 1.0}
+   \label{fig:rhea}
+  \end{minipage}
+ \end{tabular}
+\end{figure}
+
+本研究で開発したRHEAは、
+MKIDの読み出しに最適化したアナログ基板である
+（図\ref{fig:rhea_schem}、\ref{fig:rhea}）。
+帯域を制限していた原因であるLPFを排除して、
+帯域を従来のおよそ30\%広げることに成功した（図\ref{fig:comp_dac_output}）。
+消費電力が大きく、
+現在の用途に不釣合いな位相同期回路（PLL）の代わりに、
+必要最低限の機能をもったクロック・ファンアウト・バッファを搭載し、
+回路の簡素化と省電力性を向上した。その他種々のICを選定しなおし、
+さらに電源回路を見直すことで、フロントエンド回路全体の消費電力は、
+従来の半分に抑えることができた（表\ref{tbl:power}）。
+これらの改善は、回路全体の簡素化と同時に、
+ユーザーによる制御ファームウェアのコーディングの容易さをもたらす。
+また、消費電力が低減したことにより、基板上ICの発熱問題も解決した
+（図\ref{fig:thermography}）。
+これにより、従来のアナログ基板に必須であった外部冷却装置が不要になり、
+より安定した読み出し系を構築することができた。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=10cm]{figures/dac_output_fmc150.png}
+ \caption{RHEA（本研究）とFMC150（従来）におけるDACの信号強度の比較。本研究により、GroundBIRD実験が要求する帯域100 MHzを達成した。}
+ \label{fig:comp_dac_output}
+\end{figure}
+
+\begin{table}[h!]
+ \centering
+ \caption{RHEA（本研究）とFMC150（従来）の消費電力の比較。CMB観測の要求を満たしつつ、消費電力の大幅向上に成功した。}
+ \label{tbl:power}
+ \begin{tabular}{cccc}
+  \toprule
+  \multirow{2}{*}{状態} & \multicolumn{2}{c}{消費電力 [W]} & \multirow{2}{*}{電力比（RHEA/FMC150）} \\
+                   & RHEA & FMC150 &      \\\hline
+  待機状態         & 1.8  & 5.9    & 0.31 \\
+%  読み出し多重度1  & 4.7  & 11.4   & 0.41 \\
+%   読み出し多重度32 & 7.9  & 15.1   & 0.52 \\
+  連続読み出し稼働時（多重度32） & 7.9  & 15.1   & 0.52 \\
+  \bottomrule
+ \end{tabular}
+\end{table}
+
+\begin{figure}[!b]
+ \centering
+ \includegraphics[width=11cm, clip, trim=0 250 0 0]{figures/thermography.pdf}
+ \caption{赤外線サーモグラフィによるRHEA（本研究）とFMC150（従来）の基板表面温度の比較。発熱を抑え、長期にわたる観測に向けた安定稼働（「落ちないシステム」）を実現した。}
+ \label{fig:thermography}
+\vspace{-5mm}
+\end{figure}
+
 以上、本研究はMKIDの読み出しに最適化したアナログ基板RHEAを試作し、
 策定した仕様性能を満たすことを確認した。今後、
 実際にMKIDを使って使用実績を積み重ねるという課題は残るものの、
 GroundBIRD実験に搭載するMKIDの読み出し系として満足することを確認した。
 また、クロック・アップによる帯域拡大の余地、
 デジタル基板と分離した構成がもたらす、
-FPGA商品の性能向上の恩恵を直ちに反映できる自由度など魅力的な伸びしろも有する。
+FPGA商品の性能向上の恩恵を直ちに反映できる自由度など
+魅力的な伸びしろも有する。
 
 \centering
 \vspace{1em}
 \begin{minipage}{0.8\hsize}
- \begin{itembox}[l]{RHEA（本研究）の特徴}
+ \begin{itembox}[l]{RHEA（本研究）の特徴---本研究の成果}
   \begin{enumerate}
    \item 帯域$\pm$100 MHz
    \item 消費電力7.9 W（読み出し多重度32）
