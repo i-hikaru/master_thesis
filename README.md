@@ -1,16 +1,16 @@
 総研大認定研究
 --------------
 
-- 本編 v.1.0.1 ([PDF](https://dl.dropboxusercontent.com/u/2491909/master_thesis_ext.pdf))
+- 本編 v.1.0.1 ([PDF](https://github.com/i-hikaru/master_thesis/blob/master/main_ext.pdf), 58M)
 
 認定研究に関する手続きやスケジュールの詳細:
 
-- <http://soken.kek.jp/sokendai/insei/nintei.html>
-- <http://soken.kek.jp/sokendai/insei/master.html>
+- [認定研究について](http://soken.kek.jp/sokendai/insei/nintei.html)
+- [修士の学位審査にかかわる手続き](http://soken.kek.jp/sokendai/insei/master.html)
 
 Open-it のプロジェクト:
 
-- <http://openit.kek.jp/project/DAC_ADC_board_for_fMUX/DAC_ADC_board_for_fMUX>
+- [高周波多重読み出しの広帯域化に向けたアナログボードの開発](http://openit.kek.jp/project/DAC_ADC_board_for_fMUX/DAC_ADC_board_for_fMUX)
 
 ### ファイル構成
 
