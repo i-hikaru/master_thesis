@@ -12,7 +12,8 @@ RHEAは従来のアナログ基板に対して3つの改善を行った。
 分配したクロック信号が矩形波としてみなせて、かつ、
 仕様どおりの精度であることを確認する
 （クロックの分配は図\ref{fig:rhea_schem}のブロック図を参照）。
-期待どおりのクロック信号を確認してはじめて、ユーザビリティの向上が保証できる。
+期待どおりのクロック信号を確認してはじめて、
+ユーザビリティの向上が保証できる。
 
 \subsection{基板納品時のトラブルとその解決}
 \label{subsec:trouble}
@@ -28,7 +29,11 @@ RHEAは従来のアナログ基板に対して3つの改善を行った。
 \begin{figure}[!h]
  \centering
  \includegraphics[width=14cm, trim=0 50 0 120, clip]{figures/debug_led.pdf}
- \caption[クロック信号の確認に使ったデジタル基板に実装されているLED]{クロック信号の確認に使ったデジタル基板に実装されているLED。表示するクロック周期を$1/2^{28}$にダウン・サンプルして出力する（28ビット目の値をLEDに出力する）。200 MHzのクロックであれば、およそ0.75 s周期で明滅する。図\ref{fig:check_clock}も参照。}
+ \caption[クロック信号の確認に使ったデジタル基板に実装されているLED]
+ {クロック信号の確認に使ったデジタル基板に実装されているLED。
+ 表示するクロック周期を$1/2^{28}$にダウン・サンプルして出力する
+ （28ビット目の値をLEDに出力する）。200 MHzのクロックであれば、
+ およそ0.75 s周期で明滅する。図\ref{fig:check_clock}も参照。}
  \label{fig:debug_led}
 \end{figure}
 
@@ -58,7 +63,9 @@ ADCのサンプリング・クロックとクロック・ファンアウト・バッファ
 \begin{figure}[!h]
  \centering
  \includegraphics[width=14cm, trim=0 80 0 50, clip]{figures/lvds_lvpecl.pdf}
- \caption[納品時の水晶発振器]{納品時の水晶発振器（左）と回路図の該当箇所（右）。指定した回路図と異なる規格の発振器が実装されていた。}
+ \caption[納品時の水晶発振器]
+ {納品時の水晶発振器（左）と回路図の該当箇所（右）。
+ 指定した回路図と異なる規格の発振器が実装されていた。}
  \label{fig:lvds_lvpecl}
 \end{figure}
 
@@ -85,8 +92,9 @@ LV-PECLとは規格が異なる。
 
 \subsubsection{不具合の解決とその確認}
 
-このトラブルは、水晶発振器を回路図どおりのLV-PECL製品に手作業で交換して解決した
-\footnote{水晶発振器の取り外しと再実装は、KEKの池野正弘氏に行っていただいた。この場をかりて、感謝の意を表したい。}。
+このトラブルは水晶発振器を回路図どおりのLV-PECL製品に手作業で交換して解決した
+\footnote{水晶発振器の取り外しと再実装は、
+KEKの池野正弘氏に行っていただいた。この場をかりて、感謝の意を表します。}。
 水晶発振器（Epson, EG-2102CA\footnote{{\tt http://www.epsondevice.com/docs/qd/ja/DownloadServlet?id=ID000768}}）
 のICピンは、全部で6本あり、半田面は1.6 mm $\times$ 1.5 mm、
 ピン同士の間隔は最小で2.54 mmとADCやDACなどの他のICと比較して
@@ -97,16 +105,33 @@ LV-PECLとは規格が異なる。
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/clock.pdf}
- \caption[オシロスコープで測定した基板上の各場所におけるクロック信号]{オシロスコープで測定した基板上の各場所におけるクロック信号。(a) 水晶発振器のクロック信号。(b) ADCへ入力しているクロック信号。(c) クロック・ファンアウト・バッファへ入力しているクロック信号。(d) ADCのサンプリング・クロック信号。(e) クロック・ファンアウト・バッファからFMCへのクロック信号（システム・クロック）。(f) DACへ入力しているクロック信号。全体的に、波形が歪んでおり矩形波に見えないが、これは差動出力の一端とグラウンドをパッシブ・プローブで測定しているためである。つまり差動信号の一端が開放されているためにコモン・モードが安定せず、反射の影響が見えている。本来、オシロスコープで差動信号を読む際は、差動プローブを用いて測定する。ここでは、水晶発振器を交換したことによるクロック信号の変化を確認することが目的であるため、図\ref{fig:osc_probe}のような構成で測定を行った。}
+ \caption[オシロスコープで測定した基板上の各場所におけるクロック信号]
+ {オシロスコープで測定した基板上の各場所におけるクロック信号。
+ (a) 水晶発振器のクロック信号。
+ (b) ADCへ入力しているクロック信号。
+ (c) クロック・ファンアウト・バッファへ入力しているクロック信号。
+ (d) ADCのサンプリング・クロック信号。
+ (e) クロック・ファンアウト・バッファからFMCへのクロック信号
+ （システム・クロック）。
+ (f) DACへ入力しているクロック信号。
+ 全体的に、波形が歪んでおり矩形波に見えないが、
+ これは差動出力の一端とグラウンドをパッシブ・プローブで測定しているためである。
+ つまり差動信号の一端が開放されているためにコモン・モードが安定せず、
+ 反射の影響が見えている。本来、オシロスコープで差動信号を読む際は、
+ 差動プローブを用いて測定する。
+ ここでは、水晶発振器を交換したことによるクロック信号の変化を確認すること
+ が目的であるため、図\ref{fig:osc_probe}のような構成で測定を行った。}
  \label{fig:clock}
 \end{figure}
 
 \begin{figure}[!h]
  \centering
-%  \includegraphics[width=13cm, clip, trim=0 0 0 25]{figures/osc_probe.pdf}
  \includegraphics[width=14cm]{figures/osc_probe.pdf}
-%  \vspace*{-10mm}
- \caption[オシロスコープでプローブした場所]{オシロスコープでプローブした場所。クロック信号は差動信号であるため、通常は差動プローブを用いて測定する。ここでの目的は、ICを交換したことによる大雑把な信号の確認であるため、一方の差動信号は開放してパッシブ・プローブで測定している。}
+ \caption[オシロスコープでプローブした場所]
+ {オシロスコープでプローブした場所。クロック信号は差動信号であるため、
+ 通常は差動プローブを用いて測定する。ここでの目的は、
+ ICを交換したことによる大雑把な信号の確認であるため、
+ 一方の差動信号は開放してパッシブ・プローブで測定している。}
  \label{fig:osc_probe}
 \end{figure}
 
@@ -175,7 +200,12 @@ ADCの省電力版への変更により、大幅に消費電力を削減する狙いがある。
 \begin{figure}[!h]
  \centering
  \includegraphics[width=10cm]{figures/measure_power_schem.pdf}
- \caption[消費電力を測定するための装置構成]{消費電力を測定するための装置構成。デジタル基板に供給するDC12 Vを電流計の付いた直流電源から供給し、デジタル基板に流れた電流量を測定する。直流電源からデジタル基板間で発生する電圧降下を較正するために、デジタル基板上の12 Vのピンとグラウンド・ピンの電圧差をテスターで測定する。}
+ \caption[消費電力を測定するための装置構成]
+ {消費電力を測定するための装置構成。
+ デジタル基板に供給するDC12 Vを電流計の付いた直流電源から供給し、
+ デジタル基板に流れた電流量を測定する。
+ 直流電源からデジタル基板間で発生する電圧降下を較正するために、
+ デジタル基板上の12 Vのピンとグラウンド・ピンの電圧差をテスターで測定する。}
  \label{fig:measure_power_schem}
 \end{figure}
 
@@ -245,62 +275,303 @@ RHEAは冷却ファンなしで安定に動作する。
 \begin{figure}[!h]
  \centering
  \includegraphics[width=15cm]{figures/thermography.pdf}
- \caption[赤外線サーモグラフィによるRHEA（本研究）とFMC150（既存の市販品）の基板表面温度の比較]{赤外線サーモグラフィによるRHEA（本研究）とFMC150（既存の市販品）の基板表面温度の比較。RHEAとFMC150のファンあり・ファンなしをそれぞれ比較すると、どちらにおいてもRHEAの基板表面温度の方が小さいことが確認できる。また、FMC150ファンあり(a)とRHEAファンなし(d)を比較しても、RHEAの方が表面温度が小さいことがわかる。FMC150ファンなし(b)以外の測定は、温度が安定するまで1--2分待った後の測定結果である。一方、(b)においては、ICが熱破損する温度まであげるわけにはいかないので、基板の最高表面温度が70 \degree Cを超えた段階で測定を中断している（ファンのスイッチを切ったのち、僅か十秒程度）。}
+ \caption[赤外線サーモグラフィによるRHEA（本研究）と
+ FMC150（既存の市販品）の基板表面温度の比較]
+ {赤外線サーモグラフィによるRHEA（本研究）とFMC150（既存の市販品）
+ の基板表面温度の比較。
+ RHEAとFMC150のファンあり・ファンなしをそれぞれ比較すると、
+ どちらにおいてもRHEAの基板表面温度の方が小さいことが確認できる。
+ また、FMC150ファンあり(a)とRHEAファンなし(d)を比較しても、
+ RHEAの方が表面温度が小さいことがわかる。FMC150ファンなし(b)以外の測定は、
+ 温度が安定するまで1--2分待った後の測定結果である。一方、(b)においては、
+ ICが熱破損する温度まであげるわけにはいかないので、
+ 基板の最高表面温度が70\degree Cを超えた段階で測定を中断している
+ （ファンのスイッチを切ったのち、わずか十秒程度）。}
  \label{fig:thermography}
 \end{figure}
 
 \clearpage
 
 \section{帯域の評価}
+\label{subsec:bandwidth}
 
 図\ref{fig:lpf_circuit}で示したように、
-RHEAには帯域を制限するLPF（ローパス・フィルター）が存在しない。
-そこで、実際に100 MHzまでDACの信号強度が減衰しないことを
-オシロスコープを用いて測定し、帯域の拡大を確認する。
+RHEAには帯域を制限するLPF（ローパス・フィルター）が存在しないため、
+より広い帯域が期待できる。
+そこで、アナログ基板のDACとADCを直接つないで、
+メガヘルツ帯における透過特性を測定し、
+従来の市販品（FMC150）と比較して帯域の拡大をみる。
+また、その帯域がGroundBIRD実験の要求値200 MHzを満たすことを確認する。
 
 \subsection{評価方法}
 
-信号強度の測定は、図\ref{fig:measure_dac_output}のようにして行う。
-デジタル基板上のFPGAで、MHz帯の正弦波と余弦波のデジタル信号を生成する。
-生成したデジタル信号は、FMCを介してアナログ基板上のDACに送り、
-DACでデジタル信号をアナログ信号に変換する。
-そして、そのアナログ信号の強度をオシロスコープで測定する。
-実際に測定している様子を図\ref{fig:measure_dac_output_rhea}に示す。
+帯域の測定は、図\ref{fig:DAC2ADC}に示すように、デジタル基板上の
+FPGAに1チャンネルの復調回路を実装し、アナログ基板のDACとADCを直接つないで、
+読み出し周波数ごとに透過特性を計測する。
+図\ref{fig:measure_noise_pict}に実際の測定環境を示す。
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=12cm]{figures/measure_dac_output.pdf}
- \caption[DACの信号強度の評価方法]{DACの信号強度の評価方法。デジタル基板とアナログ基板はFMCで接続する。DACの信号は同軸ケーブルを伝ってオシロスコープに入る。}
- \label{fig:measure_dac_output}
+ \includegraphics[width=14cm]{figures/DAC2ADC.png}
+ \caption[帯域の評価方法]
+ {FPGAに実装したDDS（direct digital synthesizer）信号をDA--AD変換し、
+ 復調回路より振幅と位相を計測する。ACC（accumulator）は累算器を表し、
+ 式(\ref{eq:mkid_sig})の第二項以下の高調波成分をカットするLPF
+ （式(\ref{eq:mkid_sig})）として機能する。}
+ \label{fig:DAC2ADC}
 \end{figure}
+
+具体的な計測の流れは次のようになる:
+\begin{enumerate}
+ \item DDS（direct digital synthesizer）でメガヘルツ帯のデジタル信号
+       （正弦波・余弦波）を生成する。
+ \item DACでデジタル信号をアナログ信号に変換する。
+ \item 同軸ケーブルを介して、ADCでアナログ信号をデジタル信号に変換する。
+ \item FPGAに実装した復調回路
+       （「\ref{subsubsec:demodulation} 復調
+       ---デジタル基板上における各周波数での共振状態の抽出」参照）
+       で$I(t)$と$Q(t)$を計算し、振幅と位相を計測する。
+ \item 1.から4.を各周波数について行う。
+\end{enumerate}
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=14cm]{figures/measure_dac_output_rhea.pdf}
- \caption{RHEAで1 MHzの正弦波と余弦波を測定している様子}
- \label{fig:measure_dac_output_rhea}
+ \includegraphics[width=14cm]{figures/short_ADC_DAC.pdf}
+ \caption[フロントエンド回路の帯域と電気的特性を測定するための装置構成]
+ {フロントエンド回路の帯域と電気的特性（\ref{sec:noise_eval}節参照）
+ を測定するための装置構成。DACとADCは30 cmの同軸ケーブル（SMA端子）で接続する。
+ 電気的特性を評価する際は、FPGAに実装した復調回路はバイパスして、
+ ADCのデータをオフライン（PC）に転送し
+ 、その後に復調を行いノイズレベルを算出する。}
+ \label{fig:measure_noise_pict}
 \end{figure}
-
-信号強度$P$は、
-出力した正弦波（余弦波）の最大値と最小値の電圧差$V_{\mathrm{pp}}$を測定し、
-次の式でエネルギーに変換する。
-\begin{equation}
- P = 10\log_{10}\left({V_{\mathrm{pp}}^{2} \over R} \times {1\over 1000}\right) \quad \mathrm{[dBm]}
-\end{equation}
-ここで、$R$は終端抵抗を表し、$R=$ 50 $\Omega$である。
 
 \subsection{評価結果}
 
-図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。
-FMC150ではLPFにより、高周波数領域において、その信号強度が減衰していた。一方、
-RHEAは高周波領域においても高い信号強度を維持している。
+図\ref{fig:bandwidth}にRHEAとFMC150の帯域の比較を示す。
+FMC150は高周波（$> 70$ MHz）において、
+LPFによる信号減衰により帯域が制限されていることがわかる。
+一方、RHEAは高周波においても帯域を維持しており、
+GroundBIRD実験の要求値（帯域200 MHz）を満たすことが確認できる。
+
+\clearpage
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=12cm]{figures/dac_output_fmc150.png}
- \caption[RHEA（本研究）とFMC150（既存の市販品）におけるDACの信号強度の比較]{RHEA（本研究）とFMC150（既存の市販品）におけるDACの信号強度の比較。RHEAは高周波領域においてもで信号強度を維持している。数十kHzまでの直流成分はAC結合しているため、両者とも信号強度が弱い。AC結合は信号のベースラインのドリフトを防ぐので、このような高周波回路には必須である。}
- \label{fig:comp_dac_output}
+ \includegraphics[width=14cm]{figures/bandwidth.png}
+ \caption[RHEA（本研究）とFMC150（既存の市販品）における帯域の比較]
+ {RHEA（本研究）とFMC150（既存の市販品）における帯域の比較。
+ RHEAは高周波においても信号強度を維持している（上）。
+ ゼロヘルツから数十キロヘルツまで直流成分は、AC結合しているため、
+ 両者ともに信号強度が小さい。
+ AC結合は信号のベースラインのドリフトを防ぐための一般的な処置のひとつである。}
+ \label{fig:bandwidth}
 \end{figure}
+
+\section{線型性の評価}
+
+アナログ信号をデジタル信号に変換する際、ADCの誤差を見積もることは重要である。
+この節ではRHEAに搭載したADCの線型性を評価するために、
+基準信号源（WF1974）を用いて、入力電圧に対する変換電圧を測定し、
+その誤差が十分小さいことを確認する。
+
+\subsection{評価方法}
+
+線型性の評価は、図\ref{fig:schem_linearity}に示すように、
+基準信号源とADCをつなぎ、
+基準信号（正弦波）の振幅を変化させて（周波数・位相は固定）、
+変換電圧を測定する。測定した値は、直線でフィットして、
+傾きと切片をそれぞれ求め、誤差を推定する。
+図\ref{fig:setting_linearity}に実際の測定環境を示す。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=13cm]{figures/schem_linearity.pdf}
+ \caption[線型性の評価方法]
+ {基準信号源（WF1974）からの入力電圧を変化させて、
+ ADCのフルスケール・レンジ（$V_{\rm pp}=2.0$ V）における変換電圧を測定する。}
+ \label{fig:schem_linearity}
+\end{figure}
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=14cm]{figures/setting_linearity.pdf}
+ \caption[線型性評価の装置構成]
+ {線型性評価の装置構成。
+ 基準信号源（WF1974）とADCは30 cmの同軸ケーブル（SMA端子）で接続する。}
+ \label{fig:setting_linearity}
+\end{figure}
+
+\subsection{評価結果}
+
+図\ref{fig:result_linearity}に基準信号の入力電圧を変化させたときの
+ADCの電圧値とそのフィット結果を示す。
+フィッティングにより求めたチャンネルA、Bのパラメータはそれぞれ、
+\begin{equation}
+ \begin{aligned}
+  y_{\rm A} &= (0.82 \pm 1.07 \times 10^{-4})x + 0.00 \pm 1.09 \times 10^{-4}\\
+  y_{\rm B} &= (0.82 \pm 1.35 \times 10^{-4})x + 0.00 \pm 1.37 \times 10^{-4}
+ \end{aligned}
+\end{equation}
+である。ADCの分解能が14ビットであることを考慮すると、
+$\sim 10^{-4}$程度の誤差は妥当な値であり、仕様も満足する。
+よって、両チャンネルともに、
+ADCフルスケール・レンジ（$V_{\rm pp}=2.0$ V）において、
+十分な線型性をもつことを確認した。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=15cm, clip]{figures/linearity_.png}
+ \caption[入力電圧を変化させたときのADCの変換電圧値と残差]
+ {入力電圧を変化させたときのADCの変換電圧値（上）と残差（下）。
+ フルスケール・レンジ（$V_{\rm pp}=2.0$ V）において、
+ チャンネルA、Bともに十分な線型性が確認できる。}
+ \label{fig:result_linearity}
+\end{figure}
+
+\section{ノイズレベルの評価}
+\label{sec:noise_eval}
+
+フロントエンド回路のノイズレベルは、
+実験における他の要素（たとえば、検出器やプリアンプなど）
+のノイズレベルよりも十分小さくなければならない。
+本節ではフロントエンド回路の電気的特性を計測し、
+それがアナログ基板の仕様を満足することをみる。
+
+最後に位相読み出しのノイズレベルついて議論して、
+それがGroundBIRD実験の要求値（$<10^{-5}$ rad）を満たすことを確認する。
+
+\subsection{評価方法}
+
+フロントエンド回路の電気的特性は、
+図\ref{fig:measure_noise}に示すように
+（「\ref{subsec:bandwidth} 帯域の評価」と同様の装置構成。
+図\ref{fig:measure_noise_pict}も参照。）、
+アナログ基板のDACとADCを直接つないで計測する。
+具体的にはDACから正弦波を出力し、それをAD変換したデータから、
+フィッティングによりパラメータを推定する
+（電気的特性の詳しい評価方法は参考文献\cite{ieee}を参照）。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=10cm]{figures/schema_short_ADC_DAC.pdf}
+ \caption[フロントエンド回路のノイズレベルの評価方法]
+ {DACの信号（正弦波）をADCで変換し、
+ 取得データのベストフィットからSINAD（式(\ref{eq:SINAD})）と
+ ENOB（式(\ref{eq:ENOB})）を計測する。
+ ENOBからデジタル回路で行う復調ロジックをシミュレートして、
+ フロントエンド回路のノイズレベルを見積もる。}
+ \label{fig:measure_noise}
+\end{figure}
+
+\subsubsection{SINADとは}
+
+SINAD（signal-to-noise-and-distortion ratio）は、
+信号の二乗平均平方根（root-mean-square; rms）と
+NAD（noise-and-distortion）の二乗平均平方根との比を表す量である。
+SINADはSNR（signal-to-noise ratio）に非線型性由来の歪（distortion）
+を加味した量で、信号とノイズに対するより実際的な指標である。
+
+NADは取得したデータのベストフィットから次のように求められる。
+\begin{equation}
+ {\rm NAD} = \sqrt{\frac{1}{M}\sum_{n=1}^{M}(x[n] - x'[n])^{2}}
+  \label{eq:NAD}
+\end{equation}
+ここで、$x[n]$は取得データ、$x'[n]$は取得データのベストフィット、
+$M$サンプル数である。
+
+そして、SINADは式(\ref{eq:NAD})を用いて次のように表される。
+\begin{equation}
+ {\rm SINAD} = \frac{A_{\rm rms}}{\rm NAD},\quad
+  A_{\rm rms} = \frac{(ベストフィットの振幅)}{\sqrt{2}}
+  \label{eq:SINAD}
+\end{equation}
+
+\subsubsection{ENOBとは}
+
+ENOB（effective number of bits）は、ADCの実効的な分解能を表す量である。
+ENOBとSINADは式(\ref{eq:ENOB})のような関係がある。
+\begin{align}
+ {\rm ENOB} &= \log_{2}({\rm SINAD}) - \frac{1}{2}\log_{2}(1.5)
+ - \log_{2}\left(\frac{2G\times A}{\rm FSR}\right) \notag \\
+ &= \log_{2}({\rm SINAD}) - \log_{2}\left(\frac{2G\times A}{\rm FSR}\right)
+ - 0.292
+ \label{eq:ENOB}
+\end{align}
+ここで、$G$はゲイン、$A$はベストフィットの振幅、
+FSRはADCのフルスケール・レンジ（full-scale range）を表し、本測定では$G=1$、
+FSR $=2$である。
+
+以下ではこのENOBをもとに、フロントエンド回路のノイズレベルについて議論する。
+
+\subsubsection{位相読み出しのノイズレベル}
+
+フロントエンド回路における位相読み出しのノイズレベルは、
+「\ref{subsubsec:demodulation} 復調
+---デジタル基板上における各周波数での共振状態の抽出」
+で定義した式(\ref{eq:IQ_def})と(\ref{eq:mkid_sig})を計算して求める。
+ノイズレベル算出の流れは次のようになる:
+\begin{enumerate}
+ \item 式(\ref{eq:IQ_def})の$C_{\rm ADC}(t)$、$S_{\rm ADC}(t)$にそれぞれ、
+式(\ref{eq:ENOB})より求めた実効的分解能（ENOB）
+とDDS信号（16ビット）を代入して$I_{j}(t)$と$Q_{j}(t)を計算する$。
+ \item 式(\ref{eq:mkid_sig})、(\ref{eq:amp_pha})より、
+位相$\phi$とその標準偏差$\sigma_{\phi}$を見積もる。
+式(\ref{eq:mkid_sig})のLPFは、標本数20万の算術平均で行う。
+\end{enumerate}
+
+\subsection{評価結果}
+
+図\ref{fig:noise}にDACからの入力信号振幅$\sim 1.0$ V、
+周波数 4.0 MHzのときのノイズスペクトルを示し、
+図\ref{fig:ac_char}にフロントエンド回路の電気的特性の周波数依存性を示す。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=15cm]{figures/noise.png}
+ \caption[フロントエンド回路のノイズスペクトルと電気的特性]
+ {DACから$V_{\rm pp} \sim 1.0$ V、
+ 4.0 MHzの信号をAD変換して求めたフロントエンド回路のノイズスペクトルと
+ 電気的特性。信号に対して、ノイズフロア・ディストーションともに十分小さく、
+ ICの仕様値を満足することを確認した。}
+ \label{fig:noise}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=15.5cm]{figures/ACchar.png}
+ \caption[電気的特性の周波数依存性]{電気的特性の周波数依存性}
+ \label{fig:ac_char}
+\end{figure}
+
+図\ref{fig:noise}、\ref{fig:ac_char}は、
+アナログ基板の仕様
+（DAC/ADCのデータシートから予想される値\cite{dac3283, ads4249}）を満足する。
+また、ENOBから算出されるフロントエンド回路における、
+位相読み出しのノイズレベルは、128チャンネル同時読み出しの場合で
+$\sim 10^{-7}$ radであり、
+GroundBIRD実験の要求値$<10^{-5}$ radを満たすことを確認した
+（図\ref{fig:phase_std}）。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=15cm]{figures/phase_std.png}
+ \caption[位相読み出しのノイズレベル]
+ {位相読み出しのノイズレベル。128素子同時読み出しにおいて、
+ GroundBIRD実験の要求値$<10^{-5}$ radを達成した。
+ また、128素子同時読み出しにおいて、実線で示したそれは、
+ 各チャンネルの奇数番目と偶数番目の位相を180$^{\circ}$ずらす
+ （45$^{\circ}$と225$^{\circ}$）ことで、
+ 実効的な分解能を向上させる手法をとった場合を示し、
+ もう一方は位相がすべてのチャンネルで同じ場合を示す。}
+ \label{fig:phase_std}
+\end{figure}
+
+本測定による見積もりにおいて、
+位相読み出しのノイズレベルは要求値より十分小さく、
+たとえ1,000素子同時読み出しを実装しても、十分低いノイズレベルを実現する。
 
 \clearpage
 

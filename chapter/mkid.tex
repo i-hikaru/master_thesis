@@ -161,6 +161,7 @@ DDC方式による読み出しに注力した開発を行う\cite{kibe_ltd}。
 \clearpage
 
 \subsection{DDC方式による読み出し原理}
+\label{subsubsec:ddc}
 
 図\ref{fig:readout_sys}の
 UP/DOWN Mix\footnote{実際には、Miteq社のIQ Modulator IRM0208LC2AとIQ Demodulator IRM0208LC2Qを用いる。}は、
@@ -176,8 +177,8 @@ UP/DOWN Mix\footnote{実際には、Miteq社のIQ Modulator IRM0208LC2AとIQ Demodulator
 	     \mathrm{Div}(E, n) \equiv\frac{E}{n}
 	    \end{equation}
  \item[Mix:] 混合器は、2つの信号$S_{1}$と$S_{2}$を混合（乗算）する
-	    \footnote{係数2はこの後の計算を簡単にするためであり、
-	    本質的な意味はない。}。
+	    \footnote{この後の計算を簡単にするために、
+	    便宜的に係数を2に選んだ。}。
 	    \begin{equation}
 	     \mathrm{Mix}(S_{1}, S_{2}) \equiv 2S_{1}S_{2}
 	    \end{equation}
@@ -325,6 +326,7 @@ $\omega_{\mathrm{LO}}$（$\sim 2\pi \times 4$ GHz）成分を含む
 高調波を落とすカットオフ周波数である。
 
 \subsubsection{復調---デジタル基板上における各周波数での共振状態の抽出}
+\label{subsubsec:demodulation}
 
 図\ref{fig:lpf_fpga}に示すように、ADCに入力した信号は、
 FPGA（Field-Programmable Gate Array）に実装したDDS
@@ -413,6 +415,7 @@ $\mathcal{Q}_{j}(t)$を複素平面上の実軸と虚軸にとると、
   &= \sqrt{\mathcal{I}_{j}^{2}(t) + \mathcal{Q}_{j}^{2}(t)} \\
   \phi_{j}
   &= \arctan \left(\mathcal{Q}_{j}(t) \over \mathcal{I}_{j}(t)\right)
+  \label{eq:amp_pha}
  \end{aligned}
 \end{equation}
 
