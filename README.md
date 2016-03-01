@@ -1,7 +1,8 @@
 総研大認定研究
 --------------
 
-- 本編 v.1.0.1 ([PDF](https://github.com/i-hikaru/master_thesis/blob/master/main_ext.pdf), 58M)
+- 本編 v.2.0.0 ([PDF](https://github.com/i-hikaru/master_thesis/blob/master/main_ext2.0.pdf), 57MB)
+- 本編 v.1.0.1 ([PDF](https://github.com/i-hikaru/master_thesis/blob/master/main_ext.pdf), 58MB)
 
 認定研究に関する手続きやスケジュールの詳細:
 
@@ -23,6 +24,7 @@ Open-it のプロジェクト:
 
 ### 更新履歴
 
+    2016-03-01  v.2.0.0  改訂版を公開
     2015-04-01           リポジトリを公開
     2015-01-26  v.1.0.1  修士論文を大学に提出 (最終)
 	2015-01-22  v.1.0.0  修士論文を主/副査に提出

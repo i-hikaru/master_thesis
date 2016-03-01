@@ -6,6 +6,7 @@
 *.lot
 *.bbl
 *.blg
+*.out
 main.pdf
 detector_award.pdf
 rhea_circuit_*.pdf
