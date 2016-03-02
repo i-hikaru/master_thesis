@@ -40,7 +40,8 @@ RHEAは従来のアナログ基板に対して3つの改善を行った。
 \begin{figure}[!h]
  \centering
  \includegraphics[width=14cm]{figures/check_clock.pdf}
- \caption{分配したクロック信号をデバック用LEDを用いて評価する構成のブロック図}
+ \caption[クロック信号のデバック]
+ {分配したクロック信号をデバック用LEDを用いて評価する構成のブロック図}
  \label{fig:check_clock}
 \end{figure}
 
@@ -218,7 +219,7 @@ ADCの省電力版への変更により、大幅に消費電力を削減する狙いがある。
 \begin{figure}[!h]
  \centering
  \includegraphics[width=14cm]{figures/measure_power.pdf}
- \caption{RHEAの消費電力の測定}
+ \caption[RHEAの消費電力の測定]{RHEAの消費電力の測定}
  \label{fig:measure_power}
 \end{figure}
 
@@ -292,11 +293,139 @@ RHEAは冷却ファンなしで安定に動作する。
 
 \clearpage
 
-\section{帯域の評価}
-\label{subsec:bandwidth}
+\section{DACアナログ信号の評価}
 
 図\ref{fig:lpf_circuit}で示したように、
-RHEAには帯域を制限するLPF（ローパス・フィルター）が存在しないため、
+RHEAには帯域を制限するLPF（ローパス・フィルター）が存在しない。
+そこで、実際に100 MHzまでDACの信号強度が減衰しないことを
+オシロスコープを用いて測定する。%し、帯域の拡大を確認する。
+
+\subsection{評価方法}
+
+信号強度の測定は、図\ref{fig:measure_dac_output}のようにして行う。
+デジタル基板上のFPGAで、MHz帯の正弦波と余弦波のデジタル信号を生成する。
+生成したデジタル信号は、FMCを介してアナログ基板上のDACに送り、
+DACでデジタル信号をアナログ信号に変換する。
+そして、そのアナログ信号の強度をオシロスコープで測定する。
+実際に測定している様子を図\ref{fig:measure_dac_output_rhea}に示す。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=12cm]{figures/measure_dac_output.pdf}
+ \caption[DACの信号強度の評価方法]
+ {DACの信号強度の評価方法。デジタル基板とアナログ基板はFMCで接続する。
+ DACの信号は同軸ケーブルを伝ってオシロスコープに入る。}
+ \label{fig:measure_dac_output}
+\end{figure}
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=14cm]{figures/measure_dac_output_rhea.pdf}
+ \caption[DACの信号強度を測定する装置構成]
+ {RHEAで1 MHzの正弦波と余弦波を測定している様子}
+ \label{fig:measure_dac_output_rhea}
+\end{figure}
+
+信号強度$P$は、
+出力した正弦波（余弦波）の最大値と最小値の電圧差$V_{\mathrm{pp}}$を測定し、
+次の式でエネルギーに変換する。
+\begin{equation}
+ P = 10\log_{10}\left(
+		 {V_{\mathrm{pp}}^{2} \over R}\times {1\over 1000}
+		\right) \quad \mathrm{[dBm]}
+\end{equation}
+ここで、$R$は終端抵抗を表し、$R=$ 50 $\Omega$である。
+
+\subsection{評価結果}
+
+図\ref{fig:comp_dac_output}にRHEAとFMC150のDACからの信号強度の比較を示す。
+FMC150ではLPFにより、高周波数領域において、その信号強度が減衰していた。一方、
+RHEAは高周波領域においても高い信号強度を維持している。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=12.5cm]{figures/dac_output_fmc150.png}
+ \caption[RHEA（本研究）とFMC150（既存の市販品）におけるDACアナログ出力の比較]
+ {RHEA（本研究）とFMC150（既存の市販品）におけるDACアナログ出力の比較。
+ RHEAは高周波においても信号強度を維持している。
+ ゼロヘルツから数十キロヘルツまで直流成分は、AC結合しているため、
+ 両者ともに信号強度が小さい。
+ AC結合は信号のベースラインのドリフトを防ぐための一般的な処置のひとつである。}
+ \label{fig:comp_dac_output}
+\end{figure}
+
+\clearpage
+
+\section{ADC線型性の評価}
+
+アナログ信号をデジタル信号に変換する際、ADCの誤差を見積もることは重要である。
+この節ではRHEAに搭載したADCの線型性を評価するために、
+基準信号源（WF1974）を用いて、入力電圧に対する変換電圧を測定し、
+その誤差が十分小さいことを確認する。
+
+\subsection{評価方法}
+
+線型性の評価は、図\ref{fig:schem_linearity}に示すように、
+基準信号源とADCをつなぎ、
+基準信号（正弦波）の振幅を変化させて（周波数・位相は固定）、
+変換電圧を測定する。測定した値は、直線でフィットして、
+傾きと切片をそれぞれ求め、誤差を推定する。
+図\ref{fig:setting_linearity}に実際の測定環境を示す。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=12cm]{figures/schem_linearity.png}
+ \caption[線型性の評価方法]
+ {基準信号源（WF1974）からの入力電圧を変化させて、
+ ADCのフルスケール・レンジ（$V_{\rm pp}=2.0$ V）における変換電圧を測定する。}
+ \label{fig:schem_linearity}
+\end{figure}
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=14cm, clip, trim=0 30 0 20]
+ {figures/setting_linearity.pdf}
+ \caption[線型性評価の装置構成]
+ {線型性評価の装置構成。
+ 基準信号源（WF1974）とADCは30 cmの同軸ケーブル（SMA端子）で接続する。}
+ \label{fig:setting_linearity}
+\end{figure}
+
+\subsection{評価結果}
+
+図\ref{fig:result_linearity}に基準信号の入力電圧を変化させたときの
+ADCの電圧値とそのフィット結果を示す。
+フィッティングにより求めたチャンネルA、Bのパラメータはそれぞれ、
+\begin{equation}
+ \begin{aligned}
+  y_{\rm A} &= (0.82 \pm 1.07 \times 10^{-4})x + 0.00 \pm 1.09 \times 10^{-4}
+  \\
+  y_{\rm B} &= (0.82 \pm 1.35 \times 10^{-4})x + 0.00 \pm 1.37 \times 10^{-4}
+ \end{aligned}
+\end{equation}
+である。ADCの分解能が14ビットであることを考慮すると、
+$\sim 10^{-4}$程度の誤差は妥当な値であり、仕様も満足する。
+よって、両チャンネルともに、
+ADCフルスケール・レンジ（$V_{\rm pp}=2.0$ V）において、
+十分な線型性をもつことを確認した。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=15cm, clip]{figures/linearity_.png}
+ \caption[入力電圧を変化させたときのADCの変換電圧値と残差]
+ {入力電圧を変化させたときのADCの変換電圧値（上）と残差（下）。
+ フルスケール・レンジ（$V_{\rm pp}=2.0$ V）において、
+ チャンネルA、Bともに十分な線型性が確認できる。}
+ \label{fig:result_linearity}
+\end{figure}
+
+\clearpage
+
+\section{変調・復調読み出し帯域の評価}
+\label{subsec:bandwidth}
+
+図\ref{fig:comp_dac_output}で示したように、
+RHEAは高周波（$> 70$ MHz）でアナログ出力が減衰しないため、
 より広い帯域が期待できる。
 そこで、アナログ基板のDACとADCを直接つないで、
 メガヘルツ帯における透過特性を測定し、
@@ -361,75 +490,12 @@ GroundBIRD実験の要求値（帯域200 MHz）を満たすことが確認できる。
  \includegraphics[width=14cm]{figures/bandwidth.png}
  \caption[RHEA（本研究）とFMC150（既存の市販品）における帯域の比較]
  {RHEA（本研究）とFMC150（既存の市販品）における帯域の比較。
- RHEAは高周波においても信号強度を維持している（上）。
- ゼロヘルツから数十キロヘルツまで直流成分は、AC結合しているため、
- 両者ともに信号強度が小さい。
- AC結合は信号のベースラインのドリフトを防ぐための一般的な処置のひとつである。}
+ 振幅（上）・位相（下）読み出しともに、
+ $\pm 100$ MHzの帯域をカバーしていることが確認できる。}
  \label{fig:bandwidth}
 \end{figure}
 
-\section{線型性の評価}
-
-アナログ信号をデジタル信号に変換する際、ADCの誤差を見積もることは重要である。
-この節ではRHEAに搭載したADCの線型性を評価するために、
-基準信号源（WF1974）を用いて、入力電圧に対する変換電圧を測定し、
-その誤差が十分小さいことを確認する。
-
-\subsection{評価方法}
-
-線型性の評価は、図\ref{fig:schem_linearity}に示すように、
-基準信号源とADCをつなぎ、
-基準信号（正弦波）の振幅を変化させて（周波数・位相は固定）、
-変換電圧を測定する。測定した値は、直線でフィットして、
-傾きと切片をそれぞれ求め、誤差を推定する。
-図\ref{fig:setting_linearity}に実際の測定環境を示す。
-
-\begin{figure}[!h]
- \centering
- \includegraphics[width=13cm]{figures/schem_linearity.pdf}
- \caption[線型性の評価方法]
- {基準信号源（WF1974）からの入力電圧を変化させて、
- ADCのフルスケール・レンジ（$V_{\rm pp}=2.0$ V）における変換電圧を測定する。}
- \label{fig:schem_linearity}
-\end{figure}
-
-\begin{figure}[!h]
- \centering
- \includegraphics[width=14cm]{figures/setting_linearity.pdf}
- \caption[線型性評価の装置構成]
- {線型性評価の装置構成。
- 基準信号源（WF1974）とADCは30 cmの同軸ケーブル（SMA端子）で接続する。}
- \label{fig:setting_linearity}
-\end{figure}
-
-\subsection{評価結果}
-
-図\ref{fig:result_linearity}に基準信号の入力電圧を変化させたときの
-ADCの電圧値とそのフィット結果を示す。
-フィッティングにより求めたチャンネルA、Bのパラメータはそれぞれ、
-\begin{equation}
- \begin{aligned}
-  y_{\rm A} &= (0.82 \pm 1.07 \times 10^{-4})x + 0.00 \pm 1.09 \times 10^{-4}\\
-  y_{\rm B} &= (0.82 \pm 1.35 \times 10^{-4})x + 0.00 \pm 1.37 \times 10^{-4}
- \end{aligned}
-\end{equation}
-である。ADCの分解能が14ビットであることを考慮すると、
-$\sim 10^{-4}$程度の誤差は妥当な値であり、仕様も満足する。
-よって、両チャンネルともに、
-ADCフルスケール・レンジ（$V_{\rm pp}=2.0$ V）において、
-十分な線型性をもつことを確認した。
-
-\begin{figure}[!h]
- \centering
- \includegraphics[width=15cm, clip]{figures/linearity_.png}
- \caption[入力電圧を変化させたときのADCの変換電圧値と残差]
- {入力電圧を変化させたときのADCの変換電圧値（上）と残差（下）。
- フルスケール・レンジ（$V_{\rm pp}=2.0$ V）において、
- チャンネルA、Bともに十分な線型性が確認できる。}
- \label{fig:result_linearity}
-\end{figure}
-
-\section{ノイズレベルの評価}
+\section{読み出しノイズレベルの評価}
 \label{sec:noise_eval}
 
 フロントエンド回路のノイズレベルは、
@@ -537,11 +603,11 @@ FSR $=2$である。
  \label{fig:noise}
 \end{figure}
 
-\clearpage
+% \clearpage
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=15.5cm]{figures/ACchar.png}
+ \includegraphics[width=15cm]{figures/ACchar.png}
  \caption[電気的特性の周波数依存性]{電気的特性の周波数依存性}
  \label{fig:ac_char}
 \end{figure}
@@ -557,7 +623,8 @@ GroundBIRD実験の要求値$<10^{-5}$ radを満たすことを確認した
 
 \begin{figure}[!h]
  \centering
- \includegraphics[width=15cm]{figures/phase_std.png}
+ \hspace*{2.5cm}
+ \includegraphics[width=12.6cm]{figures/phase_std.png}
  \caption[位相読み出しのノイズレベル]
  {位相読み出しのノイズレベル。128素子同時読み出しにおいて、
  GroundBIRD実験の要求値$<10^{-5}$ radを達成した。
@@ -586,6 +653,8 @@ GroundBIRD実験の要求値$<10^{-5}$ radを満たすことを確認した
        コネクター規格をSMAに統一したことや基板の固定構造の実装、
        ユーザーが使用しやすいクロック周波数への変更等、
        ユーザビリティが飛躍的に向上した。
+ \item アナログ基板の仕様を満たす十分な線型性を確認した。
+ \item 位相読み出しにおいて、ノイズレベル$< 10^{-5}$ radを達成した。
 \end{enumerate}
 
 今後、実際にMKIDを使って使用実績を積み重ねてくことが重要な課題であるが、
@@ -603,7 +672,7 @@ RHEAに搭載しているADC（ADS4249）とDAC（DAC3283）
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=11cm]{figures/rhea_kai.pdf}
+ \includegraphics[width=10.5cm]{figures/rhea_kai.pdf}
  \caption{RHEAのさらなる改造により到達する境地}
  \label{fig:rhea_kai}
 \end{figure}
