@@ -6,8 +6,8 @@
 - [本編][v2] v.2.1
 - [本編][v1] v.1.1
 
- [v2]: https://github.com/i-hikaru/master_thesis/blob/master/main_ext_v2.pdf
- [v1]: https://github.com/i-hikaru/master_thesis/blob/master/main_ext_v1.pdf
+ [v2]: https://github.com/i-hikaru/master_thesis/blob/master/main_ext_v2.1.pdf
+ [v1]: https://github.com/i-hikaru/master_thesis/blob/master/main_ext_v1.1.pdf
 
 認定研究に関する手続きやスケジュールの詳細:
 

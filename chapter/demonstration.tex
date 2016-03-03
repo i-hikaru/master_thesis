@@ -1,0 +1,55 @@
+\chapter{MKIDの読み出し試験}
+
+最後に、本研究で開発したフロントエンド回路を読み出し系（\ref{sec:readout}節）
+に組み込んで、振幅・位相それぞれについて読み出し試験を行い、
+MKIDがつくる典型的な共振状態を確認する。
+
+\section{試験方法}
+
+MKIDの読み出しは、図\ref{fig:demo_setup}のような構成で行う。
+基本的な構成は、「\ref{sec:readout} 読み出し系」と同様だが、
+本測定では、アップ・コンバートを二つのミキサー（MIX）と
+ハイブリッド・カプラー（HYB）で、
+ダウン・コンバートをIQ Demodulator（DEM）でそれぞれ行う。
+また、常温に設置した後段の増幅器は使用しない。
+
+MKIDは$\lambda/4$型のNb-MKIDで、300 mKまで冷却して測定する。
+図\ref{fig:demo_pict}に実際の測定環境の一部
+（MHz/GHzコンバーターとフロントエンド回路）を示す。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=14cm]{figures/demo_setup.png}
+ \caption[読み出し試験の装置構成]
+ {読み出し試験の装置構成。局所発振器（LO）は5.57 GHz、-10 dBmに設定し、
+ 室温増幅器（AMP）で増幅後、分配器（DIV）を介して、
+ 混合器（MIX）とIQ Demodulator（DEM）に交流信号を入力する。
+ 本測定では、アップ・コンバートを二つの混合器と
+ 一つのハイブリッド・カプラー（HYB）で実現している。
+ 増幅器と減衰器（ATT）の数字は増幅量と減衰量を表し、
+ 単位はデシベル（dB）である。
+ MKIDは$\lambda/4$型Nb-MKIDを300 mKに冷却し、
+ 冷却増幅器は4 Kで動作するHEMT増幅器を使用した。}
+ \label{fig:demo_setup}
+\end{figure}
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=14cm]{figures/demo_pict.png}
+ \caption[]
+ {読み出し系のMHz/GHzコンバーターとフロントエンド回路}
+ \label{fig:demo_pict}
+\end{figure}
+
+\section{試験結果}
+
+図\ref{fig:demo}にMKIDの共振に対する振幅・位相読み出し結果を示す。
+MKIDのつくる典型的な共振が振幅・位相ともに測定できていることが確認できる。
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=16cm]{figures/demo.png}
+ \caption[]
+ {MKIDの共振に対する振幅・位相読み出しの例}
+ \label{fig:demo}
+\end{figure}
